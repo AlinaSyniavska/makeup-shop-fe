@@ -1,0 +1,14 @@
+.userItem {
+    margin-bottom: 20px;
+    background: beige;
+}
+
+.userItem > button:hover {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+

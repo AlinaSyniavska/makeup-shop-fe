@@ -1,0 +1,8 @@
+.pgnContainer {
+    padding: 10px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    column-gap: 50px;
+    margin-bottom: 30px;
+}

@@ -1,0 +1,10 @@
+.selectContainer {
+    /*width: 100%;*/
+}
+
+.selectContainer  select {
+    width: 50px;
+    margin-left: 20px;
+}
+
+

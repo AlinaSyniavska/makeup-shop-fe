@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import {FC} from "react";
+import {Route, Routes} from "react-router-dom";
+
+import {useAppDispatch} from "./hooks";
+import {authActions} from "./redux";
+import {AdminLayout} from "./layouts";
 import './App.css';
+import {BrandPage, CategoryPage, ProductTypePage} from "./pages";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: FC = () => {
 
-export default App;
+    const dispatch = useAppDispatch();
+    const access = localStorage.getItem('access');
+
+    if(access) {
+        dispatch(authActions.setAuth());
+    }
+
+    return (
+        <Routes>
+{/*            <Route path={'/'} element={<MainLayout/>}>
+                <Route index element={<Navigate to={'users'}/>}/>
+                <Route path={'users'} element={<RequireAuth><UsersPage/></RequireAuth>}>
+                    <Route path={':id'} element={<UserDetailsPage/>}/>
+                </Route>
+                <Route path={'auth/login'} element={<LoginPage/>}/>
+                <Route path={'auth/logout'} element={<LogoutPage/>}/>
+                <Route path={'auth/register'} element={<RegisterPage/>}/>
+            </Route>*/}
+
+            <Route path={'/admin'} element={<AdminLayout/>}>
+                <Route path={'brand'} element={<BrandPage/>}/>
+                    {/*<Route path={'/:id'} element={<BrandDetails/>}/>*/}
+                <Route path={'category'} element={<CategoryPage/>}/>
+                <Route path={'productType'} element={<ProductTypePage/>}/>
+            </Route>
+        </Routes>
+    );
+};
+
+export {App};
