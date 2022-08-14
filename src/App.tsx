@@ -5,7 +5,7 @@ import {useAppDispatch} from "./hooks";
 import {authActions} from "./redux";
 import {AdminLayout} from "./layouts";
 import './App.css';
-import {BrandPage, CategoryPage, ProductTypePage} from "./pages";
+import {BrandPage, CategoryPage, ProductPage, ProductTypePage} from "./pages";
 
 const App: FC = () => {
 
@@ -29,8 +29,8 @@ const App: FC = () => {
             </Route>*/}
 
             <Route path={'/admin'} element={<AdminLayout/>}>
+                <Route path={'product'} element={<ProductPage/>}/>
                 <Route path={'brand'} element={<BrandPage/>}/>
-                    {/*<Route path={'/:id'} element={<BrandDetails/>}/>*/}
                 <Route path={'category'} element={<CategoryPage/>}/>
                 <Route path={'productType'} element={<ProductTypePage/>}/>
             </Route>

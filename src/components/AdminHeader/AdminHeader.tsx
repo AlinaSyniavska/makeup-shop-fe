@@ -7,6 +7,7 @@ const AdminHeader: FC = () => {
     return (
         <div>
             <div className={'headerContainer'}>
+                <NavLink to='product'>Create Product</NavLink>
                 <NavLink to="brand">Create Brand</NavLink>
                 <NavLink to="category">Create Category</NavLink>
                 <NavLink to='productType'>Create Product Type</NavLink>

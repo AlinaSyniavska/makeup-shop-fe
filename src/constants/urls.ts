@@ -8,15 +8,23 @@ const urls = {
 }
 
 const adminUrls = {
+    admin: '/admin',
     brand: '/admin/brand',
     category: '/admin/category',
     productType: '/admin/productType',
-    admin: '/admin',
+    product: '/admin/product',
+}
+
+const urlGetData = {
+    brand: 'brand',
+    category: 'category',
+    productType: 'productType',
 }
 
 export default baseURL;
 
 export {
     adminUrls,
-    urls
+    urls,
+    urlGetData,
 };

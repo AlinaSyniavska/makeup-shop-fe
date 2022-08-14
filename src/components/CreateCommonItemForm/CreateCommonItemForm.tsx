@@ -38,7 +38,7 @@ const CreateCommonItemForm: FC<IProps> = ({
     const submitForm = async (item: IItem) => {
         try {
             if (itemForUpdate && itemForUpdate.name !== '') {
-                const {_id, name} = itemForUpdate as any;
+                const {_id} = itemForUpdate as any;
                 const {data} = await adminItemService.update(url, _id, item);
                 setUpdatedItem(data);
                 setItemForUpdate({_id: '', name: ''});
@@ -64,7 +64,7 @@ const CreateCommonItemForm: FC<IProps> = ({
             <br/>
             <button disabled={!isValid}>{itemForUpdate.name !== '' ? 'Update' : 'Create'}</button>
             {
-                !!itemForUpdate && <button onClick={clearForm}>clear form</button>
+                !!itemForUpdate && <button onClick={clearForm}>Clear form</button>
             }
         </form>
     );

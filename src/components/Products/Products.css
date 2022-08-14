@@ -1,0 +1,12 @@
+.productContainer {
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    row-gap: 30px;
+    column-gap: 30px;
+    flex-wrap: wrap;
+
+    /*border: 2px solid deeppink;*/
+    /*border-radius: 20px;*/
+}

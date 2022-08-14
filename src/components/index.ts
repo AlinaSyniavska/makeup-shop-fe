@@ -9,8 +9,11 @@ export * from './Popup/Popup';
 
 
 export * from './AdminHeader/AdminHeader';
-export * from './Items/Items';
 export * from './Button/Button';
+export * from './CreateProductForm/CreateProductForm';
 export * from './CreateCommonItemForm/CreateCommonItemForm';
 export * from './Item/Item';
+export * from './Items/Items';
+export * from './Product/Product';
+export * from './Products/Products';
 // export * from '';
