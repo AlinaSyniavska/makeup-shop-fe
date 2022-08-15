@@ -16,4 +16,5 @@ export * from './Item/Item';
 export * from './Items/Items';
 export * from './Product/Product';
 export * from './Products/Products';
+export * from './StarRating/StarRating';
 // export * from '';

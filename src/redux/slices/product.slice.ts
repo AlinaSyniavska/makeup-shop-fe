@@ -92,7 +92,6 @@ const updateById = createAsyncThunk<IProduct, { id: String, product: IProduct }>
     async ({id, product}, {rejectWithValue}) => {
         try {
             const {data} = await productService.update(id, product);
-            console.log(data);
 
             return data;
         } catch (e: any) {

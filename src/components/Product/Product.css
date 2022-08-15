@@ -9,6 +9,11 @@
     row-gap: 15px;
     justify-content: center;
     align-items: center;
+    /*opacity: 0;*/
+}
+
+[aria-disabled="true"] {
+    opacity: 0.3;
 }
 
 .product_wrap {

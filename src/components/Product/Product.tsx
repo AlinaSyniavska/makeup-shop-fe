@@ -1,10 +1,11 @@
 import {FC, useEffect, useState} from "react";
-
-import {IProduct} from "../../interfaces";
-import './Product.css';
 import {useLocation} from "react-router-dom";
+
+import {IProduct, IRating} from "../../interfaces";
+import './Product.css';
 import {productActions} from "../../redux";
 import {useAppDispatch} from "../../hooks";
+import {StarRating} from "../StarRating/StarRating";
 
 interface IProps {
     product: IProduct,
@@ -16,6 +17,15 @@ const Product: FC<IProps> = ({product}) => {
     const [isProductAvailable, setIsProductAvailable] = useState(true);
     const {pathname} = useLocation();
     const dispatch = useAppDispatch();
+
+    const rating: IRating = {
+        ratingValue: Number(product.rating),
+        iconsCount: 5,
+        size:20,
+        readonly: true,
+        fillColor: 'lightpink',
+        emptyColor: '#999999',
+    }
 
     useEffect(() => {
         pathname === '/admin/product' ? setIsProductCreate(true) : setIsProductCreate(false)
@@ -33,14 +43,22 @@ const Product: FC<IProps> = ({product}) => {
 
     }
 
+    const toUp = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
     return (
         <div>
-            <div aria-disabled={true} className={'product_wrap'}>
-                <div aria-disabled={true} className={'product'}>
+            <div aria-disabled={!isProductAvailable} className={'product_wrap'}>
+                <div className={'product'}>
                     <div className={'product_img'}>
                         <img src={product.imageLink} alt={product.name}/>
                     </div>
-                    <p className={'product_rating'}>{product.rating}</p>
+                    <StarRating ratingProps={rating}/>
                     <p className={'product_name'}>{product.name}</p>
                     <p className={'product_brand'}>{product.brand}</p>
                     <p className={'product_price'}>{product.price} {product.priceSign}</p>
@@ -50,6 +68,7 @@ const Product: FC<IProps> = ({product}) => {
                     isProductCreate &&
                     <button onClick={() => {
                         dispatch(productActions.setProductForUpdate({product}));
+                        toUp();
                     }}>
                         Update
                     </button>
@@ -66,7 +85,7 @@ const Product: FC<IProps> = ({product}) => {
 
                 {
                     !isProductCreate &&
-                    <button onClick={addToCart}>
+                    <button disabled={!isProductAvailable} onClick={addToCart}>
                         Buy
                     </button>
                 }
