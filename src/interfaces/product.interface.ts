@@ -1,3 +1,5 @@
+// import {IColor} from "./color.interface";
+
 export interface IProduct {
     _id?: string,
     brand: string,

@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {IItem, IItems, IProduct} from "../../interfaces";
+import {IItem, IItems, IProduct, IQueryParams} from "../../interfaces";
 import {adminItemService, productService} from "../../services";
-import {urlGetData} from "../../constants";
+import {ratingEnum, urlGetData} from "../../constants";
 
 
 interface IState {
@@ -17,6 +17,8 @@ interface IState {
     page: string,
     perPage: string,
     count: string,
+    sortOrder: number,
+    filterBy: string,
 }
 
 const initialState: IState = {
@@ -30,17 +32,31 @@ const initialState: IState = {
     status: '',
 
     page: '1',
-    perPage: '15',
+    perPage: '20',
     count: '0',
+    sortOrder: ratingEnum.HIGH,
+    filterBy: '',
 };
 
 let urlForGetData = '';
 
-const getAll = createAsyncThunk<IProduct[], { page: string, perPage: string }>(
+/*const getAll = createAsyncThunk<IProduct[], { page: string, perPage: string, sortOrder: number }>(
     'productSlice/getAll',
-    async ({page, perPage}, {rejectWithValue}) => {
+    async ({page, perPage, sortOrder}, {rejectWithValue}) => {
         try {
-            const {data} = await productService.getAll(page, perPage);
+            const {data} = await productService.getAll(page, perPage, sortOrder);
+            return data;
+        } catch (error: any) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);*/
+
+const getAll = createAsyncThunk<IProduct[], { params: Partial<IQueryParams> }>(
+    'productSlice/getAll',
+    async ({params}, {rejectWithValue}) => {
+        try {
+            const {data} = await productService.getAll(params);
             return data;
         } catch (error: any) {
             return rejectWithValue(error.response.data)
@@ -116,6 +132,7 @@ const productSlice = createSlice({
         saveQueryParams: (state, action) => {
             state.page = action.payload.page;
             state.perPage = action.payload.perPage;
+            state.sortOrder = action.payload.sortOrder;
         },
 
         setPerPage: (state, action) => {

@@ -17,4 +17,7 @@ export * from './Items/Items';
 export * from './Product/Product';
 export * from './Products/Products';
 export * from './StarRating/StarRating';
+export * from './Sidebar/Sidebar';
+export * from './FilterComponent/FilterComponent';
+export * from './SortComponent/SortComponent';
 // export * from '';

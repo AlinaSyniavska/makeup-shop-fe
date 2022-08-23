@@ -1,3 +1,10 @@
+.bodyWrap {
+    display: flex;
+    /*align-items: center;*/
+    justify-content: center;
+}
+
+
 .productContainer {
     padding: 20px;
     display: flex;

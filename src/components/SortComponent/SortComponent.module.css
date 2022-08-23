@@ -1,0 +1,43 @@
+.sortDirection {
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.checkList {
+    width: 150px;
+    padding-top: 10px;
+    color: #344a54;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.checkBoxes {
+    padding-left: 10px;
+}
+.checkBoxes input {
+    /*margin-bottom: 10px;*/
+    margin-right: 10px;
+}
+
+.btnSearch {
+    width: 70%;
+    padding: 10px 0;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-top: 20px;
+
+    justify-self: center;
+    align-self: center;
+}
+
+label:hover,
+.btnSearch:hover{
+    cursor: pointer;
+}
+
+label:hover {
+    color: lightpink;
+}

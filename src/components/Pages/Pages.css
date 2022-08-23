@@ -1,5 +1,5 @@
 .wrap {
-    position: relative;
+    /*position: relative;*/
 }
 
 .pagination{
@@ -13,24 +13,24 @@
 .btnPagination {
     width: 60px;
     height: 30px;
-    color: #344a54;
-    background: beige;
+    /*color: #344a54;*/
+    /*background: rgba(255, 182, 193, 0.44);*/
     font-size: 16px;
     border-radius: 10px;
     border: none;
 }
 
 .btnPagination:hover {
-    cursor: pointer;
-    border: 2px solid burlywood;
+    /*cursor: pointer;*/
+    /*border: 2px solid lightpink;*/
 }
 
 #infoPage {
     color: #999999;
     font-size: 14px;
     position: absolute;
-    left: 25%;
-    top: 75%;
+    right: 20%;
+    top: 15%;
 }
 
 

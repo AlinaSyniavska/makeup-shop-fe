@@ -1,15 +1,15 @@
 import React, {FC, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
+import {useNavigate} from "react-router-dom";
 
 import {IColor, IProduct} from "../../interfaces";
 import {productValidator} from "../../validators";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {productActions} from "../../redux";
 import {priceSignEnum, tags, urlGetData} from "../../constants";
-import './CreateProductForm.css';
 import {productService} from "../../services";
-import {useNavigate} from "react-router-dom";
+import './CreateProductForm.css';
 
 const CreateProductForm: FC = () => {
 
@@ -76,16 +76,15 @@ const CreateProductForm: FC = () => {
             updatedList.splice(checked.indexOf(event.target.value), 1);
         }
 
-        console.log(updatedList);
         setChecked(updatedList);
     };
 
     const submitForm = async (product: IProduct) => {
         const expandedProduct = {...product};
 
-        /*        if (productColorObj) {
-                    expandedProduct['productColor'] = [...productColorObj];
-                }*/
+/*        if (productColorObj) {
+            expandedProduct['productColor'] = [...productColorObj];
+        }*/
 
         // console.log(product);
         // console.log(expandedProduct);

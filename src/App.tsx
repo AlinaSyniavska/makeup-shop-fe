@@ -1,11 +1,20 @@
 import {FC} from "react";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 
 import {useAppDispatch} from "./hooks";
 import {authActions} from "./redux";
-import {AdminLayout} from "./layouts";
+import {AdminLayout, MainLayout} from "./layouts";
 import './App.css';
-import {BrandPage, CategoryPage, ProductPage, ProductTypePage} from "./pages";
+import {
+    BrandPage,
+    CatalogProductPage,
+    CategoryPage,
+    LoginPage,
+    ProductPage,
+    ProductTypePage,
+    RegisterPage
+} from "./pages";
+import {LogoutPage} from "./pages/LogoutPage/LogoutPage";
 
 const App: FC = () => {
 
@@ -18,15 +27,16 @@ const App: FC = () => {
 
     return (
         <Routes>
-{/*            <Route path={'/'} element={<MainLayout/>}>
-                <Route index element={<Navigate to={'users'}/>}/>
-                <Route path={'users'} element={<RequireAuth><UsersPage/></RequireAuth>}>
+            <Route path={'/'} element={<MainLayout/>}>
+                <Route index element={<Navigate to={'home'}/>}/>
+                <Route path={'home'} element={<CatalogProductPage/>}/>
+{/*                <Route path={'users'} element={<RequireAuth><UsersPage/></RequireAuth>}>
                     <Route path={':id'} element={<UserDetailsPage/>}/>
-                </Route>
+                </Route>*/}
                 <Route path={'auth/login'} element={<LoginPage/>}/>
                 <Route path={'auth/logout'} element={<LogoutPage/>}/>
                 <Route path={'auth/register'} element={<RegisterPage/>}/>
-            </Route>*/}
+            </Route>
 
             <Route path={'/admin'} element={<AdminLayout/>}>
                 <Route path={'product'} element={<ProductPage/>}/>
@@ -34,6 +44,8 @@ const App: FC = () => {
                 <Route path={'category'} element={<CategoryPage/>}/>
                 <Route path={'productType'} element={<ProductTypePage/>}/>
             </Route>
+
+
         </Routes>
     );
 };
