@@ -10,15 +10,21 @@ const Pages: FC = () => {
         return totalCount < pageSize ? 1 : Math.ceil(totalCount / pageSize);
     };
 
-    const {page, perPage, sortOrder, count} = useAppSelector(state => state.productReducer);
-    const [query, setQuery] = useSearchParams({page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`});
+    const {page, perPage, sortOrder, filterBy, count} = useAppSelector(state => state.productReducer);
+
+    const [query, setQuery] = useSearchParams({
+        page: `${page}`,
+        perPage: `${perPage}`,
+        sortOrder: `${sortOrder}`,
+        filterBy: `${filterBy.join(';')}`,
+    });
     const [pages, setPages] = useState(calculatePagesCount(Number(perPage), Number(count)));
 
     useEffect(() => {
         const infoPage = document.getElementById('infoPage') as HTMLParagraphElement;
         setPages(calculatePagesCount(Number(perPage), Number(count)));
         infoPage.innerText = `${page} of ${pages} pages`;
-    }, [page, pages, perPage, sortOrder, count])
+    }, [page, pages, perPage, sortOrder, filterBy, count])
 
     const changePage = (e: MouseEvent<HTMLButtonElement>) => {
         const nextPage = document.getElementById('next');
@@ -37,7 +43,7 @@ const Pages: FC = () => {
             }
         }
 
-        setQuery({page: `${curPage}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`});
+        setQuery({page: `${curPage}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`, filterBy: `${filterBy.join(';')}`});
     }
 
     return (

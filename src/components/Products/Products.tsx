@@ -9,49 +9,40 @@ import {Sidebar} from "../Sidebar/Sidebar";
 
 const Products: FC = () => {
 
-    const {products, page, perPage, sortOrder} = useAppSelector(state => state.productReducer);
+    const {products, page, perPage, sortOrder, filterBy} = useAppSelector(state => state.productReducer);
     const dispatch = useAppDispatch();
 
-    const [query, setQuery] = useSearchParams({page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`});
+    const [query, setQuery] = useSearchParams({page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`, filterBy: `${filterBy.join(';')}`});
     const {state} = useLocation();
 
     useEffect(() => {
-        setQuery({page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`});
-    }, [page, perPage, sortOrder]);
+        setQuery({page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`, filterBy: `${filterBy.join(';')}`});
+    }, [page, perPage, sortOrder, filterBy]);
 
     useEffect(() => {
             dispatch(productActions.saveQueryParams({
                 page: query.get('page'),
                 perPage: query.get('perPage'),
-                sortOrder: query.get('sortOrder')
+                sortOrder: query.get('sortOrder'),
+                filterBy: query.get('filterBy')?.split(';')
             }));
-
-/*            dispatch(productActions.getAll({
-                page: query.get('page') || '1',
-                perPage: query.get('perPage') || '15',
-                sortOrder: Number(query.get('sortOrder')),
-            }));*/
 
            const params =  {
                 page: query.get('page') || '1',
                 perPage: query.get('perPage') || '15',
                 sortOrder: Number(query.get('sortOrder')),
+                filterBy: query.get('filterBy') || '',
             }
             dispatch(productActions.getAll({params}));
         },
         [dispatch, query]);
 
     useEffect(() => {
-/*        dispatch(productActions.getAll({
-            page: query.get('page') || '1',
-            perPage: query.get('perPage') || '15',
-            sortOrder: Number(query.get('sortOrder')),
-        }));*/
-
         const params =  {
             page: query.get('page') || '1',
             perPage: query.get('perPage') || '15',
             sortOrder: Number(query.get('sortOrder')),
+            filterBy: query.get('filterBy') || '',
         }
         dispatch(productActions.getAll({params}));
     }, [state])

@@ -8,15 +8,23 @@ import {useSearchParams} from "react-router-dom";
 
 const SortComponent: FC = () => {
 
-    const {page, perPage, sortOrder} = useAppSelector(state => state.productReducer);
+    const {page, perPage, sortOrder, filterBy} = useAppSelector(state => state.productReducer);
     const dispatch = useAppDispatch();
-    const [query, setQuery] = useSearchParams({page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`});
+    const [query, setQuery] = useSearchParams({
+        page: `${page}`,
+        perPage: `${perPage}`,
+        sortOrder: `${sortOrder}`,
+        filterBy: `${filterBy.join(';')}`,
+    });
 
     const setSort = (event: any) => {
-        // console.log(event.target.value);
-
-        setQuery({page: `${page}`, perPage: `${perPage}`, sortOrder: event.target.value});
-        dispatch(productActions.saveQueryParams({page: query.get('page'), perPage: query.get('perPage'), sortOrder: query.get('sortOrder')}));
+        setQuery({page: `${page}`, perPage: `${perPage}`, sortOrder: event.target.value, filterBy: `${filterBy.join(';')}`,});
+        dispatch(productActions.saveQueryParams({
+            page: query.get('page'),
+            perPage: query.get('perPage'),
+            sortOrder: query.get('sortOrder'),
+            filterBy: query.get('filterBy')?.split(';'),
+        }));
     };
 
     useEffect(() => {
@@ -31,7 +39,7 @@ const SortComponent: FC = () => {
 
     return (
         <div>
-            <p className={style.sortDirection}>Sort by</p>
+            <p className={style.sortDirection}>Sort by Rating</p>
             <div className={style.checkList}>
                 <div className={style.checkBoxes}>
                 <label>

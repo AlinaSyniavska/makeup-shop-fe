@@ -5,10 +5,6 @@ import {adminUrls} from "../constants";
 
 
 const productService = {
-/*    getAll: (page: string, perPage: string, sortOrder: number): Response<IProduct[]> => axiosService.get(
-        adminUrls.product,
-        {params: {page, perPage, sortOrder}}
-    ),*/
     getAll: (params: Partial<IQueryParams>): Response<IProduct[]> => axiosService.get(
         adminUrls.product,
         {params: {...params}}

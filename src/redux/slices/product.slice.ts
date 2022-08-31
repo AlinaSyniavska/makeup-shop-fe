@@ -18,7 +18,7 @@ interface IState {
     perPage: string,
     count: string,
     sortOrder: number,
-    filterBy: string,
+    filterBy: string[],
 }
 
 const initialState: IState = {
@@ -35,22 +35,10 @@ const initialState: IState = {
     perPage: '20',
     count: '0',
     sortOrder: ratingEnum.HIGH,
-    filterBy: '',
+    filterBy: [],
 };
 
 let urlForGetData = '';
-
-/*const getAll = createAsyncThunk<IProduct[], { page: string, perPage: string, sortOrder: number }>(
-    'productSlice/getAll',
-    async ({page, perPage, sortOrder}, {rejectWithValue}) => {
-        try {
-            const {data} = await productService.getAll(page, perPage, sortOrder);
-            return data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data)
-        }
-    }
-);*/
 
 const getAll = createAsyncThunk<IProduct[], { params: Partial<IQueryParams> }>(
     'productSlice/getAll',
@@ -89,7 +77,6 @@ const createProduct = createAsyncThunk<IProduct, { product: IProduct }>(
         }
     }
 );
-
 
 const deleteById = createAsyncThunk<void, { id: String }>(
     'productSlice/deleteById',
@@ -133,6 +120,7 @@ const productSlice = createSlice({
             state.page = action.payload.page;
             state.perPage = action.payload.perPage;
             state.sortOrder = action.payload.sortOrder;
+            state.filterBy = action.payload.filterBy;
         },
 
         setPerPage: (state, action) => {
