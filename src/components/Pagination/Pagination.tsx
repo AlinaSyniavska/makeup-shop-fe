@@ -1,8 +1,9 @@
 import {FC} from "react";
 
 import {SelectPerPageForm} from "../SelectPerPageForm/SelectPerPageForm";
-import {Pages} from "../Pages/Pages";
+
 import './Pagination.css'
+import {Pages} from "../Pages/Pages";
 
 const Pagination: FC = () => {
     return (

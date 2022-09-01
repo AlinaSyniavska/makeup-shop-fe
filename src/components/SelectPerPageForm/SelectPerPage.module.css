@@ -7,6 +7,11 @@
     margin-left: 20px;
     color: #000;
 }
+
+.selectContainer select:hover {
+    cursor: pointer;
+}
+
 .selectContainer label,
 .selectContainer label:hover {
     color: rgb(87,87,87);

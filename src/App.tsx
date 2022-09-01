@@ -9,12 +9,11 @@ import {
     BrandPage,
     CatalogProductPage,
     CategoryPage,
-    LoginPage,
+    LoginPage, LogoutPage, NotFoundPage,
     ProductPage,
     ProductTypePage,
     RegisterPage
 } from "./pages";
-import {LogoutPage} from "./pages/LogoutPage/LogoutPage";
 
 const App: FC = () => {
 
@@ -45,6 +44,8 @@ const App: FC = () => {
                 <Route path={'auth/login'} element={<LoginPage/>}/>
                 <Route path={'auth/logout'} element={<LogoutPage/>}/>
                 <Route path={'auth/register'} element={<RegisterPage/>}/>
+
+                <Route path={'*'} element={<NotFoundPage/>}/>
             </Route>
 
             <Route path={'/admin'} element={<AdminLayout/>}>

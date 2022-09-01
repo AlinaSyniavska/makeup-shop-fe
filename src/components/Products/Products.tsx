@@ -44,29 +44,33 @@ const Products: FC = () => {
 
             const params = {
                 page: query.get('page') || '1',
-                perPage: query.get('perPage') || '15',
+                perPage: query.get('perPage') || '20',
                 sortOrder: Number(query.get('sortOrder')),
                 filterBy: query.get('filterBy') || '',
             }
-            // dispatch(productActions.getAll({params}));
+
             !isCategoryPath ?
                 dispatch(productActions.getAll({params})) :
                 dispatch(productActions.getAtUrl({params, url: pathname}));
         },
-        [dispatch, query]);
+        [dispatch, query, isCategoryPath, pathname]);
 
     useEffect(() => {
         const params = {
             page: query.get('page') || '1',
-            perPage: query.get('perPage') || '15',
+            perPage: query.get('perPage') || '20',
             sortOrder: Number(query.get('sortOrder')),
             filterBy: query.get('filterBy') || '',
+/*            page: `${page}`,
+            perPage: `${perPage}`,
+            sortOrder: Number(`${sortOrder}`),
+            filterBy: `${filterBy.join(';')}`*/
         }
-        // dispatch(productActions.getAll({params}));
+
         !isCategoryPath ?
             dispatch(productActions.getAll({params})) :
             dispatch(productActions.getAtUrl({params, url: pathname}));
-    }, [state])
+    }, [state, isCategoryPath, pathname])
 
 
     return (

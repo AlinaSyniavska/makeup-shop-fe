@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import React, {FC} from "react";
 
 import style from './SortComponent.module.css';
 import {ratingEnum} from "../../constants";
@@ -18,7 +18,12 @@ const SortComponent: FC = () => {
     });
 
     const setSort = (event: any) => {
-        setQuery({page: `${page}`, perPage: `${perPage}`, sortOrder: event.target.value, filterBy: `${filterBy.join(';')}`,});
+        setQuery({
+            page: `${page}`,
+            perPage: `${perPage}`,
+            sortOrder: event.target.value,
+            filterBy: `${filterBy.join(';')}`,
+        });
         dispatch(productActions.saveQueryParams({
             page: query.get('page'),
             perPage: query.get('perPage'),
@@ -27,32 +32,22 @@ const SortComponent: FC = () => {
         }));
     };
 
-    useEffect(() => {
-        const sortOrderCollection = document.querySelectorAll('input[name=sortOrder]');
-
-        sortOrderCollection.forEach(item => {
-            if (Number(item.attributes[2].value) == sortOrder) {
-                item.setAttribute('checked', 'true');
-            }
-        })
-    }, [sortOrder])
-
     return (
         <div>
             <p className={style.sortDirection}>Sort by Rating</p>
             <div className={style.checkList}>
                 <div className={style.checkBoxes}>
-                <label>
-                    <input type={'radio'} value={ratingEnum.HIGH} name={'sortOrder'} onChange={setSort}/>
-                    High to Low
-                </label>
+                    <label>
+                        <input type={'radio'} checked={Number(sortOrder) === 5} value={ratingEnum.HIGH} name={'sortOrder'} onChange={setSort}/>
+                        High to Low
+                    </label>
                 </div>
 
                 <div className={style.checkBoxes}>
-                <label>
-                    <input type={'radio'} value={ratingEnum.LOW} name={'sortOrder'} onChange={setSort}/>
-                    Low to High
-                </label>
+                    <label>
+                        <input type={'radio'} checked={Number(sortOrder) === 1} value={ratingEnum.LOW} name={'sortOrder'} onChange={setSort}/>
+                        Low to High
+                    </label>
                 </div>
             </div>
         </div>
