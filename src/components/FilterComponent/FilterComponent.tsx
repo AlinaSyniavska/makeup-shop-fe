@@ -51,7 +51,7 @@ const FilterComponent: FC = () => {
         if (indexEmpty !== -1){
             checked.splice(indexEmpty, 1);
         }
-        console.log(indexEmpty)
+        // console.log(indexEmpty)
 
         setQuery({
             page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`, filterBy: checked.join(';'),

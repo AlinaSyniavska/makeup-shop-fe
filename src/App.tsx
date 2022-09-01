@@ -30,9 +30,9 @@ const App: FC = () => {
             <Route path={'/'} element={<MainLayout/>}>
                 <Route index element={<Navigate to={'home'}/>}/>
                 <Route path={'home'} element={<CatalogProductPage/>}/>
-{/*                <Route path={'users'} element={<RequireAuth><UsersPage/></RequireAuth>}>
-                    <Route path={':id'} element={<UserDetailsPage/>}/>
-                </Route>*/}
+
+                <Route path={'category/cream/face'} element={<CatalogProductPage/>}/>
+
                 <Route path={'auth/login'} element={<LoginPage/>}/>
                 <Route path={'auth/logout'} element={<LogoutPage/>}/>
                 <Route path={'auth/register'} element={<RegisterPage/>}/>
