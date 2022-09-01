@@ -52,6 +52,18 @@ const getAll = createAsyncThunk<IProduct[], { params: Partial<IQueryParams> }>(
     }
 );
 
+const getAtUrl = createAsyncThunk<IProduct[], { params: Partial<IQueryParams>, url: string }>(
+    'productSlice/getAtUrl',
+    async ({params, url}, {rejectWithValue}) => {
+        try {
+            const {data} = await productService.getAll(params, url);
+            return data;
+        } catch (error: any) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
+
 const getData = createAsyncThunk<IItems, { url: string }>(
     'productSlice/getData',
     async ({url}, {rejectWithValue}) => {
@@ -140,6 +152,17 @@ const productSlice = createSlice({
                 const errors = action.payload as any;
                 console.log(errors);
             })
+            .addCase(getAtUrl.fulfilled, (state, action) => {
+                const {page, perPage, data, count} = action.payload as any;
+                state.page = page;
+                state.perPage = perPage;
+                state.products = data;
+                state.count = count;
+            })
+            .addCase(getAtUrl.rejected, (state, action) => {
+                const errors = action.payload as any;
+                console.log(errors);
+            })
             .addCase(getData.fulfilled, (state, action) => {
                 const {data} = action.payload as IItems;
                 switch (urlForGetData) {
@@ -192,6 +215,7 @@ const productActions = {
     deleteById,
     deleteProduct,
     getAll,
+    getAtUrl,
     getData,
     saveQueryParams,
     setPerPage,

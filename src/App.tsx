@@ -32,6 +32,15 @@ const App: FC = () => {
                 <Route path={'home'} element={<CatalogProductPage/>}/>
 
                 <Route path={'category/cream/face'} element={<CatalogProductPage/>}/>
+                <Route path={'category/cream/body'} element={<CatalogProductPage/>}/>
+                <Route path={'category/eyebrow'} element={<CatalogProductPage/>}/>
+                <Route path={'category/eyeshadow/palette'} element={<CatalogProductPage/>}/>
+                <Route path={'category/eyeshadow/pencil'} element={<CatalogProductPage/>}/>
+                <Route path={'category/eyeshadow/cream'} element={<CatalogProductPage/>}/>
+                <Route path={'category/powder'} element={<CatalogProductPage/>}/>
+                <Route path={'category/lipstick/lipstick'} element={<CatalogProductPage/>}/>
+                <Route path={'category/lipstick/lipgloss'} element={<CatalogProductPage/>}/>
+                <Route path={'category/mascara'} element={<CatalogProductPage/>}/>
 
                 <Route path={'auth/login'} element={<LoginPage/>}/>
                 <Route path={'auth/logout'} element={<LogoutPage/>}/>

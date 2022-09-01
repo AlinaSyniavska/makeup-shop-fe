@@ -1,6 +1,6 @@
 import {ChangeEvent, FC} from "react";
 
-import './SelectPerPage.css'
+import style from './SelectPerPage.module.css'
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {productActions} from "../../redux";
 
@@ -15,7 +15,7 @@ const SelectPerPageForm: FC = () => {
 
     return (
         <div>
-            <div className={'selectContainer'}>
+            <div className={style.selectContainer}>
                 <label>Select count
                     <select onChange={onChangeSelect} id={'perPage'} name={'perPage'} value={perPage}>
                         <option value={"10"}>10</option>

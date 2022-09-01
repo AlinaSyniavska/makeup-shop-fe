@@ -1,4 +1,4 @@
-import {FC, useEffect} from "react";
+import {FC, useEffect, useState} from "react";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {useLocation, useSearchParams} from "react-router-dom";
@@ -12,11 +12,26 @@ const Products: FC = () => {
     const {products, page, perPage, sortOrder, filterBy} = useAppSelector(state => state.productReducer);
     const dispatch = useAppDispatch();
 
-    const [query, setQuery] = useSearchParams({page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`, filterBy: `${filterBy.join(';')}`});
-    const {state} = useLocation();
+    const [query, setQuery] = useSearchParams({
+        page: `${page}`,
+        perPage: `${perPage}`,
+        sortOrder: `${sortOrder}`,
+        filterBy: `${filterBy.join(';')}`
+    });
+    const {state, pathname} = useLocation();
+    const [isCategoryPath, setIsCategoryPath] = useState<boolean>(false);
 
     useEffect(() => {
-        setQuery({page: `${page}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`, filterBy: `${filterBy.join(';')}`});
+        pathname.includes('/category') ? setIsCategoryPath(true) : setIsCategoryPath(false);
+    }, [pathname])
+
+    useEffect(() => {
+        setQuery({
+            page: `${page}`,
+            perPage: `${perPage}`,
+            sortOrder: `${sortOrder}`,
+            filterBy: `${filterBy.join(';')}`
+        });
     }, [page, perPage, sortOrder, filterBy]);
 
     useEffect(() => {
@@ -27,24 +42,30 @@ const Products: FC = () => {
                 filterBy: query.get('filterBy')?.split(';')
             }));
 
-           const params =  {
+            const params = {
                 page: query.get('page') || '1',
                 perPage: query.get('perPage') || '15',
                 sortOrder: Number(query.get('sortOrder')),
                 filterBy: query.get('filterBy') || '',
             }
-            dispatch(productActions.getAll({params}));
+            // dispatch(productActions.getAll({params}));
+            !isCategoryPath ?
+                dispatch(productActions.getAll({params})) :
+                dispatch(productActions.getAtUrl({params, url: pathname}));
         },
         [dispatch, query]);
 
     useEffect(() => {
-        const params =  {
+        const params = {
             page: query.get('page') || '1',
             perPage: query.get('perPage') || '15',
             sortOrder: Number(query.get('sortOrder')),
             filterBy: query.get('filterBy') || '',
         }
-        dispatch(productActions.getAll({params}));
+        // dispatch(productActions.getAll({params}));
+        !isCategoryPath ?
+            dispatch(productActions.getAll({params})) :
+            dispatch(productActions.getAtUrl({params, url: pathname}));
     }, [state])
 
 
