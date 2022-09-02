@@ -17,17 +17,17 @@ const FilterComponent: FC = () => {
     });
 
     useEffect(() => {
-        const filterByCollection = document.querySelectorAll('input[type=checkbox]');
+        const filterByCollection = document.querySelectorAll('input[type=checkbox]') as NodeListOf<HTMLInputElement>;
+        const checkedTags = [] as Array<HTMLInputElement>;
 
-        filterBy?.forEach(tag => {
-            Array.from(filterByCollection, item => {
-                if (item.attributes[1].value === tag) {
-                    // console.log(item)
-                    item.setAttribute('checked', 'true');
-                }
-                // return true;
-            })
-        })
+        Array.from(filterByCollection, item => item.checked = false);
+        Array.from(filterByCollection, item => filterBy.forEach(tag => {
+            if (item.value === tag) {
+                checkedTags.push(item);
+            }
+        }))
+
+        checkedTags.forEach(item => item.checked = true);
 
         setChecked(filterBy);
     }, [filterBy])
@@ -48,7 +48,7 @@ const FilterComponent: FC = () => {
 
     function submitForm() {
         const indexEmpty = checked.findIndex(item => item === '');
-        if (indexEmpty !== -1){
+        if (indexEmpty !== -1) {
             checked.splice(indexEmpty, 1);
         }
         // console.log(indexEmpty)
@@ -70,7 +70,8 @@ const FilterComponent: FC = () => {
                 {tags.map((item, index) => (
                     <div className={style.checkBoxes} key={index}>
                         <label>
-                            <input value={item} type="checkbox" onClick={checkFilterTags}/>
+                            {/*<input value={item} type="checkbox" onClick={checkFilterTags}/>*/}
+                            <input value={item} type="checkbox" onChange={checkFilterTags}/>
                             {item}
                         </label>
                     </div>
