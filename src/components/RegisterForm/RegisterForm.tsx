@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks";
 import {IUser} from "../../interfaces";
 import {userValidator} from "../../validators";
 import {userActions} from "../../redux";
+import style from './../AuthForm/AuthForm.module.css'
 
 const RegisterForm: FC = () => {
     const {register, reset, handleSubmit, setValue, formState: {errors, isValid}} = useForm<IUser>({
@@ -65,7 +66,7 @@ const RegisterForm: FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(submitForm)}>
+        <form onSubmit={handleSubmit(submitForm)} className={style.authForm}>
             <div>
                 <label>Name
                     <input type={'text'} placeholder={'name  '} {...register('name')}/>

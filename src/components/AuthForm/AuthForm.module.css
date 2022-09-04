@@ -1,0 +1,20 @@
+.authForm {
+    width: 300px;
+}
+
+.authForm label,
+.authForm label:hover {
+    color: rgb(87,87,87);
+}
+
+.authForm label {
+    display: block;
+    width: 100%;
+    font-size: 18px;
+}
+
+.authForm input {
+    padding: 5px;
+    font-size: 18px;
+    width: 100%;
+}

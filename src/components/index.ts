@@ -1,10 +1,10 @@
 export * from './Users/Users';
 export * from './User/User';
-export * from './AuthForm/AuthForm';
-export * from './RegisterForm/RegisterForm';
 export * from './Popup/Popup';
 
 
+export * from './RegisterForm/RegisterForm';
+export * from './AuthForm/AuthForm';
 export * from './SelectPerPageForm/SelectPerPageForm';
 export * from './Pagination/Pagination';
 export * from './Pages/Pages';

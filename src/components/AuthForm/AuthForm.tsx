@@ -5,6 +5,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {ILogin} from "../../interfaces";
 import {authActions} from "../../redux";
+import style from './AuthForm.module.css';
 
 const AuthForm: FC = () => {
     const {register, handleSubmit} = useForm<ILogin>();
@@ -37,7 +38,7 @@ const AuthForm: FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(submitForm)}>
+        <form onSubmit={handleSubmit(submitForm)} className={style.authForm}>
             <div>
                 <label>Email
                     <input type={'text'} placeholder={'email  '} {...register('email')}/>
