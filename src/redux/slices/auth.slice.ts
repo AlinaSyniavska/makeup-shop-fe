@@ -4,18 +4,16 @@ import {IAuth, ILogin, IUser} from "../../interfaces";
 
 interface IState {
     isAuth: boolean,
-    loginError: boolean,
-
     authStatus: null,
     authErrors: any,
+    logUser: Partial<IUser>,
 }
 
 const initialState: IState = {
     isAuth: false,
-    loginError: false,
-
     authStatus: null,
     authErrors: {},
+    logUser: {},
 };
 
 const login = createAsyncThunk<IAuth, { user: ILogin }>(
@@ -24,22 +22,18 @@ const login = createAsyncThunk<IAuth, { user: ILogin }>(
         try {
             const {data} = await authService.login(user);
 
-            console.log(data);
-
-
             return data;
         } catch (e: any) {
-            console.log(e);
             return rejectWithValue({errorStatus: e.message, errorsFromForm: e.response.data});
         }
     }
 );
 
-const logout = createAsyncThunk<void, { user: IUser, access: string }>(
+const logout = createAsyncThunk<void, { access_token: string }>(
     'authSlice/logout',
-    async ({user, access}, {dispatch, rejectWithValue}) => {
+    async ({access_token}, {dispatch, rejectWithValue}) => {
         try {
-            await authService.logout(user, access);
+            await authService.logout(access_token);
             dispatch(logoutUser());
         } catch (e: any) {
             return rejectWithValue({errorStatus: e.message});
@@ -57,32 +51,37 @@ const authSlice = createSlice({
 
         logoutUser: state => {
             state.isAuth = false;
-            state.loginError = false;
             state.authStatus = null;
             state.authErrors = {};
+            state.logUser = {};
+            localStorage.clear();
         },
     },
     extraReducers: (builder) => {
         builder
             .addCase(login.fulfilled, (state, action) => {
                 state.isAuth = true;
-                state.loginError = false;
                 const {access_token, refresh_token, user} = action.payload;
-                const {_id} = user as IUser;
+                const {_id, name, surname} = user as IUser;
+                state.logUser.name = name;
+                state.logUser.surname = surname;
+                state.logUser._id = _id;
 
                 localStorage.setItem('access', access_token);
                 localStorage.setItem('refresh', refresh_token);
                 localStorage.setItem('idLoginUser', _id as string);
             })
             .addCase(login.rejected, (state, action) => {
-                state.loginError = true;
+                state.isAuth = false;
                 const {errorStatus, errorsFromForm} = action.payload as any;
                 state.authStatus = errorStatus;
                 state.authErrors = errorsFromForm;
 
-                state.isAuth = false;
             })
             .addCase(logout.rejected, (state, action) => {
+
+                console.log(action.payload);
+
                 const {errorStatus} = action.payload as any;
                 state.authStatus = errorStatus;
             })

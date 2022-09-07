@@ -1,39 +1,49 @@
 import {FC, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useLocation, useNavigate} from "react-router-dom";
+import {joiResolver} from "@hookform/resolvers/joi";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {ILogin} from "../../interfaces";
 import {authActions} from "../../redux";
 import style from './AuthForm.module.css';
+import {loginUserValidator} from "../../validators";
 
 const AuthForm: FC = () => {
-    const {register, handleSubmit} = useForm<ILogin>();
+    const {register, handleSubmit} = useForm<ILogin>({
+        resolver: joiResolver(loginUserValidator),
+        mode: 'all'
+    });
 
     const [isLogin, setIsLogin] = useState<boolean>(false);
-    const {pathname} = useLocation();
-
-    const {loginError} = useAppSelector(state => state.authReducer);
     const [errors, setErrors] = useState<any>({});
 
     const navigate = useNavigate();
-    const {authStatus, authErrors} = useAppSelector(state => state.authReducer);
+    const {pathname} = useLocation();
+
+    const {authStatus, authErrors, isAuth} = useAppSelector(state => state.authReducer);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         pathname === '/auth/register' ? setIsLogin(false) : setIsLogin(true);
     }, [pathname])
 
-    const submitForm = async (user: ILogin) => {
-        // const {location} = state as any;
+    useEffect(() => {
+        setErrors(authErrors.errors);
+    }, [authStatus, authErrors])
 
+    useEffect(()=> {
+        if (isAuth) {
+            navigate('/', {replace: true});
+        }
+    }, [isAuth])
+
+    const submitForm = async (user: ILogin) => {
         try {
             await dispatch(authActions.login({user}));
-            // navigate(location.pathname || '/', {replace: true});
-            navigate('/', {replace: true});
         } catch (e: any) {
             console.error(e.response);
-            setErrors(e.response.data);
+            console.log(errors)
         }
     };
 
@@ -53,14 +63,7 @@ const AuthForm: FC = () => {
 
             <div>
                 <div>{authStatus && <b>{authStatus}</b>}</div>
-                <div>{authErrors.email && <div>Error email: {authErrors.email[0]}</div>}</div>
-                <div>{authErrors.password && <div>Error password: {authErrors.password[0]}</div>}</div>
-            </div>
-
-            <div>
-                <div>{errors?.email && <span>{errors.email[0]}</span>}</div>
-                <div>{errors?.password && <span>{errors.password[0]}</span>}</div>
-                {loginError && <span>Wrong username or password</span>}
+                <div>{authErrors.error}</div>
             </div>
         </form>
     );

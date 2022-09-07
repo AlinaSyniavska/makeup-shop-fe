@@ -5,7 +5,7 @@ export * from './items.interface';
 export * from './login.interface';
 export * from './product.interface';
 export * from './productsPagination.interface';
-export * from './rating';
+export * from './rating.interface';
 export * from './user.interface';
 export * from './queryParams.interface';
 

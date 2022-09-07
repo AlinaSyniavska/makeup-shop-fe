@@ -1,20 +1,25 @@
 import {FC, useEffect} from "react";
 import {AuthForm} from "../../components";
-import {useSearchParams} from "react-router-dom";
+import {useAppSelector} from "../../hooks";
 
 const LoginPage: FC = () => {
-    const [query] = useSearchParams();
-    localStorage.clear();
+    // const [query] = useSearchParams();
+    // localStorage.clear();
+    //
+    // useEffect(()=>{
+    //     console.log('session end', !!query.get('ExpSession'));
+    // },[query])
 
-    useEffect(()=>{
-        // console.log('session end', !!query.get('ExpSession'));
-    },[query])
+    const {logUser} = useAppSelector(state => state.authReducer);
+
+    useEffect(() => {
+        console.log(logUser)
+    }, [logUser])
+
 
     return (
         <div>
-            <AuthForm/>
-            <br/><hr/>
-            {/*<Link to={'/auth/register'}>To Register</Link>*/}
+             <AuthForm/>
         </div>
     );
 };

@@ -16,11 +16,11 @@ const store = setupStore()
 
 root.render(
     // <React.StrictMode>
-    <Provider store={store}>
-        <BrowserRouter history={history}>
-            <App/>
-        </BrowserRouter>
-    </Provider>
+        <Provider store={store}>
+            <BrowserRouter history={history}>
+                <App/>
+            </BrowserRouter>
+        </Provider>
     // </React.StrictMode>
 );
 

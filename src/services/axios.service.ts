@@ -23,6 +23,7 @@ axiosService.interceptors.request.use((config: AxiosRequestConfig) => {
                 Authorization: `${access}`
             }
         }
+        // console.log(config.headers)
     }
     return config;
 })

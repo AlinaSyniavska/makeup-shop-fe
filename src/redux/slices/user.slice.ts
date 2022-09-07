@@ -7,7 +7,6 @@ interface IState {
     users: IUser[],
     userForUpdate: null,
     formErrors: any,
-    registerError: boolean,
     status: string,
 
     page: string,
@@ -19,7 +18,6 @@ const initialState: IState = {
     users: [],
     userForUpdate: null,
     formErrors: {},
-    registerError: false,
     status: '',
 
     page: '1',
@@ -120,7 +118,6 @@ const userSlice = createSlice({
             })
             .addCase(registerUser.rejected, (state, action) => {
                 const {errorsFromDB} = action.payload as any;
-                state.registerError = true;
                 state.formErrors = errorsFromDB;
             })
 

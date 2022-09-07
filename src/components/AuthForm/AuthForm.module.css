@@ -18,3 +18,32 @@
     font-size: 18px;
     width: 100%;
 }
+
+.selectBox select:hover,
+.textRadio:hover {
+    cursor: pointer;
+}
+
+.selectBox {
+    font-size: 18px;
+}
+
+.selectBox select {
+    width: 300px;
+}
+.selectBox input {
+    width: 10%;
+}
+.genderContainer {
+    padding-top: 10px;
+    display: flex;
+}
+
+.genderContainer input {
+    margin-right: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 18px;
+}
