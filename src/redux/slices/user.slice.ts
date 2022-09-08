@@ -8,10 +8,6 @@ interface IState {
     userForUpdate: null,
     formErrors: any,
     status: string,
-
-    page: string,
-    perPage: string,
-    count: string,
 }
 
 const initialState: IState = {
@@ -19,17 +15,13 @@ const initialState: IState = {
     userForUpdate: null,
     formErrors: {},
     status: '',
-
-    page: '1',
-    perPage: '5',
-    count: '0',
 };
 
-const getAll = createAsyncThunk<IUser[], { page: string, perPage: string }>(
+const getAll = createAsyncThunk<IUser[], void>(
     'userSlice/getAll',
-    async ({page, perPage}, {rejectWithValue}) => {
+    async (arg, {rejectWithValue}) => {
         try {
-            const {data} = await userService.getAll(page, perPage);
+            const {data} = await userService.getAll();
             return data;
         } catch (error: any) {
             return rejectWithValue(error.response.data)
@@ -91,23 +83,12 @@ const userSlice = createSlice({
             state.users.splice(index, 1);
         },
 
-        saveQueryParams: (state, action) => {
-            state.page = action.payload.page;
-            state.perPage = action.payload.perPage;
-        },
-
-        setPerPage: (state, action) => {
-            state.perPage = action.payload.perPage;
-        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(getAll.fulfilled, (state, action) => {
-                const {page, perPage, data, count} = action.payload as any;
-                state.page = page;
-                state.perPage = perPage;
+                const {data} = action.payload as any;
                 state.users = data;
-                state.count = count;
             })
             .addCase(getAll.rejected, (state, action) => {
                 const errors = action.payload as any;
@@ -138,15 +119,13 @@ const userSlice = createSlice({
     },
 });
 
-const {reducer: userReducer, actions: {deleteUser, setUserForUpdate, saveQueryParams, setPerPage}} = userSlice;
+const {reducer: userReducer, actions: {deleteUser, setUserForUpdate}} = userSlice;
 
 const userActions = {
     deleteById,
     deleteUser,
     getAll,
     registerUser,
-    saveQueryParams,
-    setPerPage,
     setUserForUpdate,
     updateById,
 };

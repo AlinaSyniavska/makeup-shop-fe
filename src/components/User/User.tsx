@@ -1,18 +1,14 @@
-import {FC, useEffect, useRef, useState} from "react";
-import {Link, useLocation} from "react-router-dom";
+import {FC} from "react";
 
 import {IUser} from "../../interfaces";
 import './User.css';
-import {useAppDispatch} from "../../hooks";
-import {userActions} from "../../redux";
-import {Popup} from "../Popup/Popup";
 
 interface IProps {
     user: IUser,
 }
 
 const User: FC<IProps> = ({user}) => {
-    const {name, age, email, _id: idUser, phone} = user;
+/*    const {name, age, email, _id: idUser, phone} = user;
     const [isUserRoot, setUserRoot] = useState(false);
     const idLoginUser = localStorage.getItem('idLoginUser') as string;
 
@@ -35,11 +31,11 @@ const User: FC<IProps> = ({user}) => {
         if (idUser === idLoginUser) {
             setUserRoot(true);
         }
-    }, [idLoginUser])
+    }, [idLoginUser])*/
 
     return (
         <div className={'userItem'}>
-            <div>Name: {name}. Age: {age}</div>
+{/*            <div>Name: {name}. Age: {age}</div>
             <div>Phone: {phone}</div>
             <div>Email: {email}</div>
             <div>Id: {idUser}</div>
@@ -62,7 +58,7 @@ const User: FC<IProps> = ({user}) => {
                 </Link>
             }
 
-            {isOpen && <Popup user={user}/>}
+            {isOpen && <Popup user={user}/>}*/}
         </div>
     );
 };

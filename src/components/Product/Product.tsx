@@ -3,8 +3,8 @@ import {useLocation} from "react-router-dom";
 
 import {IProduct, IRating} from "../../interfaces";
 import './Product.css';
-import {productActions} from "../../redux";
-import {useAppDispatch} from "../../hooks";
+import {cartActions, productActions} from "../../redux";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 import {StarRating} from "../StarRating/StarRating";
 
 interface IProps {
@@ -16,7 +16,9 @@ const Product: FC<IProps> = ({product}) => {
     const [isProductCreate, setIsProductCreate] = useState(true);
     const [isProductAvailable, setIsProductAvailable] = useState(true);
     const {pathname} = useLocation();
+
     const dispatch = useAppDispatch();
+    const {isAuth} = useAppSelector(state => state.authReducer);
 
     const rating: IRating = {
         ratingValue: Number(product.rating),
@@ -40,7 +42,9 @@ const Product: FC<IProps> = ({product}) => {
     }, [product.total])
 
     const addToCart = () => {
+        dispatch(cartActions.addToCart({goods: product}))
 
+        // console.log(product)
     }
 
     const toUp = () => {
@@ -65,6 +69,13 @@ const Product: FC<IProps> = ({product}) => {
                 </div>
 
                 {
+                    (!isProductCreate && isAuth) &&
+                    <button disabled={!isProductAvailable} onClick={addToCart}>
+                        Buy
+                    </button>
+                }
+{/*--------------------ADMIN BUTTONS-------------------------*/}
+                {
                     isProductCreate &&
                     <button onClick={() => {
                         dispatch(productActions.setProductForUpdate({product}));
@@ -80,13 +91,6 @@ const Product: FC<IProps> = ({product}) => {
                         dispatch(productActions.deleteById({id: product._id as String}));
                     }}>
                         Delete
-                    </button>
-                }
-
-                {
-                    !isProductCreate &&
-                    <button disabled={!isProductAvailable} onClick={addToCart}>
-                        Buy
                     </button>
                 }
             </div>

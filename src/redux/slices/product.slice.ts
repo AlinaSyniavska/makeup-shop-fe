@@ -28,7 +28,6 @@ const initialState: IState = {
     categories: [],
     productForUpdate: null,
     formErrors: {},
-    // registerError: false,
     status: '',
 
     page: '1',
@@ -114,7 +113,6 @@ const updateById = createAsyncThunk<IProduct, { id: String, product: IProduct }>
         }
     }
 );
-
 
 const productSlice = createSlice({
     name: 'productSlice',

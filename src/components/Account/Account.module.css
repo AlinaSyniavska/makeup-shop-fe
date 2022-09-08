@@ -1,0 +1,18 @@
+.accountContainer {
+    font-size: 18px;
+    height: 70px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    column-gap: 30px;
+    padding: 10px 10px 0;
+}
+
+.accountContainer a {
+    color: inherit;
+}
+
+.accountContainer a:hover {
+    text-decoration: none;
+}

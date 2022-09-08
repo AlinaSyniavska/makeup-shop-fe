@@ -1,9 +1,15 @@
 .bodyWrap {
     display: flex;
     /*align-items: center;*/
-    justify-content: center;
+    justify-content: start;
 }
 
+.text {
+    width: inherit;
+    font-size: 20px;
+    position: fixed;
+    left: 25%;
+}
 
 .productContainer {
     padding: 20px;
@@ -14,6 +20,5 @@
     column-gap: 30px;
     flex-wrap: wrap;
 
-    /*border: 2px solid deeppink;*/
-    /*border-radius: 20px;*/
+    /*position: relative;*/
 }

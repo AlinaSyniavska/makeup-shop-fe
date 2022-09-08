@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {authService} from "../../services";
 import {IAuth, ILogin, IUser} from "../../interfaces";
+import {localStorageItemsEnum} from "../../constants/localStorageItems";
 
 interface IState {
     isAuth: boolean,
@@ -54,7 +55,11 @@ const authSlice = createSlice({
             state.authStatus = null;
             state.authErrors = {};
             state.logUser = {};
-            localStorage.clear();
+            // localStorage.clear();
+            localStorage.removeItem(localStorageItemsEnum.ACCESS);
+            localStorage.removeItem(localStorageItemsEnum.REFRESH);
+            localStorage.removeItem(localStorageItemsEnum.LOGIN_USER);
+            localStorage.removeItem(localStorageItemsEnum.ID_LOGIN_USER);
         },
     },
     extraReducers: (builder) => {
@@ -67,9 +72,10 @@ const authSlice = createSlice({
                 state.logUser.surname = surname;
                 state.logUser._id = _id;
 
-                localStorage.setItem('access', access_token);
-                localStorage.setItem('refresh', refresh_token);
-                localStorage.setItem('idLoginUser', _id as string);
+                localStorage.setItem(localStorageItemsEnum.ACCESS, access_token);
+                localStorage.setItem(localStorageItemsEnum.REFRESH, refresh_token);
+                localStorage.setItem(localStorageItemsEnum.LOGIN_USER, `${name} ${surname}` as string);
+                localStorage.setItem(localStorageItemsEnum.ID_LOGIN_USER, _id as string);
             })
             .addCase(login.rejected, (state, action) => {
                 state.isAuth = false;

@@ -5,7 +5,6 @@ import {useLocation, useSearchParams} from "react-router-dom";
 import {productActions} from "../../redux";
 import {Product} from "../Product/Product";
 import style from './Products.module.css';
-import {Sidebar} from "../Sidebar/Sidebar";
 
 const Products: FC = () => {
 
@@ -76,10 +75,11 @@ const Products: FC = () => {
     return (
         <div>
             <div className={style.bodyWrap}>
-                <Sidebar/>
                 <div className={style.productContainer}>
                     {
-                        products.map(product => <Product key={product._id} product={product}/>)
+                        products.length
+                            ? products.map(product => <Product key={product._id} product={product}/>)
+                            : <div className={style.text}>Sorry we couldn't find any matches for your request tags :(</div>
                     }
                 </div>
             </div>

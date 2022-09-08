@@ -6,7 +6,7 @@ import {authActions} from "./redux";
 import {AdminLayout, MainLayout} from "./layouts";
 import './App.css';
 import {
-    BrandPage,
+    BrandPage, CartPage,
     CatalogProductPage,
     CategoryPage,
     LoginPage, LogoutPage, NotFoundPage,
@@ -44,6 +44,8 @@ const App: FC = () => {
                 <Route path={'auth/login'} element={<LoginPage/>}/>
                 <Route path={'auth/logout'} element={<LogoutPage/>}/>
                 <Route path={'auth/register'} element={<RegisterPage/>}/>
+
+                <Route path={'cart'} element={<CartPage/>}/>
 
                 <Route path={'*'} element={<NotFoundPage/>}/>
             </Route>

@@ -1,0 +1,21 @@
+.userAvatarContainer {
+    height: 70px;
+    display: flex;
+    flex-direction: row-reverse;
+    column-gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userAvatar {
+    height: 50%;
+}
+
+.userAvatar > img {
+    height: 100%;
+}
+
+.userName {
+    font-style: italic;
+    font-size: 16px;
+}

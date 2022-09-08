@@ -71,7 +71,7 @@ const Header: FC = () => {
                     </Nav.Menu>
 
                     <Nav.Item href={'/auth/login'}>Login</Nav.Item>
-                    <Nav.Item href={'/auth/logout'}>Logout</Nav.Item>
+                    {/*<Nav.Item href={'/auth/logout'}>Logout</Nav.Item>*/}
                     <Nav.Item href={'/auth/register'}>Register</Nav.Item>
                 </Nav>
             </div>
