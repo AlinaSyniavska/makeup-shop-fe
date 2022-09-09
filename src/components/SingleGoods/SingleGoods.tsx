@@ -1,4 +1,4 @@
-import {FC, MouseEvent, useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 
 import {IProduct, IProductOrdered} from "../../interfaces";
 import style from './SingleGoods.module.css';
@@ -14,6 +14,7 @@ interface IProps {
 const SingleGoods: FC<IProps> = ({item, index, setTotal}) => {
 
     const [countGoods, setCountGoods] = useState<number>(1);
+    const [deletedGoods, setDeletedGoods] = useState<boolean>(false);
     const {goods, userOrder} = useAppSelector(state => state.cartReducer);
     const dispatch = useAppDispatch();
 
@@ -21,21 +22,20 @@ const SingleGoods: FC<IProps> = ({item, index, setTotal}) => {
         const order = localStorage.getItem('order');
         let orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
 
-        const singleGoods = orderFromLocalStorage.find((i: IProductOrdered) => i.productId === item._id);
-        setCountGoods(singleGoods.count);
+        if (!deletedGoods) {
+            const singleGoods = orderFromLocalStorage.find((i: IProductOrdered) => i.productId === item._id);
+            setCountGoods(singleGoods.count);
+        }
 
-        let initialValue = 0;
-        setTotal(orderFromLocalStorage.reduce(
-            (accumulator: number, currentValue: any) => {
-                console.log(accumulator)
-                console.log(currentValue.count * item.price)
-                console.log('**********')
-                return accumulator + currentValue.count * item.price
+        const partTotalArray = orderFromLocalStorage.map((item: IProductOrdered) => item.count * item.cost);
+
+        setTotal(partTotalArray.reduce(
+            (accumulator: number, currentValue: number) => {
+                return accumulator + currentValue;
             },
-            initialValue
+            0
         ));
-    }, [goods, userOrder])
-
+    }, [goods, userOrder, deletedGoods])
 
     const changeCountInc = () => {
         let curCount = countGoods;
@@ -62,16 +62,20 @@ const SingleGoods: FC<IProps> = ({item, index, setTotal}) => {
         dispatch(cartActions.changeOrder({data: {itemId: item._id, curCount}}));
     }
 
+    const changeOrderDeleteRecord = () => {
+        setDeletedGoods(true);
+        dispatch(cartActions.changeOrderDeleteRecord({data: {itemId: item._id}}));
+    }
+
     return (
         <div>
-
             <div className={style.singleGoodsContainer}>
                 <div className={style.goodsName}>
                     <p>{index + 1}.</p>
                     <p>
                         {item.name}
                         <br/>
-                        {item.brand} - {item.total}
+                        {item.brand}
                     </p>
                 </div>
 
@@ -85,24 +89,11 @@ const SingleGoods: FC<IProps> = ({item, index, setTotal}) => {
                     <div className={style.goodsPrice}>{item.price}</div>
 
                     <div className={style.goodsTotalCost}>{item.price * countGoods} {item.priceSign}</div>
+
+                    <button onClick={changeOrderDeleteRecord}>DELETE</button>
+
                 </div>
             </div>
-            {/*                {
-                    (!isProductCreate && isAuth) &&
-                    <button disabled={!isProductAvailable} onClick={addToCart}>
-                        Buy
-                    </button>
-                }*/}
-
-
-            {/*                {
-                    isProductCreate &&
-                    <button onClick={() => {
-                        dispatch(productActions.deleteById({id: product._id as String}));
-                    }}>
-                        Delete
-                    </button>
-                }*/}
         </div>
     );
 };

@@ -20,6 +20,15 @@ const Goods: FC = () => {
         setCartGoods(cartFromLocalStorage);
     }, [goods])
 
+    const makeOrder = () => {
+
+
+
+
+
+        // dispatch(cartActions.sendOrderToDB());
+    }
+
     return (
         <div>
             <div className={style.goodsContainer}>
@@ -33,7 +42,10 @@ const Goods: FC = () => {
                 }
             </div>
 
-            {total}
+            <div className={style.order}>
+                <div className={style.totalCost}>Total Cost: <span>{total.toFixed(2)}</span></div>
+                <button className={style.totalCost} onClick={makeOrder}>ORDER</button>
+            </div>
         </div>
     );
 };
