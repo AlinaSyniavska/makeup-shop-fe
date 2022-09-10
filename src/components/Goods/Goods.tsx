@@ -1,17 +1,22 @@
 import {FC, useEffect, useState} from "react";
 
-import {useAppSelector} from "../../hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 import style from './Goods.module.css';
-import {IProduct} from "../../interfaces";
+import {ICart, IProduct} from "../../interfaces";
 import {SingleGoods} from "../SingleGoods/SingleGoods";
-import {localStorageItemsEnum} from "../../constants/localStorageItems";
+import {cartStatusEnum, localStorageItemsEnum} from "../../constants";
+import {cartActions} from "../../redux";
+import {useNavigate} from "react-router-dom";
+
 
 const Goods: FC = () => {
 
-    const {goods} = useAppSelector(state => state.cartReducer);
+    const {goods, orderStatus} = useAppSelector(state => state.cartReducer);
+    const dispatch = useAppDispatch();
 
     const [cartGoods, setCartGoods] = useState<IProduct[]>([]);
-    const [total, setTotal] = useState<number>(0)
+    const [total, setTotal] = useState<number>(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const cart = localStorage.getItem(localStorageItemsEnum.CART);
@@ -21,12 +26,22 @@ const Goods: FC = () => {
     }, [goods])
 
     const makeOrder = () => {
+        const order = localStorage.getItem(localStorageItemsEnum.ORDER);
+        let orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
 
+        const orderToDB = {
+            products: orderFromLocalStorage,
+            userId: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER),
+            status: cartStatusEnum.IN_PROGRESS,
+            sum: Number(total.toFixed(2)),
+        } as ICart;
 
+        // console.log(orderToDB);
 
-
-
-        // dispatch(cartActions.sendOrderToDB());
+        dispatch(cartActions.sendOrderToDB({orderToDB}));
+        if(!orderStatus){
+            navigate('/home');
+        }
     }
 
     return (

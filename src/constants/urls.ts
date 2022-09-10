@@ -5,6 +5,7 @@ const urls = {
     login: '/auth/login',
     logout: '/auth/logout',
     refresh: '/auth/refreshToken',
+    cart: '/cart',
 }
 
 const adminUrls = {

@@ -3,7 +3,7 @@ import {FC, useEffect, useState} from "react";
 import style from "./Cart.module.css";
 import {useAppSelector} from "../../hooks";
 import {NavLink} from "react-router-dom";
-import {localStorageItemsEnum} from "../../constants/localStorageItems";
+import {localStorageItemsEnum} from "../../constants";
 import {IProductOrdered} from "../../interfaces";
 
 const Cart: FC = () => {

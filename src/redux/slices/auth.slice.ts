@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {authService} from "../../services";
 import {IAuth, ILogin, IUser} from "../../interfaces";
-import {localStorageItemsEnum} from "../../constants/localStorageItems";
+import {localStorageItemsEnum} from "../../constants";
 
 interface IState {
     isAuth: boolean,

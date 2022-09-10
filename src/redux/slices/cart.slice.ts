@@ -1,17 +1,32 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-import {IProduct, IProductOrdered} from "../../interfaces";
-import {localStorageItemsEnum} from "../../constants/localStorageItems";
+import {ICart, IProduct, IProductOrdered} from "../../interfaces";
+import {localStorageItemsEnum} from "../../constants";
+import {cartService} from "../../services";
 
 interface IState {
     goods: IProduct[],
     userOrder: IProductOrdered[],
+    orderStatus: string,
 }
 
 const initialState: IState = {
     goods: [],
     userOrder: [],
+    orderStatus: '',
 };
+
+const sendOrderToDB = createAsyncThunk<void, { orderToDB: ICart }>(
+    'cartSlice/sendOrderToDB',
+    async ({orderToDB}, {dispatch, rejectWithValue}) => {
+        try {
+            await cartService.sendToDB(orderToDB);
+            dispatch(deleteOrder());
+        } catch (e: any) {
+            return rejectWithValue({errorStatus: e.message})
+        }
+    }
+);
 
 const cartSlice = createSlice({
     name: 'cartSlice',
@@ -21,7 +36,6 @@ const cartSlice = createSlice({
             const goods = action.payload.goods;
             state.goods.push(goods);
 
-            // const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart")!) || [];
             const cart = localStorage.getItem(localStorageItemsEnum.CART);
             let cartFromLocalStorage = cart !== null ? JSON.parse(cart) : [];
             cartFromLocalStorage.push(goods);
@@ -80,19 +94,33 @@ const cartSlice = createSlice({
             localStorage.setItem(localStorageItemsEnum.CART, JSON.stringify(cartFromLocalStorage));
         },
 
+        deleteOrder: (state) => {
+            localStorage.removeItem(localStorageItemsEnum.CART);
+            localStorage.removeItem(localStorageItemsEnum.ORDER);
+            state.goods = [];
+            state.userOrder = [];
+        },
+
     },
     extraReducers: (builder) => {
-        // builder
+        builder
+            .addCase(sendOrderToDB.rejected, (state, action) => {
+                const {errorStatus} = action.payload as any;
+                state.orderStatus = errorStatus;
+                alert(state.orderStatus + '\nDear User your order has not been sent');
+            })
 
     },
 });
 
-const {reducer: cartReducer, actions: {addToCart, changeOrder, changeOrderDeleteRecord}} = cartSlice;
+const {reducer: cartReducer, actions: {addToCart, changeOrder, changeOrderDeleteRecord, deleteOrder}} = cartSlice;
 
 const cartActions = {
     addToCart,
     changeOrder,
     changeOrderDeleteRecord,
+    deleteOrder,
+    sendOrderToDB,
 };
 
 export {
