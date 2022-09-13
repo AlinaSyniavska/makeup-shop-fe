@@ -13,6 +13,7 @@ let isRefreshing = false;
 axiosService.interceptors.request.use((config: AxiosRequestConfig) => {
     const access = localStorage.getItem('access') as string;
     const refresh = localStorage.getItem('refresh') as string;
+
     if (access) {
         if (refresh && isRefreshing) {
             config.headers = {

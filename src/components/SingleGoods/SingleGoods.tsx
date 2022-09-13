@@ -24,7 +24,7 @@ const SingleGoods: FC<IProps> = ({item, index, setTotal}) => {
 
         if (!deletedGoods) {
             const singleGoods = orderFromLocalStorage.find((i: IProductOrdered) => i.productId === item._id);
-            setCountGoods(singleGoods.count);
+            setCountGoods(singleGoods?.count);
         }
 
         const partTotalArray = orderFromLocalStorage.map((item: IProductOrdered) => item.count * item.cost);
@@ -88,7 +88,7 @@ const SingleGoods: FC<IProps> = ({item, index, setTotal}) => {
 
                     <div className={style.goodsPrice}>{item.price}</div>
 
-                    <div className={style.goodsTotalCost}>{item.price * countGoods} {item.priceSign}</div>
+                    <div className={style.goodsTotalCost}>{(item.price * countGoods).toFixed(2)} {item.priceSign}</div>
 
                     <button onClick={changeOrderDeleteRecord}>DELETE</button>
 

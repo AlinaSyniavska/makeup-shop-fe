@@ -43,7 +43,18 @@ const Pages: FC = () => {
             }
         }
 
-        setQuery({page: `${curPage}`, perPage: `${perPage}`, sortOrder: `${sortOrder}`, filterBy: `${filterBy.join(';')}`});
+        setQuery({
+            page: `${curPage}`,
+            perPage: `${perPage}`,
+            sortOrder: `${sortOrder}`,
+            filterBy: `${filterBy.join(';')}`
+        });
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     return (

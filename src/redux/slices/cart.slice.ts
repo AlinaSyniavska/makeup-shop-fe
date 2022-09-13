@@ -21,9 +21,9 @@ const sendOrderToDB = createAsyncThunk<void, { orderToDB: ICart }>(
     async ({orderToDB}, {dispatch, rejectWithValue}) => {
         try {
             await cartService.sendToDB(orderToDB);
-            dispatch(deleteOrder());
+            await dispatch(deleteOrder());
         } catch (e: any) {
-            return rejectWithValue({errorStatus: e.message})
+            return rejectWithValue({errorStatus: e.message, err: e.response.data.error})
         }
     }
 );
@@ -95,19 +95,23 @@ const cartSlice = createSlice({
         },
 
         deleteOrder: (state) => {
+            window.location.href = '/home';
+
             localStorage.removeItem(localStorageItemsEnum.CART);
             localStorage.removeItem(localStorageItemsEnum.ORDER);
             state.goods = [];
             state.userOrder = [];
+            state.orderStatus = '';
         },
 
     },
     extraReducers: (builder) => {
         builder
             .addCase(sendOrderToDB.rejected, (state, action) => {
-                const {errorStatus} = action.payload as any;
+                const {errorStatus, err} = action.payload as any;
                 state.orderStatus = errorStatus;
-                alert(state.orderStatus + '\nDear User your order has not been sent');
+
+                alert(state.orderStatus + '\nDear User your order has not been sent.\n' + err);
             })
 
     },

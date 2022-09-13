@@ -6,17 +6,14 @@ import {ICart, IProduct} from "../../interfaces";
 import {SingleGoods} from "../SingleGoods/SingleGoods";
 import {cartStatusEnum, localStorageItemsEnum} from "../../constants";
 import {cartActions} from "../../redux";
-import {useNavigate} from "react-router-dom";
-
 
 const Goods: FC = () => {
 
-    const {goods, orderStatus} = useAppSelector(state => state.cartReducer);
+    const {goods} = useAppSelector(state => state.cartReducer);
     const dispatch = useAppDispatch();
 
     const [cartGoods, setCartGoods] = useState<IProduct[]>([]);
     const [total, setTotal] = useState<number>(0);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const cart = localStorage.getItem(localStorageItemsEnum.CART);
@@ -25,7 +22,8 @@ const Goods: FC = () => {
         setCartGoods(cartFromLocalStorage);
     }, [goods])
 
-    const makeOrder = () => {
+    const makeOrder = async () => {
+        // await dispatch(cartActions.cleanOrderStatus());
         const order = localStorage.getItem(localStorageItemsEnum.ORDER);
         let orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
 
@@ -38,10 +36,7 @@ const Goods: FC = () => {
 
         // console.log(orderToDB);
 
-        dispatch(cartActions.sendOrderToDB({orderToDB}));
-        if(!orderStatus){
-            navigate('/home');
-        }
+        await dispatch(cartActions.sendOrderToDB({orderToDB}));
     }
 
     return (
