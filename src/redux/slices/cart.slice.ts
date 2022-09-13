@@ -89,7 +89,9 @@ const cartSlice = createSlice({
             singleGoodsIndex = cartFromLocalStorage.findIndex((i: IProduct) => i._id === itemId);
             cartFromLocalStorage.splice(singleGoodsIndex, 1);
 
-            state.goods.splice(singleGoodsIndex, 1);
+            // state.goods.splice(singleGoodsIndex, 1);
+            state.goods = [];
+            state.goods = Object.assign([...cartFromLocalStorage]);
 
             localStorage.setItem(localStorageItemsEnum.CART, JSON.stringify(cartFromLocalStorage));
         },
