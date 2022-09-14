@@ -6,7 +6,6 @@ import style from './Sidebar.module.css'
 
 const Sidebar: FC = () => {
 
-
     return (
         <div className={style.wrap}>
             <SortComponent/>

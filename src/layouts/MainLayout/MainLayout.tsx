@@ -17,9 +17,10 @@ const MainLayout: FC = () => {
     return (
         <div className={style.bodyWrap}>
             <div className={style.wrap}>
-                <Header/>
-
-                <Account/>
+                <div className={style.fixHeader}>
+                    <Header/>
+                    <Account/>
+                </div>
 
                 <Outlet/>
                 {
