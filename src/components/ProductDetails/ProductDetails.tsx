@@ -1,0 +1,91 @@
+import React, {FC, useEffect, useState} from "react";
+
+import {IProduct, IRating} from "../../interfaces";
+import style from './ProductDetails.module.css';
+import {StarRating} from "../StarRating/StarRating";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {cartActions} from "../../redux";
+
+interface IProps {
+    singleProduct: IProduct,
+}
+
+const ProductDetails: FC<IProps> = ({singleProduct}) => {
+    const {name, brand, productType, total, price, priceSign, rating, imageLink, tagList, description} = singleProduct;
+
+    const {isAuth} = useAppSelector(state => state.authReducer);
+    const dispatch = useAppDispatch();
+    const [isProductAvailable, setIsProductAvailable] = useState(true);
+
+    const productRating: IRating = {
+        ratingValue: Number(rating),
+        iconsCount: 5,
+        size: 20,
+        readonly: true,
+        fillColor: 'lightpink',
+        emptyColor: '#999999',
+    }
+
+    useEffect(() => {
+        if (total > 0) {
+            setIsProductAvailable(true);
+        } else {
+            setIsProductAvailable(false);
+        }
+    }, [])
+
+    const addToCart = () => {
+        dispatch(cartActions.addToCart({goods: singleProduct}));
+    }
+
+    return (
+        <div>
+
+            <div className={style.singleProductContainer}>
+                <div className={style.sectionInfo}>
+                    <div className={style.headerContainer}>
+                        <p className={`${style.smallText} ${style.colorText}`}>{brand}
+                            <span className={style.greyText}> / {productType}</span>
+                        </p>
+                        <p className={style.largeText}>{name}</p>
+                        <StarRating ratingProps={productRating}/>
+                    </div>
+                    <div className={style.mainContainer}>
+                        <p className={style.regularText}>
+                            <span className={style.boldText}>Description: </span>
+                            {description}
+                        </p>
+                        <p className={style.regularText}>
+                            <span className={style.boldText}>Classification: </span>
+                            {tagList?.join(', ')}
+                        </p>
+                    </div>
+                </div>
+
+                <div className={style.sectionImg}>
+                    <img src={imageLink} alt={name}/>
+                </div>
+
+                <div className={style.sectionPrice}>
+                    <div className={style.headerContainer}>
+                        <p className={`${style.largePlusText} ${style.colorText} ${style.boldText}`}>{price} {priceSign}</p>
+                        <p className={`${style.largeText} ${style.boldText}`}>Total: {total}</p>
+                    </div>
+                    <div className={style.mainContainer}>
+                    {
+                        isAuth &&
+                        <button disabled={!isProductAvailable} onClick={addToCart}>
+                            Buy
+                        </button>
+                    }
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    );
+};
+
+export {ProductDetails};

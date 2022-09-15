@@ -1,5 +1,5 @@
-import {FC, useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
+import React, {FC, useEffect, useState} from "react";
+import {Link, useLocation} from "react-router-dom";
 
 import {IProduct, IRating} from "../../interfaces";
 import './Product.css';
@@ -23,7 +23,7 @@ const Product: FC<IProps> = ({product}) => {
     const rating: IRating = {
         ratingValue: Number(product.rating),
         iconsCount: 5,
-        size:20,
+        size: 20,
         readonly: true,
         fillColor: 'lightpink',
         emptyColor: '#999999',
@@ -42,7 +42,7 @@ const Product: FC<IProps> = ({product}) => {
     }, [product.total])
 
     const addToCart = () => {
-        dispatch(cartActions.addToCart({goods: product}))
+        dispatch(cartActions.addToCart({goods: product}));
 
         // console.log(product)
     }
@@ -55,45 +55,66 @@ const Product: FC<IProps> = ({product}) => {
         });
     }
 
+    const checkPath = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        // console.log(event.target);
+
+        const btns = document.getElementsByClassName('btnBuy');
+        let btnElement;
+
+        for (let i = 0; i < btns.length; i++) {
+            if(btns[i] === event.target){
+                btnElement = btns[i];
+            }
+        }
+
+        if (isProductCreate || event.target === btnElement) {
+            event.preventDefault();
+        }
+    }
+
     return (
         <div>
-            <div aria-disabled={!isProductAvailable} className={'product_wrap'}>
-                <div className={'product'}>
-                    <div className={'product_img'}>
-                        <img src={product.imageLink} alt={product.name}/>
+
+            <Link to={`/product/${product._id}`} onClick={checkPath} state={product}>
+                <div aria-disabled={!isProductAvailable} className={'product_wrap'}>
+                    <div className={'product'}>
+                        <div className={'product_img'}>
+                            <img src={product.imageLink} alt={product.name}/>
+                        </div>
+                        <StarRating ratingProps={rating}/>
+                        <p className={'product_name'}>{product.name}</p>
+                        <p className={'product_brand'}>{product.brand}</p>
+                        <p className={'product_price'}>{product.price} {product.priceSign}</p>
                     </div>
-                    <StarRating ratingProps={rating}/>
-                    <p className={'product_name'}>{product.name}</p>
-                    <p className={'product_brand'}>{product.brand}</p>
-                    <p className={'product_price'}>{product.price} {product.priceSign}</p>
+
+                    {
+                        (!isProductCreate && isAuth) &&
+                        <button className={'btnBuy'} disabled={!isProductAvailable} onClick={addToCart}>
+                            Buy
+                        </button>
+                    }
+                    {/*--------------------ADMIN BUTTONS-------------------------*/}
+                    {
+                        isProductCreate &&
+                        <button onClick={() => {
+                            dispatch(productActions.setProductForUpdate({product}));
+                            toUp();
+                        }}>
+                            Update
+                        </button>
+                    }
+
+                    {
+                        isProductCreate &&
+                        <button onClick={() => {
+                            dispatch(productActions.deleteById({id: product._id as String}));
+                        }}>
+                            Delete
+                        </button>
+                    }
                 </div>
+            </Link>
 
-                {
-                    (!isProductCreate && isAuth) &&
-                    <button disabled={!isProductAvailable} onClick={addToCart}>
-                        Buy
-                    </button>
-                }
-{/*--------------------ADMIN BUTTONS-------------------------*/}
-                {
-                    isProductCreate &&
-                    <button onClick={() => {
-                        dispatch(productActions.setProductForUpdate({product}));
-                        toUp();
-                    }}>
-                        Update
-                    </button>
-                }
-
-                {
-                    isProductCreate &&
-                    <button onClick={() => {
-                        dispatch(productActions.deleteById({id: product._id as String}));
-                    }}>
-                        Delete
-                    </button>
-                }
-            </div>
         </div>
     );
 };

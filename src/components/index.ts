@@ -16,6 +16,7 @@ export * from './Header/Header';
 export * from './Pages/Pages';
 export * from './Pagination/Pagination';
 export * from './Product/Product';
+export * from './ProductDetails/ProductDetails';
 export * from './Products/Products';
 export * from './RegisterForm/RegisterForm';
 export * from './SelectPerPageForm/SelectPerPageForm';

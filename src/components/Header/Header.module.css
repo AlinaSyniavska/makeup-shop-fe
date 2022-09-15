@@ -1,6 +1,5 @@
 .headerContainer {
     /*width: 100%;*/
-    width: 1200px;
     border-radius: 6px;
     background: lightpink;
     padding: 0;
@@ -8,9 +7,6 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-
-/*    position: fixed;
-    z-index: 100;*/
 }
 
 .headerContainer > a{
