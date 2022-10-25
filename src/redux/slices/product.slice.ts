@@ -6,6 +6,7 @@ import {ratingEnum, urlGetData} from "../../constants";
 
 interface IState {
     products: IProduct[],
+    productDetails: Partial<IProduct>,
     brands: IItem[],
     productTypes: IItem[],
     categories: IItem[],
@@ -23,6 +24,7 @@ interface IState {
 
 const initialState: IState = {
     products: [],
+    productDetails: {},
     brands: [],
     productTypes: [],
     categories: [],
@@ -59,6 +61,18 @@ const getAtUrl = createAsyncThunk<IProduct[], { params: Partial<IQueryParams>, u
             return data;
         } catch (error: any) {
             return rejectWithValue(error.response.data)
+        }
+    }
+);
+
+const getById = createAsyncThunk<IProduct, { id: String }>(
+    'productSlice/getById',
+    async ({id}, {rejectWithValue}) => {
+        try {
+            const {data} = await productService.getById(id);
+            return data;
+        } catch (e: any) {
+            return rejectWithValue({errorStatus: e.message})
         }
     }
 );
@@ -161,6 +175,14 @@ const productSlice = createSlice({
                 const errors = action.payload as any;
                 console.log(errors);
             })
+            .addCase(getById.fulfilled, (state, action) => {
+                const {product} = action.payload as any;
+                state.productDetails = product;
+            })
+            .addCase(getById.rejected, (state, action) => {
+                const {errorStatus} = action.payload as any;
+                state.status = errorStatus;
+            })
             .addCase(getData.fulfilled, (state, action) => {
                 const {data} = action.payload as IItems;
                 switch (urlForGetData) {
@@ -214,6 +236,7 @@ const productActions = {
     deleteProduct,
     getAll,
     getAtUrl,
+    getById,
     getData,
     saveQueryParams,
     setPerPage,

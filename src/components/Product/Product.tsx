@@ -75,7 +75,7 @@ const Product: FC<IProps> = ({product}) => {
     return (
         <div>
 
-            <Link to={`/product/${product._id}`} onClick={checkPath} state={product}>
+            <Link to={`/home/product/${product._id}`} onClick={checkPath} state={product}>
                 <div aria-disabled={!isProductAvailable} className={'product_wrap'}>
                     <div className={'product'}>
                         <div className={'product_img'}>
