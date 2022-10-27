@@ -43,8 +43,6 @@ const Product: FC<IProps> = ({product}) => {
 
     const addToCart = () => {
         dispatch(cartActions.addToCart({goods: product}));
-
-        // console.log(product)
     }
 
     const toUp = () => {
@@ -56,8 +54,6 @@ const Product: FC<IProps> = ({product}) => {
     }
 
     const checkPath = (event: React.MouseEvent<HTMLAnchorElement>) => {
-        // console.log(event.target);
-
         const btns = document.getElementsByClassName('btnBuy');
         let btnElement;
 
@@ -70,12 +66,12 @@ const Product: FC<IProps> = ({product}) => {
         if (isProductCreate || event.target === btnElement) {
             event.preventDefault();
         }
+
     }
 
     return (
         <div>
-
-            <Link to={`/home/product/${product._id}`} onClick={checkPath} state={product}>
+            <Link to={`/home/product/${product._id}`} target="_blank" onClick={checkPath}>
                 <div aria-disabled={!isProductAvailable} className={'product_wrap'}>
                     <div className={'product'}>
                         <div className={'product_img'}>

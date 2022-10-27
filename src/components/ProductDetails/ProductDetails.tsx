@@ -12,7 +12,6 @@ interface IProps {
 
 const ProductDetails: FC<IProps> = ({singleProduct}) => {
     const {name, brand, productType, total, price, priceSign, rating, imageLink, tagList, description} = singleProduct;
-
     const {isAuth} = useAppSelector(state => state.authReducer);
     const dispatch = useAppDispatch();
     const [isProductAvailable, setIsProductAvailable] = useState(true);
@@ -82,7 +81,6 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
                 </div>
 
             </div>
-
 
         </div>
     );

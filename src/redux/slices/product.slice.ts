@@ -6,7 +6,7 @@ import {ratingEnum, urlGetData} from "../../constants";
 
 interface IState {
     products: IProduct[],
-    productDetails: Partial<IProduct>,
+    productDetails: IProduct | null,
     brands: IItem[],
     productTypes: IItem[],
     categories: IItem[],
@@ -24,7 +24,7 @@ interface IState {
 
 const initialState: IState = {
     products: [],
-    productDetails: {},
+    productDetails: null,
     brands: [],
     productTypes: [],
     categories: [],
@@ -176,8 +176,7 @@ const productSlice = createSlice({
                 console.log(errors);
             })
             .addCase(getById.fulfilled, (state, action) => {
-                const {product} = action.payload as any;
-                state.productDetails = product;
+                state.productDetails = action.payload as any;
             })
             .addCase(getById.rejected, (state, action) => {
                 const {errorStatus} = action.payload as any;
