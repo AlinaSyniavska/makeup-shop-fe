@@ -1,6 +1,3 @@
-export * from './User/User';
-export * from './Popup/Popup';
-
 export * from './Account/Account';
 export * from './AdminHeader/AdminHeader';
 export * from './AuthForm/AuthForm';
@@ -24,6 +21,8 @@ export * from './Sidebar/Sidebar';
 export * from './SingleGoods/SingleGoods';
 export * from './SortComponent/SortComponent';
 export * from './StarRating/StarRating';
+export * from './User/User';
 export * from './UserAvatar/UserAvatar';
 
 // export * from '';
+export * from './Popup/Popup';

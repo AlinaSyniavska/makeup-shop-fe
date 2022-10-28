@@ -12,8 +12,9 @@ import {
     LoginPage, LogoutPage, NotFoundPage, ProductDetailsPage,
     ProductPage,
     ProductTypePage,
-    RegisterPage
+    RegisterPage, UserDetailsPage
 } from "./pages";
+import {RequireAuth} from "./hoc";
 
 const App: FC = () => {
 
@@ -48,6 +49,9 @@ const App: FC = () => {
                 <Route path={'auth/register'} element={<RegisterPage/>}/>
 
                 <Route path={'cart'} element={<CartPage/>}/>
+
+                <Route path={'users/:id'} element={<RequireAuth><UserDetailsPage/></RequireAuth>}>
+                </Route>
 
                 <Route path={'*'} element={<NotFoundPage/>}/>
             </Route>

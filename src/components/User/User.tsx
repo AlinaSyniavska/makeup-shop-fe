@@ -1,46 +1,27 @@
-import {FC} from "react";
+import {FC, useRef} from "react";
 
 import {IUser} from "../../interfaces";
-import './User.css';
+import style from './User.module.css';
 
 interface IProps {
     user: IUser,
 }
 
 const User: FC<IProps> = ({user}) => {
-/*    const {name, age, email, _id: idUser, phone} = user;
-    const [isUserRoot, setUserRoot] = useState(false);
-    const idLoginUser = localStorage.getItem('idLoginUser') as string;
+    const {name, surname, gender, age, email, phone} = user;
 
-    const dispatch = useAppDispatch();
-
-    const btnDel = useRef<HTMLButtonElement>(null);
     const btnUpdate = useRef<HTMLButtonElement>(null);
 
-    const [isOpen, setIsOpen] = useState(false);
-
-    const location = useLocation();
-    // console.log(location.search);
-
-    const togglePopup = () => {
-        setIsOpen(!isOpen);
-        setUserRoot(false);
-    }
-
-    useEffect(() => {
-        if (idUser === idLoginUser) {
-            setUserRoot(true);
-        }
-    }, [idLoginUser])*/
-
     return (
-        <div className={'userItem'}>
-{/*            <div>Name: {name}. Age: {age}</div>
+        <div className={style.userItem}>
+
+            <div>Name: {name} {surname}</div>
+            <div>Age: {age}</div>
+            <div>Gender: {gender}</div>
             <div>Phone: {phone}</div>
             <div>Email: {email}</div>
-            <div>Id: {idUser}</div>
 
-            {
+            {/*           {
                 isUserRoot && <button ref={btnDel} onClick={() => {
                     // dispatch(userActions.deleteById({id: idUser as String}));
                     togglePopup();

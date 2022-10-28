@@ -9,11 +9,13 @@ const MainLayout: FC = () => {
     const [isAuthPath, setIsAuthPath] = useState<boolean>(false);
     const [isCartPath, setIsCartPath] = useState<boolean>(false);
     const [isSingleProductPath, setIsSingleProductPath] = useState<boolean>(false);
+    const [isUserDetailsPath, setIsUserDetailsPath] = useState<boolean>(false);
 
     useEffect(() => {
         pathname.includes('/auth') ? setIsAuthPath(true) : setIsAuthPath(false);
         pathname.includes('/cart') ? setIsCartPath(true) : setIsCartPath(false);
         pathname.includes('/product') ? setIsSingleProductPath(true) : setIsSingleProductPath(false);
+        pathname.includes('/users') ? setIsUserDetailsPath(true) : setIsUserDetailsPath(false);
     }, [pathname])
 
     return (
@@ -26,7 +28,7 @@ const MainLayout: FC = () => {
 
                 <Outlet/>
                 {
-                    (!isAuthPath && !isCartPath && !isSingleProductPath) && <Pagination/>
+                    (!isAuthPath && !isCartPath && !isSingleProductPath && !isUserDetailsPath) && <Pagination/>
                 }
             </div>
         </div>

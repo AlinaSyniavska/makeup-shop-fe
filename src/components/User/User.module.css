@@ -1,6 +1,7 @@
 .userItem {
     margin-bottom: 20px;
-    background: beige;
+    width: inherit;
+    font-size: 18px;
 }
 
 .userItem > button:hover {

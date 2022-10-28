@@ -5,6 +5,7 @@ import {userService} from "../../services";
 
 interface IState {
     users: IUser[],
+
     userForUpdate: null,
     formErrors: any,
     status: string,
@@ -29,6 +30,18 @@ const getAll = createAsyncThunk<IUser[], void>(
     }
 );
 
+const getById = createAsyncThunk<IUser, { id: String }>(
+    'userSlice/getById',
+    async ({id}, {rejectWithValue}) => {
+        try {
+            const {data} = await userService.getById(id);
+            return data;
+        } catch (error: any) {
+            return rejectWithValue({errorsFromDB: error.response.data})
+        }
+    }
+);
+
 const registerUser = createAsyncThunk<IUser, { user: IUser }>(
     'userSlice/registerUser',
     async ({user}, {rejectWithValue}) => {
@@ -42,15 +55,14 @@ const registerUser = createAsyncThunk<IUser, { user: IUser }>(
     }
 );
 
-
 const deleteById = createAsyncThunk<void, { id: String }>(
     'userSlice/deleteById',
     async ({id}, {dispatch, rejectWithValue}) => {
         try {
             await userService.delete(id);
             dispatch(deleteUser(id));
-        } catch (e: any) {
-            return rejectWithValue({errorStatus: e.message})
+        } catch (error: any) {
+            return rejectWithValue({errorStatus: error.message})
         }
     }
 );
@@ -63,8 +75,8 @@ const updateById = createAsyncThunk<IUser, { id: String, user: IUser }>(
             console.log(data);
 
             return data;
-        } catch (e: any) {
-            return rejectWithValue({errorStatus: e.message})
+        } catch (error: any) {
+            return rejectWithValue({errorStatus: error.message})
         }
     }
 );
@@ -101,7 +113,14 @@ const userSlice = createSlice({
                 const {errorsFromDB} = action.payload as any;
                 state.formErrors = errorsFromDB;
             })
-
+            .addCase(getById.fulfilled, (state, action) => {
+                console.log(action.payload);
+                state.formErrors = {};
+            })
+            .addCase(getById.rejected, (state, action) => {
+                const {errorsFromDB} = action.payload as any;   //{error: '', code: number}
+                state.formErrors = errorsFromDB;
+            })
             .addCase(deleteById.rejected, (state, action) => {
                 const {errorStatus} = action.payload as any;
                 state.status = errorStatus;
@@ -125,6 +144,7 @@ const userActions = {
     deleteById,
     deleteUser,
     getAll,
+    getById,
     registerUser,
     setUserForUpdate,
     updateById,

@@ -5,15 +5,18 @@ import {UserAvatar} from "../UserAvatar/UserAvatar";
 import {Cart} from "../Cart/Cart";
 import style from './Account.module.css';
 import {useAppSelector} from "../../hooks";
+import {localStorageItemsEnum} from "../../constants";
 
 const Account: FC = () => {
 
     const {isAuth} = useAppSelector(state => state.authReducer);
+    const idUser = localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER);
 
     return (
         <div>
             <div className={style.accountContainer} aria-disabled={!isAuth}>
-                <UserAvatar/>
+                <NavLink to={`users/${idUser}`}><UserAvatar/></NavLink>
+                {/*<UserAvatar/>*/}
                 <Cart/>
                 <NavLink hidden={!isAuth} to="auth/logout">Logout</NavLink>
             </div>
