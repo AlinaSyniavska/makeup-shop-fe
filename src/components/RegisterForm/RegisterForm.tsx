@@ -59,9 +59,15 @@ const RegisterForm: FC = () => {
             } else {
                 if (userForUpdate) {
                     const {_id} = userForUpdate;
+
                     await dispatch(userActions.updateById({id: _id, user: updatedUser}));
-                    // navigate('/users' + location.search, {state: updatedUser});
                     reset();
+
+                    window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth'
+                    });
                 }
             }
         } catch (e: any) {
@@ -81,14 +87,14 @@ const RegisterForm: FC = () => {
                     <input type={'text'} placeholder={'name  '} {...register('name')}/>
                 </label>
             </div>
-            {errors.name && <span>{errors.name.message}</span>}
+            {errors.name && <span className={style.error}>{errors.name.message}</span>}
 
             <div>
                 <label>Surname
                     <input type={'text'} placeholder={'surname  '} {...register('surname')}/>
                 </label>
             </div>
-            {errors.name && <span>{errors.name.message}</span>}
+            {errors.surname && <span className={style.error}>{errors.surname.message}</span>}
 
             <div className={style.selectBox}>Gender
                 <div className={style.genderContainer}>
@@ -103,28 +109,28 @@ const RegisterForm: FC = () => {
                     </label>
                 </div>
             </div>
-            {errors.gender && <span>{errors.gender.message}</span>}
+            {errors.gender && <span className={style.error}>{errors.gender.message}</span>}
 
             <div>
                 <label>Phone
                     <input type={'tel'} placeholder={'phone  '} {...register('phone')}/>
                 </label>
             </div>
-            {errors.phone && <span>{errors.phone.message}</span>}
+            {errors.phone && <span className={style.error}>{errors.phone.message}</span>}
 
             <div>
                 <label>Age
                     <input type={'number'} placeholder={'age  '} {...register('age')}/>
                 </label>
             </div>
-            {errors.age && <span>{errors.age.message}</span>}
+            {errors.age && <span className={style.error}>{errors.age.message}</span>}
 
             <div>
                 <label>Email
                     <input type={'email'} placeholder={'email  '} {...register('email')} disabled={!isRegister}/>
                 </label>
             </div>
-            {errors.email && <span>{errors.email.message}</span>}
+            {errors.email && <span className={style.error}>{errors.email.message}</span>}
 
             {
                 isRegister &&
@@ -135,9 +141,9 @@ const RegisterForm: FC = () => {
                     </label>
                 </div>
             }
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && <span className={style.error}>{errors.password.message}</span>}
 
-            <button disabled={!isValid && isRegister}>{userForUpdate ? 'Save Update' : 'Register'}</button>
+            <button className={style.btnRegister} disabled={!isValid && isRegister}>{userForUpdate ? 'Save Update' : 'Register'}</button>
             {/*<button disabled={!isValid}>{userForUpdate ? 'Save Update' : 'Register'}</button>*/}
         </form>
     );

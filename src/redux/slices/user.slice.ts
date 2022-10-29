@@ -72,15 +72,12 @@ const updateById = createAsyncThunk<IUser, { id: String, user: IUser }>(
     async ({id, user}, {rejectWithValue}) => {
         try {
             const {data} = await userService.update(id, user);
-            console.log(data);
-
             return data;
         } catch (error: any) {
-            return rejectWithValue({errorStatus: error.message})
+            return rejectWithValue({errorStatus: error.response.data})
         }
     }
 );
-
 
 const userSlice = createSlice({
     name: 'userSlice',

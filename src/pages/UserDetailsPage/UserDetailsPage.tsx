@@ -9,7 +9,7 @@ import style from './UserDetailsPage.module.css'
 
 const UserDetailsPage: FC = () => {
     const dispatch = useAppDispatch();
-    const {formErrors} = useAppSelector(state => state.userReducer);
+    const {formErrors, userForUpdate} = useAppSelector(state => state.userReducer);
 
     const [logUser, setLogUser] = useState<IUser>();
     const [logErrors, setLogErrors] = useState<string>('');
@@ -17,7 +17,7 @@ const UserDetailsPage: FC = () => {
 
     useEffect(() => {
         dispatch(userActions.getById({id: idUser})).then((data) => setLogUser(data.payload as IUser));
-    }, [])
+    }, [userForUpdate])
 
     useEffect(() => {
         setLogErrors(formErrors.error);
@@ -26,11 +26,12 @@ const UserDetailsPage: FC = () => {
     return (
         <div className={style.userDetailsContainer}>
             <h2>User Info</h2>
+            <hr/>
             {
                 logErrors && <div className={style.errorMsg}>{logErrors}</div>
             }
             {
-                !logErrors && <User user={logUser as IUser}/>
+                !logErrors && logUser && <User user={logUser as IUser}/>
             }
         </div>
     );

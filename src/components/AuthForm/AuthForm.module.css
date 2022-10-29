@@ -1,5 +1,12 @@
 .authForm {
     width: 300px;
+    margin-bottom: 50px;
+
+    margin-top: 20px;
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
 }
 
 .authForm label,
@@ -47,3 +54,8 @@
     color: red;
     font-size: 18px;
 }
+
+.btnRegister {
+    width: 200px;
+}
+

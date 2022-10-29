@@ -9,11 +9,11 @@ import {useAppDispatch, useAppSelector} from "../../hooks";
 import {productActions} from "../../redux";
 import {priceSignEnum, tags, urlGetData} from "../../constants";
 import {productService} from "../../services";
-import './CreateProductForm.css';
+import style from './CreateProductForm.module.css';
 
 const CreateProductForm: FC = () => {
 
-    const {register, reset, setValue, handleSubmit, formState: {errors, isValid}} = useForm<IProduct>({
+    const {register, reset, setValue, handleSubmit, formState: {errors}} = useForm<IProduct>({
         resolver: joiResolver(productValidator),
         mode: "all"
     });
@@ -120,18 +120,18 @@ const CreateProductForm: FC = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(submitForm)}>
+        <form className={style.createProductForm} onSubmit={handleSubmit(submitForm)}>
             {/*name*/}
             <div>
-                <label><span className={'labelTitle'}>Name</span>
+                <label><span className={style.labelTitle}>Name</span>
                     <input type={'text'} placeholder={'name  '} {...register('name')}/>
                 </label>
             </div>
             {errors.name && <span>{errors.name.message}</span>}
 
             {/*brand*/}
-            <div className={'selectBox'}>
-                <label><span className={'labelTitle'}>Select Brand</span>
+            <div className={style.selectBox}>
+                <label><span className={style.labelTitle}>Select Brand</span>
                     <select id={'brand'} {...register('brand')} defaultValue={brands[0]?.name}>
                         {
                             brands.map(item => <option key={item._id} value={item.name}>{item.name}</option>)
@@ -141,8 +141,8 @@ const CreateProductForm: FC = () => {
             </div>
 
             {/*productType*/}
-            <div className={'selectBox'}>
-                <label><span className={'labelTitle'}>Select Product Type</span>
+            <div className={style.selectBox}>
+                <label><span className={style.labelTitle}>Select Product Type</span>
                     <select id={'productType'} {...register('productType')} defaultValue={productTypes[0]?.name}>
                         {
                             productTypes.map(item => <option key={item._id} value={item.name}>{item.name}</option>)
@@ -152,8 +152,8 @@ const CreateProductForm: FC = () => {
             </div>
 
             {/*category*/}
-            <div className={'selectBox'}>
-                <label><span className={'labelTitle'}>Select Category</span>
+            <div className={style.selectBox}>
+                <label><span className={style.labelTitle}>Select Category</span>
                     <select id={'category'} {...register('category')} defaultValue={categories[0]?.name}>
                         {
                             categories.map(item => <option key={item._id} value={item.name}>{item.name}</option>)
@@ -164,24 +164,24 @@ const CreateProductForm: FC = () => {
 
             {/*price*/}
             <div>
-                <label><span className={'labelTitle'}>Price</span>
+                <label><span className={style.labelTitle}>Price</span>
                     <input type={'text'} placeholder={'price  '} {...register('price', {valueAsNumber: true})}/>
                 </label>
             </div>
             {errors.price && <span>{errors.price.message}</span>}
 
             {/*priceSign*/}
-            <div className={'selectBox'}>
-                <label><span className={'labelTitle'}>Select Price Sign</span>
+            <div className={style.selectBox}>
+                <label><span className={style.labelTitle}>Select Price Sign</span>
                     <label className={'textRadio'}>
                         <input type={'radio'} value={priceSignEnum.USD} defaultChecked {...register('priceSign')}/>
                         {priceSignEnum.USD}
                     </label>
-                    <label className={'textRadio'}>
+                    <label className={style.textRadio}>
                         <input type={'radio'} value={priceSignEnum.UAN} {...register('priceSign')}/>
                         {priceSignEnum.UAN}
                     </label>
-                    <label className={'textRadio'}>
+                    <label className={style.textRadio}>
                         <input type={'radio'} value={priceSignEnum.EUR} {...register('priceSign')}/>
                         {priceSignEnum.EUR}
                     </label>
@@ -191,7 +191,7 @@ const CreateProductForm: FC = () => {
 
             {/*total*/}
             <div>
-                <label><span className={'labelTitle'}>Total Number</span>
+                <label><span className={style.labelTitle}>Total Number</span>
                     <input type={'text'} placeholder={'total number  '} {...register('total', {valueAsNumber: true})}/>
                 </label>
             </div>
@@ -199,7 +199,7 @@ const CreateProductForm: FC = () => {
 
             {/*imageLink*/}
             <div>
-                <label><span className={'labelTitle'}>Image Link</span>
+                <label><span className={style.labelTitle}>Image Link</span>
                     <input type={'text'} placeholder={'Image Link  '} {...register('imageLink')}/>
                 </label>
             </div>
@@ -207,32 +207,32 @@ const CreateProductForm: FC = () => {
 
             {/*description*/}
             <div>
-                <label><span className={'labelTitle'}>Description</span>
+                <label><span className={style.labelTitle}>Description</span>
                     <textarea {...register('description')}></textarea>
                 </label>
             </div>
             {errors.description && <span>{errors.description.message}</span>}
 
             {/*rating*/}
-            <div className={'selectBox'}>
-                <label><span className={'labelTitle'}>Select Rating</span>
-                    <label className={'textRadio'}>
+            <div className={style.selectBox}>
+                <label><span className={style.labelTitle}>Select Rating</span>
+                    <label className={style.textRadio}>
                         <input type={'radio'} value={'1'} {...register('rating')}/>
                         1
                     </label>
-                    <label className={'textRadio'}>
+                    <label className={style.textRadio}>
                         <input type={'radio'} value={'2'} {...register('rating')}/>
                         2
                     </label>
-                    <label className={'textRadio'}>
+                    <label className={style.textRadio}>
                         <input type={'radio'} value={'3'} {...register('rating')}/>
                         3
                     </label>
-                    <label className={'textRadio'}>
+                    <label className={style.textRadio}>
                         <input type={'radio'} value={'4'} {...register('rating')}/>
                         4
                     </label>
-                    <label className={'textRadio'}>
+                    <label className={style.textRadio}>
                         <input type={'radio'} value={'5'} defaultChecked {...register('rating')}/>
                         5
                     </label>
@@ -242,10 +242,10 @@ const CreateProductForm: FC = () => {
 
             {/*tagList*/}
             <div>
-                <label><span className={'labelTitle'}>Select Tags For Filter</span>
+                <label><span className={style.labelTitle}>Select Tags For Filter</span>
                     {
                         tags.map((item, index) => (
-                            <div className={'textChBox'} key={index}>
+                            <div className={style.textChBox} key={index}>
                                 <label>
                                     <input value={item} type="checkbox" {...register('tagList')} onChange={checkTag}/>
                                     {item}
@@ -257,14 +257,14 @@ const CreateProductForm: FC = () => {
             </div>
 
             {/*productColor*/}
-            <div className={'container'}>
+            <div className={style.container}>
                 <label>
-                    <span className={'labelTitle'}>Enter Product Colors</span>
-                    <label><span className={'labelTitle'}>HEX Value</span>
+                    <span className={style.labelTitle}>Enter Product Colors</span>
+                    <label><span className={style.labelTitle}>HEX Value</span>
                         {/*<input id={'hex'} type={'text'} {...register(`productColor.${number}.hexValue`)}/>*/}
                         <input id={'hex'} type={'text'} disabled={true}/>
                     </label>
-                    <label><span className={'labelTitle'}>Color Name</span>
+                    <label><span className={style.labelTitle}>Color Name</span>
                         {/*<input id={'nameHex'} type={'text'} {...register(`productColor.${number}.colorName`)}/>*/}
                         <input id={'nameHex'} type={'text'} disabled={true}/>
                     </label>
