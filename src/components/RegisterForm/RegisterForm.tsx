@@ -6,7 +6,7 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {IUser} from "../../interfaces";
 import {userValidator} from "../../validators";
-import {userActions} from "../../redux";
+import {authActions, userActions} from "../../redux";
 import style from './../AuthForm/AuthForm.module.css'
 import {genderEnum} from "../../constants";
 
@@ -60,7 +60,11 @@ const RegisterForm: FC = () => {
                 if (userForUpdate) {
                     const {_id} = userForUpdate;
 
-                    await dispatch(userActions.updateById({id: _id, user: updatedUser}));
+                    await Promise.allSettled([
+                        dispatch(userActions.updateById({id: _id, user: updatedUser})),
+                        dispatch(authActions.editLogUserInfo({user: updatedUser}))
+                    ]);
+
                     reset();
 
                     window.scrollTo({

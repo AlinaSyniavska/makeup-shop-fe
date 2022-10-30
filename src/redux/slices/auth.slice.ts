@@ -61,6 +61,13 @@ const authSlice = createSlice({
             localStorage.removeItem(localStorageItemsEnum.LOGIN_USER);
             localStorage.removeItem(localStorageItemsEnum.ID_LOGIN_USER);
         },
+
+        editLogUserInfo: (state, action) => {
+            const {user} = action.payload;
+            const {name, surname} = user as IUser;
+            state.logUser.name = name;
+            state.logUser.surname = surname;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -94,9 +101,10 @@ const authSlice = createSlice({
     }
 });
 
-const {reducer: authReducer, actions: {setAuth, logoutUser}} = authSlice;
+const {reducer: authReducer, actions: {editLogUserInfo, setAuth, logoutUser}} = authSlice;
 
 const authActions = {
+    editLogUserInfo,
     login,
     logout,
     logoutUser,

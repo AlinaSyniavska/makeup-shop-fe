@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 import {IUser} from "../../interfaces";
 import {userService} from "../../services";
+import {localStorageItemsEnum} from "../../constants";
 
 interface IState {
     users: IUser[],
@@ -111,7 +112,7 @@ const userSlice = createSlice({
                 state.formErrors = errorsFromDB;
             })
             .addCase(getById.fulfilled, (state, action) => {
-                console.log(action.payload);
+                // console.log(action.payload);
                 state.formErrors = {};
             })
             .addCase(getById.rejected, (state, action) => {
@@ -123,10 +124,12 @@ const userSlice = createSlice({
                 state.status = errorStatus;
             })
             .addCase(updateById.fulfilled, (state, action) => {
-                const {id, user} = action.payload as any;
-                const index = state.users.findIndex(user => user._id === id);
-                state.users[index] = {...state.users[index], ...user};
+                const {_id, name, surname} = action.payload as IUser;
+                const index = state.users.findIndex(user => user._id === _id);
+                state.users[index] = {...state.users[index], ...action.payload};
                 state.userForUpdate = null;
+
+                localStorage.setItem(localStorageItemsEnum.LOGIN_USER, `${name} ${surname}` as string);
             })
             .addCase(updateById.rejected, (state, action) => {
                 const {errorStatus} = action.payload as any;

@@ -1,13 +1,22 @@
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 
 import style from './UserAvatar.module.css';
 import {useAppSelector} from "../../hooks";
+import {localStorageItemsEnum} from "../../constants";
 
 
 const UserAvatar: FC = () => {
-    const {isAuth} = useAppSelector(state => state.authReducer);
+    const {isAuth, logUser} = useAppSelector(state => state.authReducer);
 
-    const fullUserName = localStorage.getItem('loginUser');
+    const [fullUserName, setFullUserName] = useState<string>();
+
+    useEffect(() => {
+        setFullUserName(`${logUser.name} ${logUser.surname}`);
+    }, [logUser])
+
+    useEffect(() => {
+        setFullUserName(localStorage.getItem(localStorageItemsEnum.LOGIN_USER) as string);
+    }, [])
 
     return (
         <div>
