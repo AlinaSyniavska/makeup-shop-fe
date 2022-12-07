@@ -6,6 +6,7 @@ import './Product.css';
 import {cartActions, productActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {StarRating} from "../StarRating/StarRating";
+import {Favorite} from "../Favorite/Favorite";
 
 interface IProps {
     product: IProduct,
@@ -54,19 +55,25 @@ const Product: FC<IProps> = ({product}) => {
     }
 
     const checkPath = (event: React.MouseEvent<HTMLAnchorElement>) => {
-        const btns = document.getElementsByClassName('btnBuy');
-        let btnElement;
+        const btnBuyList = document.getElementsByClassName('btnBuy');
+        const btnFavoriteList = document.querySelectorAll('.Favorite_btnFavorite__RDx0q>svg');
 
-        for (let i = 0; i < btns.length; i++) {
-            if(btns[i] === event.target){
-                btnElement = btns[i];
+        let btnBuy, btnFavorite;
+
+        for (let i = 0; i < btnBuyList.length; i++) {
+            if(btnBuyList[i] === event.target){
+                btnBuy = btnBuyList[i];
+            }
+        }
+        for (let i = 0; i < btnFavoriteList.length; i++) {
+            if(btnFavoriteList[i] === event.target){
+                btnFavorite = btnFavoriteList[i];
             }
         }
 
-        if (isProductCreate || event.target === btnElement) {
+        if (isProductCreate || event.target === btnBuy || event.target === btnFavorite) {
             event.preventDefault();
         }
-
     }
 
     return (
@@ -77,6 +84,7 @@ const Product: FC<IProps> = ({product}) => {
                         <div className={'product_img'}>
                             <img src={product.imageLink} alt={product.name}/>
                         </div>
+                        <Favorite product={product}/>
                         <StarRating ratingProps={rating}/>
                         <p className={'product_name'}>{product.name}</p>
                         <p className={'product_brand'}>{product.brand}</p>

@@ -1,0 +1,11 @@
+.favorite {
+    align-self: end;
+}
+
+.btnFavorite {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+

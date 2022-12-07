@@ -7,6 +7,7 @@ export * from './CreateCommonItemForm/CreateCommonItemForm';
 export * from './CreateProductForm/CreateProductForm';
 export * from './Item/Item';
 export * from './Items/Items';
+export * from './Favorite/Favorite';
 export * from './FilterComponent/FilterComponent';
 export * from './Goods/Goods';
 export * from './Header/Header';
