@@ -56,9 +56,11 @@ const Product: FC<IProps> = ({product}) => {
 
     const checkPath = (event: React.MouseEvent<HTMLAnchorElement>) => {
         const btnBuyList = document.getElementsByClassName('btnBuy');
-        const btnFavoriteList = document.querySelectorAll('.Favorite_btnFavorite__RDx0q>svg');
+        const btnFavoriteList = document.querySelectorAll('.Favorite_btnFavorite__RDx0q>svg,.Favorite_btnFavorite__RDx0q>svg>path');
 
         let btnBuy, btnFavorite;
+
+        console.log(event.target)
 
         for (let i = 0; i < btnBuyList.length; i++) {
             if(btnBuyList[i] === event.target){

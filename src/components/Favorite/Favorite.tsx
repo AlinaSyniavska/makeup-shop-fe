@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -30,6 +30,10 @@ const Favorite: FC<IProps> = ({product}) => {
             setFavorite(updatedFavorite)
         }
     }
+
+    useEffect(() => {
+        console.log(favorite)
+    }, [])
 
     return (
         <div className={style.favorite}>

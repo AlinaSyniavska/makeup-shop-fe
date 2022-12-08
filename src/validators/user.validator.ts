@@ -14,6 +14,7 @@ const userValidator = Joi.object({
     // eslint-disable-next-line no-empty-character-class
     email: Joi.string().regex(/^(([^<>()\\[\].,;:\s@"]+(\.[^<>()\\[\].,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(([a-zA-Z\-\d]+\.)+[a-zA-Z]{2,}))$/).required(),
     password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\d)(?=.*?[#?!@$%^&*-]).{8,}$/),
+    favoriteList: Joi.array().items(Joi.string()),
 });
 
 export {
