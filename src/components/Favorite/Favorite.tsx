@@ -41,6 +41,7 @@ const Favorite: FC<IProps> = ({product}) => {
     useEffect(() => {
         // updateFavorite();
         console.log(userFavoriteList)
+        // тут зробити запис в бд userFavoriteList
 
     }, [userFavoriteList])
 
