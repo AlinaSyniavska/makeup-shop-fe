@@ -60,7 +60,7 @@ const Product: FC<IProps> = ({product}) => {
 
         let btnBuy, btnFavorite;
 
-        console.log(event.target)
+        // console.log(event.target)
 
         for (let i = 0; i < btnBuyList.length; i++) {
             if(btnBuyList[i] === event.target){

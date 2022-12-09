@@ -5,7 +5,7 @@ import {joiResolver} from "@hookform/resolvers/joi";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {ILogin} from "../../interfaces";
-import {authActions} from "../../redux";
+import {authActions, userActions} from "../../redux";
 import style from './AuthForm.module.css';
 import {loginUserValidator} from "../../validators";
 
@@ -21,7 +21,7 @@ const AuthForm: FC = () => {
     const navigate = useNavigate();
     const {pathname} = useLocation();
 
-    const {authStatus, authErrors, isAuth} = useAppSelector(state => state.authReducer);
+    const {authStatus, authErrors, isAuth, logUser} = useAppSelector(state => state.authReducer);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -37,6 +37,10 @@ const AuthForm: FC = () => {
             navigate('/', {replace: true});
         }
     }, [isAuth])
+
+    useEffect(()=> {
+        dispatch(userActions.initFavoriteList({list: logUser.favoriteList}));
+    }, [logUser])
 
     const submitForm = async (user: ILogin) => {
         try {

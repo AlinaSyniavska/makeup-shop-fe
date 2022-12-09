@@ -68,16 +68,18 @@ const authSlice = createSlice({
             state.logUser.name = name;
             state.logUser.surname = surname;
         },
+
     },
     extraReducers: (builder) => {
         builder
             .addCase(login.fulfilled, (state, action) => {
                 state.isAuth = true;
                 const {access_token, refresh_token, user} = action.payload;
-                const {_id, name, surname} = user as IUser;
+                const {_id, name, surname, favoriteList} = user as IUser;
                 state.logUser.name = name;
                 state.logUser.surname = surname;
                 state.logUser._id = _id;
+                state.logUser.favoriteList = favoriteList;
 
                 localStorage.setItem(localStorageItemsEnum.ACCESS, access_token);
                 localStorage.setItem(localStorageItemsEnum.REFRESH, refresh_token);
@@ -101,7 +103,7 @@ const authSlice = createSlice({
     }
 });
 
-const {reducer: authReducer, actions: {editLogUserInfo, setAuth, logoutUser}} = authSlice;
+const {reducer: authReducer, actions: {editLogUserInfo, logoutUser, setAuth}} = authSlice;
 
 const authActions = {
     editLogUserInfo,

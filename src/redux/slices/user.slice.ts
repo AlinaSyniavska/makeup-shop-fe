@@ -10,6 +10,7 @@ interface IState {
     userForUpdate: null,
     formErrors: any,
     status: string,
+    userFavoriteList: string[],
 }
 
 const initialState: IState = {
@@ -17,6 +18,7 @@ const initialState: IState = {
     userForUpdate: null,
     formErrors: {},
     status: '',
+    userFavoriteList: [],
 };
 
 const getAll = createAsyncThunk<IUser[], void>(
@@ -80,6 +82,18 @@ const updateById = createAsyncThunk<IUser, { id: String, user: IUser }>(
     }
 );
 
+const getFavoriteListById = createAsyncThunk<Partial<IUser>, { id: String }>(
+    'userSlice/getFavoriteListById',
+    async ({id}, {rejectWithValue}) => {
+        try {
+            const {data} = await userService.getFavoriteListById(id);
+            return data;
+        } catch (error: any) {
+            return rejectWithValue({errorsFromDB: error.response.data})
+        }
+    }
+);
+
 const userSlice = createSlice({
     name: 'userSlice',
     initialState,
@@ -91,6 +105,15 @@ const userSlice = createSlice({
         deleteUser: (state, action) => {
             const index = state.users.findIndex(user => user._id === action.payload.id);
             state.users.splice(index, 1);
+        },
+
+        initFavoriteList: (state, action) => {
+            state.userFavoriteList = action.payload.list;
+        },
+
+        addFavoriteItem: (state, action) => {
+            const {item} = action.payload;
+            state.userFavoriteList.push(item);
         },
 
     },
@@ -135,16 +158,29 @@ const userSlice = createSlice({
                 const {errorStatus} = action.payload as any;
                 state.status = errorStatus;
             })
+
+            .addCase(getFavoriteListById.fulfilled, (state, action) => {
+                const {favoriteList} = action.payload;
+                state.userFavoriteList = [...state.userFavoriteList, ...favoriteList as string[]];
+                state.formErrors = {};
+            })
+            .addCase(getFavoriteListById.rejected, (state, action) => {
+                const {errorsFromDB} = action.payload as any;   //{error: '', code: number}
+                state.formErrors = errorsFromDB;
+            })
     },
 });
 
-const {reducer: userReducer, actions: {deleteUser, setUserForUpdate}} = userSlice;
+const {reducer: userReducer, actions: {addFavoriteItem, deleteUser, initFavoriteList, setUserForUpdate}} = userSlice;
 
 const userActions = {
+    addFavoriteItem,
     deleteById,
     deleteUser,
+    initFavoriteList,
     getAll,
     getById,
+    getFavoriteListById,
     registerUser,
     setUserForUpdate,
     updateById,

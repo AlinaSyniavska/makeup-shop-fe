@@ -5,6 +5,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import style from './Favorite.module.css';
 import {IProduct} from "../../interfaces";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {userActions} from "../../redux";
 
 interface IProps {
     product: IProduct,
@@ -13,17 +15,22 @@ interface IProps {
 const Favorite: FC<IProps> = ({product}) => {
     const {_id: itemId} = product;
 
+    const {userFavoriteList} = useAppSelector(state => state.userReducer);
+    const dispatch = useAppDispatch();
+
     const [favorite, setFavorite] = useState<string[]>([]);
 
-    const addToFavorite = () => {
-        console.log('++++')
+    const addFavorite = (id: string) => {
+        dispatch(userActions.addFavoriteItem({item: id}));
+
+        console.log(userFavoriteList)
     }
 
     const updateFavorite = () => {
-        if(itemId){
-            let updatedFavorite = [...favorite]
+        if (itemId) {
+            let updatedFavorite = [...userFavoriteList as string[]]
             if (!updatedFavorite.includes(itemId)) {
-                updatedFavorite = [...favorite, itemId]
+                updatedFavorite = [...userFavoriteList as string[], itemId]
             } else {
                 updatedFavorite = updatedFavorite.filter(favoriteItem => itemId !== favoriteItem)
             }
@@ -32,8 +39,10 @@ const Favorite: FC<IProps> = ({product}) => {
     }
 
     useEffect(() => {
-        console.log(favorite)
-    }, [])
+        // updateFavorite();
+        console.log(userFavoriteList)
+
+    }, [userFavoriteList])
 
     return (
         <div className={style.favorite}>
@@ -41,9 +50,11 @@ const Favorite: FC<IProps> = ({product}) => {
                 {/*<FavoriteBorderIcon style={{'color': 'lightpink'}} onClick={addToFavorite}/>*/}
 
                 {/*<div onClick={() => updateFavorite()}>*/}
-                {itemId && favorite.includes(itemId) ?
-                    <FavoriteBorderIcon style={{'color': 'lightpink'}} onClick={() => addToFavorite()}/> :
-                    <FavoriteIcon style={{'color': 'lightpink'}} onClick={() => addToFavorite()}/>}
+                {itemId && (
+                    userFavoriteList?.includes(itemId) ?
+                        <FavoriteIcon style={{'color': 'lightpink'}} onClick={() => addFavorite(itemId)}/> :
+                        <FavoriteBorderIcon style={{'color': 'lightpink'}} onClick={() => addFavorite(itemId)}/>
+                )}
                 {/*</div>*/}
 
             </div>

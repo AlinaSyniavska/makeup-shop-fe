@@ -8,6 +8,8 @@ const userService = {
     create: (user: IUser): Response<IUser> => axiosService.post(urls.users, user),
     delete: (id: String): Response<IUser> => axiosService.delete(`${urls.users}/${id}`),
     update: (id: String, newUser: IUser): Response<IUser> => axiosService.put(`${urls.users}/${id}`, newUser),
+
+    getFavoriteListById: (id: String): Response<IUser> => axiosService.get(`${urls.userFavoriteList}/${id}`),
 };
 
 export {

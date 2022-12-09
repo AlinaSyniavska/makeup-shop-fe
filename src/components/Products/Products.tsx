@@ -2,9 +2,10 @@ import {FC, useEffect, useState} from "react";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {useLocation, useSearchParams} from "react-router-dom";
-import {productActions} from "../../redux";
+import {productActions, userActions} from "../../redux";
 import {Product} from "../Product/Product";
 import style from './Products.module.css';
+import {localStorageItemsEnum} from "../../constants";
 
 const Products: FC = () => {
 
@@ -51,6 +52,9 @@ const Products: FC = () => {
             !isCategoryPath ?
                 dispatch(productActions.getAll({params})) :
                 dispatch(productActions.getAtUrl({params, url: pathname}));
+            if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
+                dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
+            }
         },
         [dispatch, query, isCategoryPath, pathname]);
 
@@ -60,15 +64,18 @@ const Products: FC = () => {
             perPage: query.get('perPage') || '20',
             sortOrder: Number(query.get('sortOrder')),
             filterBy: query.get('filterBy') || '',
-/*            page: `${page}`,
-            perPage: `${perPage}`,
-            sortOrder: Number(`${sortOrder}`),
-            filterBy: `${filterBy.join(';')}`*/
+            /*            page: `${page}`,
+                        perPage: `${perPage}`,
+                        sortOrder: Number(`${sortOrder}`),
+                        filterBy: `${filterBy.join(';')}`*/
         }
 
         !isCategoryPath ?
             dispatch(productActions.getAll({params})) :
             dispatch(productActions.getAtUrl({params, url: pathname}));
+            if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
+                dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
+            }
     }, [state, isCategoryPath, pathname])
 
 
@@ -79,7 +86,8 @@ const Products: FC = () => {
                     {
                         products.length
                             ? products.map(product => <Product key={product._id} product={product}/>)
-                            : <div className={style.text}>Sorry we couldn't find any matches for your request tags :(</div>
+                            : <div className={style.text}>Sorry we couldn't find any matches for your request tags
+                                :(</div>
                     }
                 </div>
             </div>
