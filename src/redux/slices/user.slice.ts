@@ -112,8 +112,13 @@ const userSlice = createSlice({
         },
 
         addFavoriteItem: (state, action) => {
-            const {item} = action.payload;
-            state.userFavoriteList.push(item);
+            const {item, add, index} = action.payload;
+
+            if (add) {
+                state.userFavoriteList.push(item);
+            } else {
+                state.userFavoriteList.splice(index, 1);
+            }
         },
 
     },
