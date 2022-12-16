@@ -5,6 +5,7 @@ import style from './ProductDetails.module.css';
 import {StarRating} from "../StarRating/StarRating";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {cartActions} from "../../redux";
+import {Favorite} from "../Favorite/Favorite";
 
 interface IProps {
     singleProduct: IProduct,
@@ -63,7 +64,11 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
 
                 <div className={style.sectionImg}>
                     <img src={imageLink} alt={name}/>
+                    <div className={'singleFavorite'}>
+                        <Favorite product={singleProduct}/>
+                    </div>
                 </div>
+
 
                 <div className={style.sectionPrice}>
                     <div className={style.headerContainer}>
@@ -71,12 +76,12 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
                         <p className={`${style.largeText} ${style.boldText}`}>Total: {total}</p>
                     </div>
                     <div className={style.mainContainer}>
-                    {
-                        isAuth &&
-                        <button disabled={!isProductAvailable} onClick={addToCart}>
-                            Buy
-                        </button>
-                    }
+                        {
+                            isAuth &&
+                            <button disabled={!isProductAvailable} onClick={addToCart}>
+                                Buy
+                            </button>
+                        }
                     </div>
                 </div>
 

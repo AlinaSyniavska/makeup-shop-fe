@@ -35,8 +35,8 @@ const Favorite: FC<IProps> = ({product}) => {
             <div className={style.btnFavorite}>
                 {itemId && (
                     userFavoriteList?.includes(itemId) ?
-                        <FavoriteIcon style={{'color': 'lightpink'}} onClick={() => addFavorite()}/> :
-                        <FavoriteBorderIcon style={{'color': 'lightpink'}} onClick={() => addFavorite()}/>
+                        <FavoriteIcon onClick={() => addFavorite()}/> :
+                        <FavoriteBorderIcon onClick={() => addFavorite()}/>
                 )}
             </div>
         </div>
