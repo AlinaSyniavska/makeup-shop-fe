@@ -11,6 +11,7 @@ const Products: FC = () => {
 
     const {products, page, perPage, sortOrder, filterBy} = useAppSelector(state => state.productReducer);
     const {userFavoriteList} = useAppSelector(state => state.userReducer);
+    const {isAuth} = useAppSelector(state => state.authReducer);
     const dispatch = useAppDispatch();
 
     const [query, setQuery] = useSearchParams({
@@ -67,16 +68,18 @@ const Products: FC = () => {
         !isCategoryPath ?
             dispatch(productActions.getAll({params})) :
             dispatch(productActions.getAtUrl({params, url: pathname}));
-            if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
-                dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
-            }
+        if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
+            dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
+        }
     }, [state, isCategoryPath, pathname])
 
     useEffect(() => {
-        dispatch(userActions.updateById({
-            id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
-            user: {favoriteList: Array.from(new Set(userFavoriteList))}
-        }));
+        if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
+            dispatch(userActions.updateById({
+                id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
+                user: {favoriteList: Array.from(new Set(userFavoriteList))}
+            }));
+        }
     }, [userFavoriteList])
 
     return (
