@@ -28,6 +28,9 @@ const Favorite: FC<IProps> = ({product}) => {
                 dispatch(userActions.addFavoriteItem({item: itemId, add: false, index}));
             }
         }
+
+
+        console.log(userFavoriteList);
     }
 
     return (

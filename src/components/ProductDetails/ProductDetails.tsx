@@ -4,8 +4,9 @@ import {IProduct, IRating} from "../../interfaces";
 import style from './ProductDetails.module.css';
 import {StarRating} from "../StarRating/StarRating";
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {cartActions} from "../../redux";
+import {cartActions, userActions} from "../../redux";
 import {Favorite} from "../Favorite/Favorite";
+import {localStorageItemsEnum} from "../../constants";
 
 interface IProps {
     singleProduct: IProduct,
@@ -14,6 +15,7 @@ interface IProps {
 const ProductDetails: FC<IProps> = ({singleProduct}) => {
     const {name, brand, productType, total, price, priceSign, rating, imageLink, tagList, description} = singleProduct;
     const {isAuth} = useAppSelector(state => state.authReducer);
+    const {userFavoriteList} = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
     const [isProductAvailable, setIsProductAvailable] = useState(true);
 
@@ -26,6 +28,10 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
         emptyColor: '#999999',
     }
 
+    const addToCart = () => {
+        dispatch(cartActions.addToCart({goods: singleProduct}));
+    }
+
     useEffect(() => {
         if (total > 0) {
             setIsProductAvailable(true);
@@ -34,9 +40,20 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
         }
     }, [])
 
-    const addToCart = () => {
-        dispatch(cartActions.addToCart({goods: singleProduct}));
-    }
+    useEffect(() => {
+        if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
+            dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
+        }
+    }, [])
+
+    useEffect(() => {
+        if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
+            dispatch(userActions.updateById({
+                id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
+                user: {favoriteList: Array.from(new Set(userFavoriteList))}
+            }));
+        }
+    }, [userFavoriteList])
 
     return (
         <div>
