@@ -10,6 +10,7 @@ import {localStorageItemsEnum} from "../../constants";
 const Products: FC = () => {
 
     const {products, page, perPage, sortOrder, filterBy} = useAppSelector(state => state.productReducer);
+    const {userFavoriteList} = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
 
     const [query, setQuery] = useSearchParams({
@@ -52,9 +53,6 @@ const Products: FC = () => {
             !isCategoryPath ?
                 dispatch(productActions.getAll({params})) :
                 dispatch(productActions.getAtUrl({params, url: pathname}));
-            if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
-                dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
-            }
         },
         [dispatch, query, isCategoryPath, pathname]);
 
@@ -64,10 +62,6 @@ const Products: FC = () => {
             perPage: query.get('perPage') || '20',
             sortOrder: Number(query.get('sortOrder')),
             filterBy: query.get('filterBy') || '',
-            /*            page: `${page}`,
-                        perPage: `${perPage}`,
-                        sortOrder: Number(`${sortOrder}`),
-                        filterBy: `${filterBy.join(';')}`*/
         }
 
         !isCategoryPath ?
@@ -78,6 +72,12 @@ const Products: FC = () => {
             }
     }, [state, isCategoryPath, pathname])
 
+    useEffect(() => {
+        dispatch(userActions.updateById({
+            id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
+            user: {favoriteList: Array.from(new Set(userFavoriteList))}
+        }));
+    }, [userFavoriteList])
 
     return (
         <div>

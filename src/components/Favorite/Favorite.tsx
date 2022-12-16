@@ -1,4 +1,4 @@
-import {FC, useEffect} from "react";
+import {FC} from "react";
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -20,7 +20,7 @@ const Favorite: FC<IProps> = ({product}) => {
 
     const addFavorite = () => {
         if (itemId) {
-            let updatedFavorite = [...userFavoriteList as string[]]
+            let updatedFavorite = Array.from(new Set(userFavoriteList));
             if (!updatedFavorite.includes(itemId)) {
                 dispatch(userActions.addFavoriteItem({item: itemId, add: true, index: null}));
             } else {
@@ -28,34 +28,16 @@ const Favorite: FC<IProps> = ({product}) => {
                 dispatch(userActions.addFavoriteItem({item: itemId, add: false, index}));
             }
         }
-
-        console.log(userFavoriteList)
     }
-
-    const updateFavorite = () => {
-
-    }
-
-    useEffect(() => {
-        // updateFavorite();
-        console.log(userFavoriteList)
-        // тут зробити запис в бд userFavoriteList
-
-    }, [userFavoriteList])
 
     return (
         <div className={style.favorite}>
             <div className={style.btnFavorite}>
-                {/*<FavoriteBorderIcon style={{'color': 'lightpink'}} onClick={addToFavorite}/>*/}
-
-                {/*<div onClick={() => updateFavorite()}>*/}
                 {itemId && (
                     userFavoriteList?.includes(itemId) ?
                         <FavoriteIcon style={{'color': 'lightpink'}} onClick={() => addFavorite()}/> :
                         <FavoriteBorderIcon style={{'color': 'lightpink'}} onClick={() => addFavorite()}/>
                 )}
-                {/*</div>*/}
-
             </div>
         </div>
     );

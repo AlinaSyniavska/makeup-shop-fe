@@ -30,18 +30,6 @@ const Product: FC<IProps> = ({product}) => {
         emptyColor: '#999999',
     }
 
-    useEffect(() => {
-        pathname === '/admin/product' ? setIsProductCreate(true) : setIsProductCreate(false)
-    }, [pathname])
-
-    useEffect(() => {
-        if (product.total > 0) {
-            setIsProductAvailable(true);
-        } else {
-            setIsProductAvailable(false);
-        }
-    }, [product.total])
-
     const addToCart = () => {
         dispatch(cartActions.addToCart({goods: product}));
     }
@@ -60,8 +48,6 @@ const Product: FC<IProps> = ({product}) => {
 
         let btnBuy, btnFavorite;
 
-        // console.log(event.target)
-
         for (let i = 0; i < btnBuyList.length; i++) {
             if(btnBuyList[i] === event.target){
                 btnBuy = btnBuyList[i];
@@ -77,6 +63,18 @@ const Product: FC<IProps> = ({product}) => {
             event.preventDefault();
         }
     }
+
+    useEffect(() => {
+        pathname === '/admin/product' ? setIsProductCreate(true) : setIsProductCreate(false)
+    }, [pathname])
+
+    useEffect(() => {
+        if (product.total > 0) {
+            setIsProductAvailable(true);
+        } else {
+            setIsProductAvailable(false);
+        }
+    }, [product.total])
 
     return (
         <div>

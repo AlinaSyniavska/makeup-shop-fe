@@ -70,7 +70,7 @@ const deleteById = createAsyncThunk<void, { id: String }>(
     }
 );
 
-const updateById = createAsyncThunk<IUser, { id: String, user: IUser }>(
+const updateById = createAsyncThunk<IUser, { id: String, user: Partial<IUser> }>(
     'userSlice/updateById',
     async ({id, user}, {rejectWithValue}) => {
         try {
@@ -166,7 +166,7 @@ const userSlice = createSlice({
 
             .addCase(getFavoriteListById.fulfilled, (state, action) => {
                 const {favoriteList} = action.payload;
-                state.userFavoriteList = [...state.userFavoriteList, ...favoriteList as string[]];
+                state.userFavoriteList = [...favoriteList as string[]];
                 state.formErrors = {};
             })
             .addCase(getFavoriteListById.rejected, (state, action) => {
