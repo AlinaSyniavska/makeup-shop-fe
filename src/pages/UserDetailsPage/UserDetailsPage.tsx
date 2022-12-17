@@ -13,10 +13,12 @@ const UserDetailsPage: FC = () => {
 
     const [logUser, setLogUser] = useState<IUser>();
     const [logErrors, setLogErrors] = useState<string>('');
-    const idUser = localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)  as String;
+    const idUser = localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) as String;
 
     useEffect(() => {
-        dispatch(userActions.getById({id: idUser})).then((data) => setLogUser(data.payload as IUser));
+        if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
+            dispatch(userActions.getById({id: idUser})).then((data) => setLogUser(data.payload as IUser));
+        }
     }, [userForUpdate])
 
     useEffect(() => {
