@@ -1,17 +1,14 @@
 import {FC, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useLocation, useNavigate} from "react-router-dom";
-import {joiResolver} from "@hookform/resolvers/joi";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {ILogin} from "../../interfaces";
 import {authActions, userActions} from "../../redux";
 import style from './AuthForm.module.css';
-import {loginUserValidator} from "../../validators";
 
 const AuthForm: FC = () => {
     const {register, handleSubmit} = useForm<ILogin>({
-        resolver: joiResolver(loginUserValidator),
         mode: 'all'
     });
 
@@ -24,6 +21,15 @@ const AuthForm: FC = () => {
     const {authStatus, authErrors, isAuth, logUser} = useAppSelector(state => state.authReducer);
     const dispatch = useAppDispatch();
 
+    const submitForm = async (user: ILogin) => {
+            try {
+                await dispatch(authActions.login({user}));
+            } catch (e: any) {
+                console.error(e.response);
+                console.log(errors)
+            }
+    };
+
     useEffect(() => {
         pathname === '/auth/register' ? setIsLogin(false) : setIsLogin(true);
     }, [pathname])
@@ -32,24 +38,15 @@ const AuthForm: FC = () => {
         setErrors(authErrors.errors);
     }, [authStatus, authErrors])
 
-    useEffect(()=> {
+    useEffect(() => {
         if (isAuth) {
             navigate('/', {replace: true});
         }
     }, [isAuth])
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(userActions.initFavoriteList({list: logUser.favoriteList}));
     }, [logUser])
-
-    const submitForm = async (user: ILogin) => {
-        try {
-            await dispatch(authActions.login({user}));
-        } catch (e: any) {
-            console.error(e.response);
-            console.log(errors)
-        }
-    };
 
     return (
         <form onSubmit={handleSubmit(submitForm)} className={style.authForm}>
@@ -65,7 +62,7 @@ const AuthForm: FC = () => {
             </div>
             <button>{isLogin ? 'Login' : 'Register'}</button>
 
-            <div>
+            <div className={style.error}>
                 <div>{authStatus && <b>{authStatus}</b>}</div>
                 <div>{authErrors.error}</div>
             </div>
