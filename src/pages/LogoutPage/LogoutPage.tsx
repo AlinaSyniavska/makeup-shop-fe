@@ -11,9 +11,6 @@ const LogoutPage: FC = () => {
     const accessToken = localStorage.getItem('access') as string;
 
     useEffect(() => {
-        // dispatch(authActions.logout({access_token: accessToken}));
-        // navigate('/home');
-
         (async () => {
             Promise.all([
                 await dispatch(authActions.logout({access_token: accessToken})),
