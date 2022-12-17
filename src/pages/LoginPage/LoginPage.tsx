@@ -3,11 +3,11 @@ import {AuthForm} from "../../components";
 import {useAppSelector} from "../../hooks";
 
 const LoginPage: FC = () => {
-    const {logUser} = useAppSelector(state => state.authReducer);
+    // const {logUser} = useAppSelector(state => state.authReducer);
 
-    useEffect(() => {
+/*    useEffect(() => {
         console.log(logUser)
-    }, [logUser])
+    }, [logUser])*/
 
     return (
         <div>
