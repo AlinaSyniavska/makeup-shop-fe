@@ -53,7 +53,6 @@ const App: FC = () => {
                 <Route path={'users/:id'} element={<RequireAuth><UserDetailsPage/></RequireAuth>}/>
                 <Route path={'users/favoriteList/:id'} element={<RequireAuth><FavoriteListPage/></RequireAuth>}/>
 
-
                 <Route path={'*'} element={<NotFoundPage/>}/>
             </Route>
 

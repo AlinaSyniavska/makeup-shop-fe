@@ -17,7 +17,6 @@ const Account: FC = () => {
             <div className={style.accountContainer} aria-disabled={!isAuth}>
                 <NavLink hidden={!isAuth} to={`users/favoriteList/${idUser}`}>Favorite List</NavLink>
                 <NavLink to={`users/${idUser}`}><UserAvatar/></NavLink>
-                {/*<UserAvatar/>*/}
                 <Cart/>
                 <NavLink hidden={!isAuth} to="auth/logout">Logout</NavLink>
             </div>

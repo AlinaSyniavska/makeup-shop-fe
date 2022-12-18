@@ -8,6 +8,7 @@ export * from './CreateProductForm/CreateProductForm';
 export * from './Item/Item';
 export * from './Items/Items';
 export * from './Favorite/Favorite';
+export * from './FavoriteList/FavoriteList';
 export * from './FilterComponent/FilterComponent';
 export * from './Goods/Goods';
 export * from './Header/Header';

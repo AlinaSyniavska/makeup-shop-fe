@@ -1,9 +1,11 @@
 import {FC} from "react";
 
+import {FavoriteList} from "../../components";
+
 const FavoriteListPage: FC = () => {
     return (
         <div>
-            FavoriteListPage
+            <FavoriteList/>
         </div>
     );
 };
