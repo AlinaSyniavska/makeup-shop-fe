@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-import {IUser} from "../../interfaces";
+import {IProduct, IUser} from "../../interfaces";
 import {userService} from "../../services";
 import {localStorageItemsEnum} from "../../constants";
 
@@ -11,6 +11,7 @@ interface IState {
     formErrors: any,
     status: string,
     userFavoriteList: string[],
+    userFavoriteProductList: IProduct[],
 }
 
 const initialState: IState = {
@@ -19,6 +20,7 @@ const initialState: IState = {
     formErrors: {},
     status: '',
     userFavoriteList: [],
+    userFavoriteProductList: [],
 };
 
 const getAll = createAsyncThunk<IUser[], void>(
@@ -38,6 +40,18 @@ const getById = createAsyncThunk<IUser, { id: String }>(
     async ({id}, {rejectWithValue}) => {
         try {
             const {data} = await userService.getById(id);
+            return data;
+        } catch (error: any) {
+            return rejectWithValue({errorsFromDB: error.response.data})
+        }
+    }
+);
+
+const getPopulatedUserById = createAsyncThunk<IProduct[], { id: String }>(
+    'userSlice/getPopulatedUserById',
+    async ({id}, {rejectWithValue}) => {
+        try {
+            const {data} = await userService.getPopulatedUserById(id);
             return data;
         } catch (error: any) {
             return rejectWithValue({errorsFromDB: error.response.data})
@@ -173,6 +187,14 @@ const userSlice = createSlice({
                 const {errorsFromDB} = action.payload as any;   //{error: '', code: number}
                 state.formErrors = errorsFromDB;
             })
+            .addCase(getPopulatedUserById.fulfilled, (state, action) => {
+                // const {data} = action.payload as IProduct[];
+                state.userFavoriteProductList = action.payload;
+            })
+            .addCase(getPopulatedUserById.rejected, (state, action) => {
+                const errors = action.payload as any;
+                console.log(errors);
+            })
     },
 });
 
@@ -186,6 +208,7 @@ const userActions = {
     getAll,
     getById,
     getFavoriteListById,
+    getPopulatedUserById,
     registerUser,
     setUserForUpdate,
     updateById,

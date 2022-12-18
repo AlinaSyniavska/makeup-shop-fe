@@ -1,4 +1,4 @@
-import {IUser} from "../interfaces";
+import {IProduct, IUser} from "../interfaces";
 import {axiosService, Response} from "./axios.service";
 import {urls} from "../constants";
 
@@ -10,6 +10,7 @@ const userService = {
     update: (id: String, newUser: Partial<IUser>): Response<IUser> => axiosService.patch(`${urls.users}/${id}`, newUser),
 
     getFavoriteListById: (id: String): Response<IUser> => axiosService.get(`${urls.userFavoriteList}/${id}`),
+    getPopulatedUserById: (id: String): Response<IProduct[]> => axiosService.get(`${urls.populatedUser}/${id}`),
 };
 
 export {

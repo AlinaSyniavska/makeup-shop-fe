@@ -3,6 +3,7 @@ const baseURL = process.env.REACT_APP_API;
 const urls = {
     users: '/users',
     userFavoriteList: '/users/favoriteList',
+    populatedUser: '/users/full',
     login: '/auth/login',
     logout: '/auth/logout',
     refresh: '/auth/refreshToken',
