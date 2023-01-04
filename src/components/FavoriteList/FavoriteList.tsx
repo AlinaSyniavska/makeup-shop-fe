@@ -3,6 +3,7 @@ import {FC, useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {userActions} from "../../redux";
 import {localStorageItemsEnum} from "../../constants";
+import {FavoriteListItem} from "../FavoriteListItem/FavoriteListItem";
 
 const FavoriteList: FC = () => {
     const {userFavoriteProductList} = useAppSelector(state => state.userReducer);
@@ -14,13 +15,10 @@ const FavoriteList: FC = () => {
         }
     }, [dispatch])
 
-
-    // додати виклик getPopulatedUserById, де буде список улюблених продуктів
-
     return (
         <div>
             {
-                userFavoriteProductList.map(item => <div key={item._id}>{item.name}</div>)
+                userFavoriteProductList.map(item => <FavoriteListItem key={item._id} item={item}/>)
             }
         </div>
     );
