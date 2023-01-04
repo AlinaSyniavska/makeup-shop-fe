@@ -24,7 +24,6 @@ const SingleGoods: FC<IProps> = ({item, index, setTotal}) => {
 
         if (!deletedGoods) {
             const singleGoods = orderFromLocalStorage.find((i: IProductOrdered) => i.productId === item._id);
-            // setCountGoods(singleGoods?.count);
             setCountGoods(singleGoods.count);
         }
 

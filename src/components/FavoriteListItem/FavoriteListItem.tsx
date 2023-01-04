@@ -21,7 +21,7 @@ const FavoriteListItem: FC<IProps> = ({item}) => {
                     <p>{name}</p>
                     <p>{price} {priceSign}</p>
                 </div>
-                <button>Delete</button>
+                <button className={style.btnDeleteItem}>DELETE</button>
             </div>
         </div>
     );

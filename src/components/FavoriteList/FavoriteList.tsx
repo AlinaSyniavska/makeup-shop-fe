@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks";
 import {userActions} from "../../redux";
 import {localStorageItemsEnum} from "../../constants";
 import {FavoriteListItem} from "../FavoriteListItem/FavoriteListItem";
+import style from './FavoriteList.module.css';
 
 const FavoriteList: FC = () => {
     const {userFavoriteProductList} = useAppSelector(state => state.userReducer);
@@ -17,9 +18,11 @@ const FavoriteList: FC = () => {
 
     return (
         <div>
-            {
-                userFavoriteProductList.map(item => <FavoriteListItem key={item._id} item={item}/>)
-            }
+            <div className={style.favoriteList}>
+                {
+                    userFavoriteProductList.map(item => <FavoriteListItem key={item._id} item={item}/>)
+                }
+            </div>
         </div>
     );
 };
