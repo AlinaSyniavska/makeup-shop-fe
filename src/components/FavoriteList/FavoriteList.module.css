@@ -5,3 +5,10 @@
     width: 100%;
     margin-top: 20px;
 }
+
+.text {
+    width: inherit;
+    font-size: 20px;
+    margin: 50px;
+}
+

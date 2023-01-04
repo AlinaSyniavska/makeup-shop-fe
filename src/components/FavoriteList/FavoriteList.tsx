@@ -20,7 +20,9 @@ const FavoriteList: FC = () => {
         <div>
             <div className={style.favoriteList}>
                 {
-                    userFavoriteProductList.map(item => <FavoriteListItem key={item._id} item={item}/>)
+                    userFavoriteProductList.length
+                    ? userFavoriteProductList.map(item => <FavoriteListItem key={item._id} item={item}/>)
+                    : <div className={style.text}>Your Favorite List is Empty...</div>
                 }
             </div>
         </div>

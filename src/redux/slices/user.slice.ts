@@ -188,7 +188,6 @@ const userSlice = createSlice({
                 state.formErrors = errorsFromDB;
             })
             .addCase(getPopulatedUserById.fulfilled, (state, action) => {
-                // const {data} = action.payload as IProduct[];
                 state.userFavoriteProductList = action.payload;
             })
             .addCase(getPopulatedUserById.rejected, (state, action) => {
