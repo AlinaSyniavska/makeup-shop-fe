@@ -7,6 +7,7 @@ import {cartActions, productActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {StarRating} from "../StarRating/StarRating";
 import {Favorite} from "../Favorite/Favorite";
+import {productService} from "../../services";
 
 interface IProps {
     product: IProduct,
@@ -69,11 +70,7 @@ const Product: FC<IProps> = ({product}) => {
     }, [pathname])
 
     useEffect(() => {
-        if (product.total > 0) {
-            setIsProductAvailable(true);
-        } else {
-            setIsProductAvailable(false);
-        }
+        setIsProductAvailable(productService.checkIsProductAvailable(product.total));
     }, [product.total])
 
     return (

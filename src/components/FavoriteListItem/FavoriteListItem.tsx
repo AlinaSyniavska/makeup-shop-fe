@@ -5,6 +5,7 @@ import style from './FavoriteListItem.module.css';
 import {cartActions, userActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {localStorageItemsEnum} from "../../constants";
+import {productService} from "../../services";
 
 interface IProps {
     item: IProduct
@@ -15,8 +16,6 @@ const FavoriteListItem: FC<IProps> = ({item}) => {
     const {_id: itemId, name, price, priceSign, imageLink, total} = item;
     const {userFavoriteList} = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
-
-
 
     useEffect(() => {
         if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
@@ -34,12 +33,8 @@ const FavoriteListItem: FC<IProps> = ({item}) => {
     const [isProductAvailable, setIsProductAvailable] = useState(true);
 
     useEffect(() => {
-        setIsProductAvailable(checkIsProductAvailable(total));
+        setIsProductAvailable(productService.checkIsProductAvailable(total));
     }, [total])
-
-    const checkIsProductAvailable = (totalNumber: number): boolean => {
-        return totalNumber > 0;
-    }
 
     const deleteFavoriteListItem = (): void => {
         if (itemId) {
@@ -47,6 +42,10 @@ const FavoriteListItem: FC<IProps> = ({item}) => {
             dispatch(userActions.addFavoriteItem({item: itemId, add: false, index}));
         }
     }
+
+/*    const addToCart = (): void => {
+        dispatch(cartActions.addToCart({goods: item}));
+    }*/
 
     const addToCart = (): void => {
         dispatch(cartActions.addToCart({goods: item}));
