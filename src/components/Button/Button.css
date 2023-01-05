@@ -13,3 +13,7 @@ button:hover{
     background: lightpink;
     cursor: pointer;
 }
+
+button:disabled {
+    background: #dddddd;
+}

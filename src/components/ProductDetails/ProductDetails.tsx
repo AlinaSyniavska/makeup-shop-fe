@@ -28,7 +28,7 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
         emptyColor: '#999999',
     }
 
-    const addToCart = () => {
+    const addToCart = (): void => {
         dispatch(cartActions.addToCart({goods: singleProduct}));
     }
 
@@ -38,13 +38,13 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
         } else {
             setIsProductAvailable(false);
         }
-    }, [])
+    }, [total])
 
     useEffect(() => {
         if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
             dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
         }
-    }, [])
+    }, [isAuth])
 
     useEffect(() => {
         if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
@@ -53,7 +53,7 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
                 user: {favoriteList: Array.from(new Set(userFavoriteList))}
             }));
         }
-    }, [userFavoriteList])
+    }, [userFavoriteList, isAuth])
 
     return (
         <div>

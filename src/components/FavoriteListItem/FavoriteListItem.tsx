@@ -1,8 +1,8 @@
-import {FC, useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 
 import {IProduct} from "../../interfaces";
 import style from './FavoriteListItem.module.css';
-import {userActions} from "../../redux";
+import {cartActions, userActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {localStorageItemsEnum} from "../../constants";
 
@@ -12,16 +12,11 @@ interface IProps {
 
 const FavoriteListItem: FC<IProps> = ({item}) => {
 
-    const {_id: itemId, name, price, priceSign, imageLink} = item;
+    const {_id: itemId, name, price, priceSign, imageLink, total} = item;
     const {userFavoriteList} = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
 
-    const deleteFavoriteListItem = () => {
-        if (itemId) {
-            const index = userFavoriteList.findIndex(item => item === itemId);
-            dispatch(userActions.addFavoriteItem({item: itemId, add: false, index}));
-        }
-    }
+
 
     useEffect(() => {
         if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
@@ -36,6 +31,27 @@ const FavoriteListItem: FC<IProps> = ({item}) => {
         }
     }, [userFavoriteList])
 
+    const [isProductAvailable, setIsProductAvailable] = useState(true);
+
+    useEffect(() => {
+        setIsProductAvailable(checkIsProductAvailable(total));
+    }, [total])
+
+    const checkIsProductAvailable = (totalNumber: number): boolean => {
+        return totalNumber > 0;
+    }
+
+    const deleteFavoriteListItem = (): void => {
+        if (itemId) {
+            const index = userFavoriteList.findIndex(item => item === itemId);
+            dispatch(userActions.addFavoriteItem({item: itemId, add: false, index}));
+        }
+    }
+
+    const addToCart = (): void => {
+        dispatch(cartActions.addToCart({goods: item}));
+    }
+
     return (
         <div>
             <div className={style.favoriteListItem}>
@@ -46,7 +62,12 @@ const FavoriteListItem: FC<IProps> = ({item}) => {
                     <p>{name}</p>
                     <p>{price} {priceSign}</p>
                 </div>
-                <button onClick={deleteFavoriteListItem} className={style.btnDeleteItem}>DELETE</button>
+                <button onClick={deleteFavoriteListItem}>
+                    DELETE
+                </button>
+                <button id={'btnBuy'} disabled={!isProductAvailable} onClick={addToCart}>
+                    BUY
+                </button>
             </div>
         </div>
     );
