@@ -43,10 +43,6 @@ const FavoriteListItem: FC<IProps> = ({item}) => {
         }
     }
 
-/*    const addToCart = (): void => {
-        dispatch(cartActions.addToCart({goods: item}));
-    }*/
-
     const addToCart = (): void => {
         dispatch(cartActions.addToCart({goods: item}));
     }
