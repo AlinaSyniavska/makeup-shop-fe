@@ -37,23 +37,21 @@ const Products: FC = () => {
     }, [page, perPage, sortOrder, filterBy]);
 
     useEffect(() => {
-            dispatch(productActions.saveQueryParams({
-                page: query.get('page'),
-                perPage: query.get('perPage'),
-                sortOrder: query.get('sortOrder'),
-                filterBy: query.get('filterBy')?.split(';')
-            }));
-
-            !isCategoryPath ?
-                dispatch(productActions.getAll({params: fillinQueryParams(query)})) :
-                dispatch(productActions.getAtUrl({params: fillinQueryParams(query), url: pathname}));
-        },
-        [dispatch, query, isCategoryPath, pathname]);
+        dispatch(productActions.saveQueryParams({
+            page: query.get('page'),
+            perPage: query.get('perPage'),
+            sortOrder: query.get('sortOrder'),
+            filterBy: query.get('filterBy')?.split(';')
+        }));
+    }, [dispatch, query, isCategoryPath, pathname]);
 
     useEffect(() => {
         !isCategoryPath
             ? dispatch(productActions.getAll({params: fillinQueryParams(query)}))
             : dispatch(productActions.getAtUrl({params: fillinQueryParams(query), url: pathname}));
+    }, [state, isCategoryPath, pathname, query])
+
+    useEffect(() => {
         if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
             dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
         }
