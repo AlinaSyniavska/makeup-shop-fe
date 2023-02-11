@@ -1,14 +1,14 @@
 import {FC, useEffect, useState} from "react";
+import {useLocation, useSearchParams} from "react-router-dom";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {useLocation, useSearchParams} from "react-router-dom";
 import {productActions, userActions} from "../../redux";
 import {Product} from "../Product/Product";
 import style from './Products.module.css';
 import {localStorageItemsEnum} from "../../constants";
+import {IQueryParams} from "../../interfaces";
 
 const Products: FC = () => {
-
     const {products, page, perPage, sortOrder, filterBy} = useAppSelector(state => state.productReducer);
     const {userFavoriteList} = useAppSelector(state => state.userReducer);
     const {isAuth} = useAppSelector(state => state.authReducer);
@@ -44,30 +44,16 @@ const Products: FC = () => {
                 filterBy: query.get('filterBy')?.split(';')
             }));
 
-            const params = {
-                page: query.get('page') || '1',
-                perPage: query.get('perPage') || '20',
-                sortOrder: Number(query.get('sortOrder')),
-                filterBy: query.get('filterBy') || '',
-            }
-
             !isCategoryPath ?
-                dispatch(productActions.getAll({params})) :
-                dispatch(productActions.getAtUrl({params, url: pathname}));
+                dispatch(productActions.getAll({params: fillinQueryParams(query)})) :
+                dispatch(productActions.getAtUrl({params: fillinQueryParams(query), url: pathname}));
         },
         [dispatch, query, isCategoryPath, pathname]);
 
     useEffect(() => {
-        const params = {
-            page: query.get('page') || '1',
-            perPage: query.get('perPage') || '20',
-            sortOrder: Number(query.get('sortOrder')),
-            filterBy: query.get('filterBy') || '',
-        }
-
-        !isCategoryPath ?
-            dispatch(productActions.getAll({params})) :
-            dispatch(productActions.getAtUrl({params, url: pathname}));
+        !isCategoryPath
+            ? dispatch(productActions.getAll({params: fillinQueryParams(query)}))
+            : dispatch(productActions.getAtUrl({params: fillinQueryParams(query), url: pathname}));
         if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
             dispatch(userActions.getFavoriteListById({id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!}));
         }
@@ -97,5 +83,14 @@ const Products: FC = () => {
         </div>
     );
 };
+
+function fillinQueryParams(query: URLSearchParams): IQueryParams {
+    return {
+        page: query.get('page') || '1',
+        perPage: query.get('perPage') || '20',
+        sortOrder: Number(query.get('sortOrder')),
+        filterBy: query.get('filterBy') || '',
+    }
+}
 
 export {Products};
