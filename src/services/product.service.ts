@@ -12,10 +12,6 @@ const productService = {
     create: (product: IProduct): Response<IProduct> => axiosService.post(adminUrls.product, product),
     delete: (id: String) => axiosService.delete(`${adminUrls.product}/${id}`),
     update: (id: String, newProduct: IProduct): Response<IProduct> => axiosService.put(`${adminUrls.product}/${id}`, newProduct),
-
-    checkIsProductAvailable: (totalNumber: number): boolean => {
-        return totalNumber > 0;
-    },
 };
 
 export {

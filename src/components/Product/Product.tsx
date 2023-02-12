@@ -7,7 +7,7 @@ import {cartActions, productActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {StarRating} from "../StarRating/StarRating";
 import {Favorite} from "../Favorite/Favorite";
-import {productService} from "../../services";
+import {commonHelper, productHelper} from "../../helpers";
 
 interface IProps {
     product: IProduct,
@@ -33,14 +33,6 @@ const Product: FC<IProps> = ({product}) => {
 
     const addToCart = () => {
         dispatch(cartActions.addToCart({goods: product}));
-    }
-
-    const toUp = () => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
     }
 
     const checkPath = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -70,7 +62,7 @@ const Product: FC<IProps> = ({product}) => {
     }, [pathname])
 
     useEffect(() => {
-        setIsProductAvailable(productService.checkIsProductAvailable(product.total));
+        setIsProductAvailable(productHelper.checkIsProductAvailable(product.total));
     }, [product.total])
 
     return (
@@ -99,7 +91,7 @@ const Product: FC<IProps> = ({product}) => {
                         isProductCreate &&
                         <button onClick={() => {
                             dispatch(productActions.setProductForUpdate({product}));
-                            toUp();
+                            commonHelper.scrollToUp();
                         }}>
                             Update
                         </button>
