@@ -1,13 +1,13 @@
 import React, {FC, useEffect, useState} from "react";
 
-import {IProduct, IRating} from "../../interfaces";
+import {IProduct} from "../../interfaces";
 import style from './ProductDetails.module.css';
 import {StarRating} from "../StarRating/StarRating";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {cartActions, userActions} from "../../redux";
 import {Favorite} from "../Favorite/Favorite";
-import {localStorageItemsEnum} from "../../constants";
-import {productHelper} from "../../helpers";
+import {localStorageItemsEnum, ratingColorEnum} from "../../constants";
+import {commonHelper, productHelper} from "../../helpers";
 
 interface IProps {
     singleProduct: IProduct,
@@ -19,15 +19,6 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
     const {userFavoriteList} = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
     const [isProductAvailable, setIsProductAvailable] = useState(true);
-
-    const productRating: IRating = {
-        ratingValue: Number(rating),
-        iconsCount: 5,
-        size: 20,
-        readonly: true,
-        fillColor: 'lightpink',
-        emptyColor: '#999999',
-    }
 
     const addToCart = (): void => {
         dispatch(cartActions.addToCart({goods: singleProduct}));
@@ -62,7 +53,7 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
                             <span className={style.greyText}> / {productType}</span>
                         </p>
                         <p className={style.largeText}>{name}</p>
-                        <StarRating ratingProps={productRating}/>
+                        <StarRating ratingProps={commonHelper.makeRatingProps(rating, ratingColorEnum.MAIN_RATING_COLOR)}/>
                     </div>
                     <div className={style.mainContainer}>
                         <p className={style.regularText}>

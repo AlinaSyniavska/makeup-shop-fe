@@ -1,13 +1,14 @@
 import React, {FC, useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 
-import {IProduct, IRating} from "../../interfaces";
+import {IProduct} from "../../interfaces";
 import './Product.css';
 import {cartActions, productActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {StarRating} from "../StarRating/StarRating";
 import {Favorite} from "../Favorite/Favorite";
 import {commonHelper, productHelper} from "../../helpers";
+import {ratingColorEnum} from "../../constants";
 
 interface IProps {
     product: IProduct,
@@ -20,15 +21,6 @@ const Product: FC<IProps> = ({product}) => {
 
     const dispatch = useAppDispatch();
     const {isAuth} = useAppSelector(state => state.authReducer);
-
-/*    const rating: IRating = {
-        ratingValue: Number(product.rating),
-        iconsCount: 5,
-        size: 20,
-        readonly: true,
-        fillColor: 'lightpink',
-        emptyColor: '#999999',
-    }*/
 
     useEffect(() => {
         pathname === '/admin/product' ? setIsProductCreate(true) : setIsProductCreate(false)
@@ -64,7 +56,7 @@ const Product: FC<IProps> = ({product}) => {
                             <img src={product.imageLink} alt={product.name}/>
                         </div>
                         <Favorite product={product}/>
-                        <StarRating ratingProps={commonHelper.makeRatingProps(product.rating, 'lightpink')}/>
+                        <StarRating ratingProps={commonHelper.makeRatingProps(product.rating, ratingColorEnum.MAIN_RATING_COLOR)}/>
                         <p className={'product_name'}>{product.name}</p>
                         <p className={'product_brand'}>{product.brand}</p>
                         <p className={'product_price'}>{product.price} {product.priceSign}</p>
