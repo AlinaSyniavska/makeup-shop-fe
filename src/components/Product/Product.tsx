@@ -31,6 +31,15 @@ const Product: FC<IProps> = ({product}) => {
         emptyColor: '#999999',
     }
 
+    useEffect(() => {
+        pathname === '/admin/product' ? setIsProductCreate(true) : setIsProductCreate(false)
+    }, [pathname])
+
+    useEffect(() => {
+        setIsProductAvailable(productHelper.checkIsProductAvailable(product.total));
+    }, [product.total])
+
+
     const addToCart = () => {
         dispatch(cartActions.addToCart({goods: product}));
     }
@@ -57,13 +66,7 @@ const Product: FC<IProps> = ({product}) => {
         }
     }
 
-    useEffect(() => {
-        pathname === '/admin/product' ? setIsProductCreate(true) : setIsProductCreate(false)
-    }, [pathname])
 
-    useEffect(() => {
-        setIsProductAvailable(productHelper.checkIsProductAvailable(product.total));
-    }, [product.total])
 
     return (
         <div>

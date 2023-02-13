@@ -5,7 +5,7 @@ import style from './FavoriteListItem.module.css';
 import {cartActions, userActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {localStorageItemsEnum} from "../../constants";
-import {productService} from "../../services";
+import {productHelper} from "../../helpers";
 
 interface IProps {
     item: IProduct
@@ -33,7 +33,7 @@ const FavoriteListItem: FC<IProps> = ({item}) => {
     const [isProductAvailable, setIsProductAvailable] = useState(true);
 
     useEffect(() => {
-        setIsProductAvailable(productService.checkIsProductAvailable(total));
+        setIsProductAvailable(productHelper.checkIsProductAvailable(total));
     }, [total])
 
     const deleteFavoriteListItem = (): void => {
