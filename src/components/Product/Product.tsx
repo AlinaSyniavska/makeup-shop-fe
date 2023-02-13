@@ -14,7 +14,6 @@ interface IProps {
 }
 
 const Product: FC<IProps> = ({product}) => {
-
     const [isProductCreate, setIsProductCreate] = useState(true);
     const [isProductAvailable, setIsProductAvailable] = useState(true);
     const {pathname} = useLocation();
@@ -22,14 +21,14 @@ const Product: FC<IProps> = ({product}) => {
     const dispatch = useAppDispatch();
     const {isAuth} = useAppSelector(state => state.authReducer);
 
-    const rating: IRating = {
+/*    const rating: IRating = {
         ratingValue: Number(product.rating),
         iconsCount: 5,
         size: 20,
         readonly: true,
         fillColor: 'lightpink',
         emptyColor: '#999999',
-    }
+    }*/
 
     useEffect(() => {
         pathname === '/admin/product' ? setIsProductCreate(true) : setIsProductCreate(false)
@@ -44,7 +43,7 @@ const Product: FC<IProps> = ({product}) => {
         dispatch(cartActions.addToCart({goods: product}));
     }
 
-    const checkPath = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const preventDefaultLinkAction = (event: React.MouseEvent<HTMLAnchorElement>) => {
         const btnBuyList = document.getElementsByClassName('btnBuy');
         const btnFavoriteList = document.querySelectorAll('.Favorite_btnFavorite__RDx0q>svg,.Favorite_btnFavorite__RDx0q>svg>path');
 
@@ -56,18 +55,16 @@ const Product: FC<IProps> = ({product}) => {
         }
     }
 
-
-
     return (
         <div>
-            <Link to={`/home/product/${product._id}`} target="_blank" onClick={checkPath}>
+            <Link to={`/home/product/${product._id}`} target="_blank" onClick={preventDefaultLinkAction}>
                 <div aria-disabled={!isProductAvailable} className={'product_wrap'}>
                     <div className={'product'}>
                         <div className={'product_img'}>
                             <img src={product.imageLink} alt={product.name}/>
                         </div>
                         <Favorite product={product}/>
-                        <StarRating ratingProps={rating}/>
+                        <StarRating ratingProps={commonHelper.makeRatingProps(product.rating, 'lightpink')}/>
                         <p className={'product_name'}>{product.name}</p>
                         <p className={'product_brand'}>{product.brand}</p>
                         <p className={'product_price'}>{product.price} {product.priceSign}</p>
