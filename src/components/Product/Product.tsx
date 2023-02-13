@@ -48,18 +48,8 @@ const Product: FC<IProps> = ({product}) => {
         const btnBuyList = document.getElementsByClassName('btnBuy');
         const btnFavoriteList = document.querySelectorAll('.Favorite_btnFavorite__RDx0q>svg,.Favorite_btnFavorite__RDx0q>svg>path');
 
-        let btnBuy, btnFavorite;
-
-        for (let i = 0; i < btnBuyList.length; i++) {
-            if(btnBuyList[i] === event.target){
-                btnBuy = btnBuyList[i];
-            }
-        }
-        for (let i = 0; i < btnFavoriteList.length; i++) {
-            if(btnFavoriteList[i] === event.target){
-                btnFavorite = btnFavoriteList[i];
-            }
-        }
+        const btnBuy = productHelper.searchPressedButton(btnBuyList, event.target);
+        const btnFavorite = productHelper.searchPressedButton(btnFavoriteList, event.target);
 
         if (isProductCreate || event.target === btnBuy || event.target === btnFavorite) {
             event.preventDefault();

@@ -1,9 +1,11 @@
+type ElementsCollection = HTMLCollection | NodeList;
+
 const productHelper = {
     checkIsProductAvailable: (totalNumber: number): boolean => {
         return totalNumber > 0;
     },
 
-    searchPressedButton: (list: HTMLCollection, target: EventTarget): HTMLElement => {
+    searchPressedButton: (list: ElementsCollection, target: EventTarget): HTMLElement => {
         let button;
 
         for (let i = 0; i < list.length; i++) {
