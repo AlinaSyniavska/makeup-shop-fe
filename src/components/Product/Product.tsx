@@ -65,7 +65,7 @@ const Product: FC<IProps> = ({product}) => {
 
                     {
                         (!isProductCreate && isAuth) &&
-                        <button className={style.btnBuy} disabled={!isProductAvailable} onClick={addToCart}>
+                        <button disabled={!isProductAvailable} onClick={addToCart}>
                             Buy
                         </button>
                     }
