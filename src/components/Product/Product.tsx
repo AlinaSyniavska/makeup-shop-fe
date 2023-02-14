@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 
 import {IProduct} from "../../interfaces";
-import './Product.css';
+import style from './Product.module.css';
 import {cartActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {StarRating} from "../StarRating/StarRating";
@@ -51,21 +51,21 @@ const Product: FC<IProps> = ({product}) => {
     return (
         <div>
             <Link to={`/home/product/${product._id}`} target="_blank" onClick={preventDefaultLinkAction}>
-                <div aria-disabled={!isProductAvailable} className={'product_wrap'}>
-                    <div className={'product'}>
-                        <div className={'product_img'}>
+                <div aria-disabled={!isProductAvailable} className={style.product_wrap}>
+                    <div className={style.product}>
+                        <div className={style.product_img}>
                             <img src={product.imageLink} alt={product.name}/>
                         </div>
                         <Favorite product={product}/>
                         <StarRating ratingProps={commonHelper.makeRatingProps(product.rating, ratingColorEnum.MAIN_RATING_COLOR)}/>
-                        <p className={'product_name'}>{product.name}</p>
-                        <p className={'product_brand'}>{product.brand}</p>
-                        <p className={'product_price'}>{product.price} {product.priceSign}</p>
+                        <p className={style.product_name}>{product.name}</p>
+                        <p className={style.product_brand}>{product.brand}</p>
+                        <p className={style.product_price}>{product.price} {product.priceSign}</p>
                     </div>
 
                     {
                         (!isProductCreate && isAuth) &&
-                        <button className={'btnBuy'} disabled={!isProductAvailable} onClick={addToCart}>
+                        <button className={style.btnBuy} disabled={!isProductAvailable} onClick={addToCart}>
                             Buy
                         </button>
                     }
