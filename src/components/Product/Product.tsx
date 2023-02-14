@@ -3,12 +3,13 @@ import {Link, useLocation} from "react-router-dom";
 
 import {IProduct} from "../../interfaces";
 import './Product.css';
-import {cartActions, productActions} from "../../redux";
+import {cartActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {StarRating} from "../StarRating/StarRating";
 import {Favorite} from "../Favorite/Favorite";
 import {commonHelper, productHelper} from "../../helpers";
 import {ratingColorEnum} from "../../constants";
+import {AdminButtons} from "../AdminButtons/AdminButtons";
 
 interface IProps {
     product: IProduct,
@@ -68,24 +69,9 @@ const Product: FC<IProps> = ({product}) => {
                             Buy
                         </button>
                     }
-                    {/*--------------------ADMIN BUTTONS-------------------------*/}
-                    {
-                        isProductCreate &&
-                        <button onClick={() => {
-                            dispatch(productActions.setProductForUpdate({product}));
-                            commonHelper.scrollToUp();
-                        }}>
-                            Update
-                        </button>
-                    }
 
                     {
-                        isProductCreate &&
-                        <button onClick={() => {
-                            dispatch(productActions.deleteById({id: product._id as String}));
-                        }}>
-                            Delete
-                        </button>
+                        isProductCreate && <AdminButtons product={product}/>
                     }
                 </div>
             </Link>

@@ -1,4 +1,5 @@
 export * from './Account/Account';
+export * from './AdminButtons/AdminButtons';
 export * from './AdminHeader/AdminHeader';
 export * from './AuthForm/AuthForm';
 export * from './Button/Button';
