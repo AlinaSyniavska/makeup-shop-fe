@@ -3,13 +3,13 @@ import {Link, useLocation} from "react-router-dom";
 
 import {IProduct} from "../../interfaces";
 import style from './Product.module.css';
-import {cartActions} from "../../redux";
-import {useAppDispatch, useAppSelector} from "../../hooks";
+import {useAppSelector} from "../../hooks";
 import {StarRating} from "../StarRating/StarRating";
 import {Favorite} from "../Favorite/Favorite";
 import {commonHelper, productHelper} from "../../helpers";
 import {ratingColorEnum} from "../../constants";
 import {AdminButtons} from "../AdminButtons/AdminButtons";
+import {CustomButtonBuy} from "../CustomButtonBuy/CustomButtonBuy";
 
 interface IProps {
     product: IProduct,
@@ -19,8 +19,6 @@ const Product: FC<IProps> = ({product}) => {
     const [isProductCreate, setIsProductCreate] = useState(true);
     const [isProductAvailable, setIsProductAvailable] = useState(true);
     const {pathname} = useLocation();
-
-    const dispatch = useAppDispatch();
     const {isAuth} = useAppSelector(state => state.authReducer);
 
     useEffect(() => {
@@ -30,11 +28,6 @@ const Product: FC<IProps> = ({product}) => {
     useEffect(() => {
         setIsProductAvailable(productHelper.checkIsProductAvailable(product.total));
     }, [product.total])
-
-
-    const addToCart = () => {
-        dispatch(cartActions.addToCart({goods: product}));
-    }
 
     const preventDefaultLinkAction = (event: React.MouseEvent<HTMLAnchorElement>) => {
         const btnBuyList = document.getElementsByClassName('btnBuy');
@@ -64,10 +57,7 @@ const Product: FC<IProps> = ({product}) => {
                     </div>
 
                     {
-                        (!isProductCreate && isAuth) &&
-                        <button disabled={!isProductAvailable} onClick={addToCart}>
-                            Buy
-                        </button>
+                        (!isProductCreate && isAuth) && <CustomButtonBuy singleProduct={product}/>
                     }
 
                     {
