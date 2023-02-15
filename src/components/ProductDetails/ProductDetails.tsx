@@ -1,13 +1,14 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useEffect} from "react";
 
 import {IProduct} from "../../interfaces";
 import style from './ProductDetails.module.css';
 import {StarRating} from "../StarRating/StarRating";
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {cartActions, userActions} from "../../redux";
 import {Favorite} from "../Favorite/Favorite";
 import {localStorageItemsEnum, ratingColorEnum} from "../../constants";
-import {commonHelper, productHelper} from "../../helpers";
+import {commonHelper} from "../../helpers";
+import {CustomButtonBuy} from "../CustomButtonBuy/CustomButtonBuy";
+import {userActions} from "../../redux";
 
 interface IProps {
     singleProduct: IProduct,
@@ -18,15 +19,6 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
     const {isAuth} = useAppSelector(state => state.authReducer);
     const {userFavoriteList} = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
-    const [isProductAvailable, setIsProductAvailable] = useState(true);
-
-    const addToCart = (): void => {
-        dispatch(cartActions.addToCart({goods: singleProduct}));
-    }
-
-    useEffect(() => {
-        setIsProductAvailable(productHelper.checkIsProductAvailable(total));
-    }, [total])
 
     useEffect(() => {
         if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
@@ -53,7 +45,8 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
                             <span className={style.greyText}> / {productType}</span>
                         </p>
                         <p className={style.largeText}>{name}</p>
-                        <StarRating ratingProps={commonHelper.makeRatingProps(rating, ratingColorEnum.MAIN_RATING_COLOR)}/>
+                        <StarRating
+                            ratingProps={commonHelper.makeRatingProps(rating, ratingColorEnum.MAIN_RATING_COLOR)}/>
                     </div>
                     <div className={style.mainContainer}>
                         <p className={style.regularText}>
@@ -82,10 +75,7 @@ const ProductDetails: FC<IProps> = ({singleProduct}) => {
                     </div>
                     <div className={style.mainContainer}>
                         {
-                            isAuth &&
-                            <button disabled={!isProductAvailable} onClick={addToCart}>
-                                Buy
-                            </button>
+                            isAuth && <CustomButtonBuy singleProduct={singleProduct}/>
                         }
                     </div>
                 </div>
