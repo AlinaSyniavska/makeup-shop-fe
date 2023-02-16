@@ -13,18 +13,19 @@ interface IProps {
 const AdminButtons: FC<IProps> = ({product}) => {
     const dispatch = useAppDispatch();
 
+    const updateProduct = () => {
+        dispatch(productActions.setProductForUpdate({product}));
+        commonHelper.scrollToUp();
+    }
+
+    const deleteProduct = () => {
+        dispatch(productActions.deleteById({id: product._id as String}));
+    }
+
     return (
         <React.Fragment>
-            <button onClick={() => {
-                dispatch(productActions.setProductForUpdate({product}));
-                commonHelper.scrollToUp();
-            }}>
-                Update
-            </button>
-
-            <button onClick={() => dispatch(productActions.deleteById({id: product._id as String}))}>
-                Delete
-            </button>
+            <button onClick={updateProduct}>Update</button>
+            <button onClick={deleteProduct}>Delete</button>
         </React.Fragment>
     );
 };
