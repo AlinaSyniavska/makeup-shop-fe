@@ -21,15 +21,6 @@ const AuthForm: FC = () => {
     const {authStatus, authErrors, isAuth, logUser} = useAppSelector(state => state.authReducer);
     const dispatch = useAppDispatch();
 
-    const submitForm = async (user: ILogin) => {
-            try {
-                await dispatch(authActions.login({user}));
-            } catch (e: any) {
-                console.error(e.response);
-                console.log(errors)
-            }
-    };
-
     useEffect(() => {
         pathname === '/auth/register' ? setIsLogin(false) : setIsLogin(true);
     }, [pathname])
@@ -47,6 +38,15 @@ const AuthForm: FC = () => {
     useEffect(() => {
         dispatch(userActions.initFavoriteList({list: logUser.favoriteList}));
     }, [logUser])
+
+    const submitForm = async (user: ILogin) => {
+        try {
+            await dispatch(authActions.login({user}));
+        } catch (e: any) {
+            console.error(e.response);
+            console.log(errors)
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit(submitForm)} className={style.authForm}>
