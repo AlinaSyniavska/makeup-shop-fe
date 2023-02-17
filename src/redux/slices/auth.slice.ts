@@ -55,7 +55,6 @@ const authSlice = createSlice({
             state.authStatus = null;
             state.authErrors = {};
             state.logUser = {};
-            // localStorage.clear();
             localStorage.removeItem(localStorageItemsEnum.ACCESS);
             localStorage.removeItem(localStorageItemsEnum.REFRESH);
             localStorage.removeItem(localStorageItemsEnum.LOGIN_USER);
@@ -67,6 +66,11 @@ const authSlice = createSlice({
             const {name, surname} = user as IUser;
             state.logUser.name = name;
             state.logUser.surname = surname;
+        },
+
+        clearErrors: state => {
+            state.authStatus = null;
+            state.authErrors = {};
         },
 
     },
@@ -94,18 +98,16 @@ const authSlice = createSlice({
 
             })
             .addCase(logout.rejected, (state, action) => {
-
-                console.log(action.payload);
-
                 const {errorStatus} = action.payload as any;
                 state.authStatus = errorStatus;
             })
     }
 });
 
-const {reducer: authReducer, actions: {editLogUserInfo, logoutUser, setAuth}} = authSlice;
+const {reducer: authReducer, actions: {clearErrors, editLogUserInfo, logoutUser, setAuth}} = authSlice;
 
 const authActions = {
+    clearErrors,
     editLogUserInfo,
     login,
     logout,
