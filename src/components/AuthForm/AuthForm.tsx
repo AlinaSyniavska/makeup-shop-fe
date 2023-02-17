@@ -44,27 +44,31 @@ const AuthForm: FC = () => {
             await dispatch(authActions.login({user}));
         } catch (e: any) {
             console.error(e.response);
-            console.log(errors)
+            console.log(errors);
         }
     };
+
+    const clearFormErrors = async () => {
+        await dispatch(authActions.clearErrors());
+    }
 
     return (
         <form onSubmit={handleSubmit(submitForm)} className={style.authForm}>
             <div>
                 <label>Email
-                    <input type={'text'} placeholder={'email  '} {...register('email')}/>
+                    <input type={'text'} placeholder={'email'} {...register('email')} onChange={clearFormErrors}/>
                 </label>
             </div>
             <div>
                 <label>Password
-                    <input type={'password'} placeholder={'password'} {...register('password')}/>
+                    <input type={'password'} placeholder={'password'} {...register('password')} onChange={clearFormErrors}/>
                 </label>
             </div>
             <button>{isLogin ? 'Login' : 'Register'}</button>
 
             <div className={style.error}>
-                <div>{authStatus && <b>{authStatus}</b>}</div>
-                <div>{authErrors.error}</div>
+                <div><b>{authErrors.error}</b></div>
+                <div>{authStatus && <span>{authStatus}</span>}</div>
             </div>
         </form>
     );
