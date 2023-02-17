@@ -11,10 +11,7 @@ const AuthForm: FC = () => {
     const {register, handleSubmit} = useForm<ILogin>({
         mode: 'all'
     });
-
     const [isLogin, setIsLogin] = useState<boolean>(false);
-    const [errors, setErrors] = useState<any>({});
-
     const navigate = useNavigate();
     const {pathname} = useLocation();
 
@@ -24,10 +21,6 @@ const AuthForm: FC = () => {
     useEffect(() => {
         pathname === '/auth/register' ? setIsLogin(false) : setIsLogin(true);
     }, [pathname])
-
-    useEffect(() => {
-        setErrors(authErrors.errors);
-    }, [authStatus, authErrors])
 
     useEffect(() => {
         if (isAuth) {
@@ -44,24 +37,23 @@ const AuthForm: FC = () => {
             await dispatch(authActions.login({user}));
         } catch (e: any) {
             console.error(e.response);
-            console.log(errors);
         }
     };
 
-    const clearFormErrors = async () => {
-        await dispatch(authActions.clearErrors());
+    const clearFormErrors = () => {
+        dispatch(authActions.clearErrors());
     }
 
     return (
-        <form onSubmit={handleSubmit(submitForm)} className={style.authForm}>
+        <form onSubmit={handleSubmit(submitForm)} className={style.authForm} onChange={clearFormErrors}>
             <div>
                 <label>Email
-                    <input type={'text'} placeholder={'email'} {...register('email')} onChange={clearFormErrors}/>
+                    <input type={'text'} placeholder={'email'} {...register('email')}/>
                 </label>
             </div>
             <div>
                 <label>Password
-                    <input type={'password'} placeholder={'password'} {...register('password')} onChange={clearFormErrors}/>
+                    <input type={'password'} placeholder={'password'} {...register('password')}/>
                 </label>
             </div>
             <button>{isLogin ? 'Login' : 'Register'}</button>
