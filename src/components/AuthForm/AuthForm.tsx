@@ -1,6 +1,6 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect} from "react";
 import {useForm} from "react-hook-form";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {ILogin} from "../../interfaces";
@@ -11,16 +11,10 @@ const AuthForm: FC = () => {
     const {register, handleSubmit} = useForm<ILogin>({
         mode: 'all'
     });
-    const [isLogin, setIsLogin] = useState<boolean>(false);
     const navigate = useNavigate();
-    const {pathname} = useLocation();
 
     const {authStatus, authErrors, isAuth, logUser} = useAppSelector(state => state.authReducer);
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        pathname === '/auth/register' ? setIsLogin(false) : setIsLogin(true);
-    }, [pathname])
 
     useEffect(() => {
         if (isAuth) {
@@ -56,7 +50,7 @@ const AuthForm: FC = () => {
                     <input type={'password'} placeholder={'password'} {...register('password')}/>
                 </label>
             </div>
-            <button>{isLogin ? 'Login' : 'Register'}</button>
+            <button>Login</button>
 
             <div className={style.error}>
                 <div><b>{authErrors.error}</b></div>
