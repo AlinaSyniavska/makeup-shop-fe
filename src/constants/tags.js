@@ -1,5 +1,10 @@
-const tags = ['vegan', 'gluten free', 'natural', 'non-gmo', 'organic', 'hypoallergenic'];
+const tags = [
+  "vegan",
+  "gluten free",
+  "natural",
+  "non-gmo",
+  "organic",
+  "hypoallergenic",
+];
 
-export {
-    tags,
-}
+export { tags };

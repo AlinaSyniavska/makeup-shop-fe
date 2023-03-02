@@ -1,4 +1,2 @@
-export * from './common.helper';
-export * from './product.helper';
-
-
+export * from "./common.helper";
+export * from "./product.helper";

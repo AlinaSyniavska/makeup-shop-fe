@@ -1,5 +1,5 @@
-import {IItem} from "./item.interface";
+import { IItem } from "./item.interface";
 
 export interface IItems {
-    data: IItem[],
+  data: IItem[];
 }

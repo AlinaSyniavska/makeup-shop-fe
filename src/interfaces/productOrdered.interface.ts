@@ -1,5 +1,5 @@
 export interface IProductOrdered {
-    productId: string,
-    count: number,
-    cost: number,
+  productId: string;
+  count: number;
+  cost: number;
 }

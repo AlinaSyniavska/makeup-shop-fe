@@ -1,21 +1,19 @@
 .selectContainer {
-    /*width: 100%;*/
+  /*width: 100%;*/
 }
 
 .selectContainer select {
-    width: 50px;
-    margin-left: 20px;
-    color: #000;
+  width: 50px;
+  margin-left: 20px;
+  color: #000;
 }
 
 .selectContainer select:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .selectContainer label,
 .selectContainer label:hover {
-    color: rgb(87,87,87);
-    font-size: 16px;
+  color: rgb(87, 87, 87);
+  font-size: 16px;
 }
-
-

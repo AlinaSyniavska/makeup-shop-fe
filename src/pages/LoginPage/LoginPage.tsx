@@ -1,13 +1,12 @@
-import {FC} from "react";
-import {AuthForm} from "../../components";
+import { FC } from "react";
+import { AuthForm } from "../../components";
 
 const LoginPage: FC = () => {
-
-    return (
-        <div>
-             <AuthForm/>
-        </div>
-    );
+  return (
+    <div>
+      <AuthForm />
+    </div>
+  );
 };
 
-export {LoginPage};
+export { LoginPage };

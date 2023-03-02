@@ -1,14 +1,13 @@
 .favoriteList {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    width: 100%;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .text {
-    width: inherit;
-    font-size: 20px;
-    margin: 50px;
+  width: inherit;
+  font-size: 20px;
+  margin: 50px;
 }
-

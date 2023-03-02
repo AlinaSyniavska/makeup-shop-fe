@@ -1,9 +1,7 @@
 const priceSignEnum = {
-    USD: '$',
-    UAN: '₴',
-    EUR: '€',
-}
+  USD: "$",
+  UAN: "₴",
+  EUR: "€",
+};
 
-export {
-    priceSignEnum,
-}
+export { priceSignEnum };

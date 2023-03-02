@@ -1,15 +1,15 @@
-import {FC} from "react";
+import { FC } from "react";
 
-import {CreateProductForm, Products} from "../../components";
+import { CreateProductForm, Products } from "../../components";
 
 const ProductPage: FC = () => {
-    return (
-        <div>
-            <CreateProductForm/>
-            <hr/>
-            <Products/>
-        </div>
-    );
+  return (
+    <div>
+      <CreateProductForm />
+      <hr />
+      <Products />
+    </div>
+  );
 };
 
-export {ProductPage};
+export { ProductPage };

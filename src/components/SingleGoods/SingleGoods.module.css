@@ -1,58 +1,58 @@
 .singleGoodsContainer {
-    display: flex;
-    column-gap: 10px;
-    border-bottom: 2px solid #999999;
-    color: #000000;
-    font-size: 16px;
-    margin: 0 20px;
+  display: flex;
+  column-gap: 10px;
+  border-bottom: 2px solid #999999;
+  color: #000000;
+  font-size: 16px;
+  margin: 0 20px;
 }
 
 .goodsName {
-    display: flex;
-    column-gap: 5px;
+  display: flex;
+  column-gap: 5px;
 
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .goodsName > p {
-    height: 100%;
-    padding: 0;
-    margin: 0;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .orderInfo {
-    display: flex;
-    column-gap: 10px;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 10px;
+  display: flex;
+  column-gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
 }
 
 .btnChangeCount {
-    width: 35px;
-    border-radius: 50%;
-    font-weight: bold;
+  width: 35px;
+  border-radius: 50%;
+  font-weight: bold;
 }
 
 .goodsQuantity {
-    display: flex;
-    column-gap: 10px;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  column-gap: 10px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .goodsQuantity > .countGoods {
-    width: 30px;
-    text-align: center;
+  width: 30px;
+  text-align: center;
 }
 
 .goodsPrice {
-    width: 50px;
-    text-align: right;
+  width: 50px;
+  text-align: right;
 }
 
 .goodsTotalCost {
-    width: 70px;
-    text-align: right;
-    font-weight: bold;
+  width: 70px;
+  text-align: right;
+  font-weight: bold;
 }

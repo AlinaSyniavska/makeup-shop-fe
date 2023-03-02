@@ -1,19 +1,19 @@
-import {FC} from "react";
+import { FC } from "react";
 
-import {SelectPerPageForm} from "../SelectPerPageForm/SelectPerPageForm";
+import { SelectPerPageForm } from "../SelectPerPageForm/SelectPerPageForm";
 
-import './Pagination.css'
-import {Pages} from "../Pages/Pages";
+import "./Pagination.css";
+import { Pages } from "../Pages/Pages";
 
 const Pagination: FC = () => {
-    return (
-        <div>
-            <div className={'pgnContainer'}>
-                <SelectPerPageForm/>
-                <Pages/>
-            </div>
-        </div>
-    );
+  return (
+    <div>
+      <div className={"pgnContainer"}>
+        <SelectPerPageForm />
+        <Pages />
+      </div>
+    </div>
+  );
 };
 
-export {Pagination};
+export { Pagination };

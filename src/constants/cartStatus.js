@@ -1,8 +1,6 @@
 const cartStatusEnum = {
-    IN_PROGRESS: 'in_progress',
-    SOLD: 'sold'
-}
+  IN_PROGRESS: "in_progress",
+  SOLD: "sold",
+};
 
-export {
-    cartStatusEnum,
-}
+export { cartStatusEnum };

@@ -1,36 +1,36 @@
 .cartContainer {
-    height: 70px;
-    display: flex;
-    column-gap: 10px;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
+  height: 70px;
+  display: flex;
+  column-gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
 .cart {
-    height: 50%;
+  height: 50%;
 }
 
 .cart > img {
-    height: 100%;
+  height: 100%;
 }
 
 .quantityGoods {
-    color: #B025BC;
-    font-size: 18px;
-    font-weight: bold;
-    position: absolute;
-    z-index: 100;
-    top: 5%;
-    right: -50%;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: lightpink;
+  color: #b025bc;
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  z-index: 100;
+  top: 5%;
+  right: -50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: lightpink;
 }
 
 .quantityGoods > span {
-    line-height: 30px;
-    display: block;
-    text-align: center;
+  line-height: 30px;
+  display: block;
+  text-align: center;
 }

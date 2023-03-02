@@ -1,5 +1,4 @@
-export  interface IColor {
-    hexValue: string,
-    colorName: string,
+export interface IColor {
+  hexValue: string;
+  colorName: string;
 }
-

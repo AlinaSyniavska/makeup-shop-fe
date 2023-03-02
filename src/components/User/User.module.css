@@ -1,23 +1,21 @@
 .userItem {
-    margin-bottom: 20px;
-    width: inherit;
-    font-size: 18px;
+  margin-bottom: 20px;
+  width: inherit;
+  font-size: 18px;
 
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 30px;
 }
 
 .userItem .btnUpdate {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .userItem .btnUpdate:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .userItemEdit form {
-    margin-top: -20px;
+  margin-top: -20px;
 }
-
-

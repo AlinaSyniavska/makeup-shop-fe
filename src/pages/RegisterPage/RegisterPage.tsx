@@ -1,13 +1,13 @@
-import {FC} from "react";
+import { FC } from "react";
 
-import {RegisterForm} from "../../components";
+import { RegisterForm } from "../../components";
 
 const RegisterPage: FC = () => {
-    return (
-        <div>
-            <RegisterForm/>
-        </div>
-    );
+  return (
+    <div>
+      <RegisterForm />
+    </div>
+  );
 };
 
-export {RegisterPage};
+export { RegisterPage };

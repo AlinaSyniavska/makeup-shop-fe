@@ -1,8 +1,6 @@
 const genderEnum = {
-    MALE: 'male',
-    FEMALE: 'female',
-}
+  MALE: "male",
+  FEMALE: "female",
+};
 
-export {
-    genderEnum,
-}
+export { genderEnum };

@@ -1,12 +1,10 @@
 .favorite {
-    align-self: end;
-    color: lightpink;
+  align-self: end;
+  color: lightpink;
 }
 
 .btnFavorite {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
 }
-
-

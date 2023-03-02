@@ -1,27 +1,26 @@
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import {useEffect} from "react";
+import { useEffect } from "react";
 
-import {useAppSelector} from "../hooks";
+import { useAppSelector } from "../hooks";
 
 interface Props {
-    children: any
+  children: any;
 }
 
-const RequireAuth = ({children}: Props) => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const {isAuth} = useAppSelector(state => state.authReducer);
+const RequireAuth = ({ children }: Props) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuth } = useAppSelector((state) => state.authReducer);
 
-    useEffect(() => {
-        if(!isAuth){
-            // return <Navigate to={'/auth/login'} state={location} />
-            navigate('/auth/login', { state: { location } });
-        }
-    }, [isAuth, navigate, location]);
+  useEffect(() => {
+    if (!isAuth) {
+      // return <Navigate to={'/auth/login'} state={location} />
+      navigate("/auth/login", { state: { location } });
+    }
+  }, [isAuth, navigate, location]);
 
-    return children;
+  return children;
 };
 
-export {RequireAuth};
-
+export { RequireAuth };

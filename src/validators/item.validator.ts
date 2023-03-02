@@ -1,10 +1,8 @@
 import Joi from "joi";
-import {commonValidator} from "./common.validator";
+import { commonValidator } from "./common.validator";
 
 const itemValidator = Joi.object({
-    name: commonValidator.commonName.required(),
+  name: commonValidator.commonName.required(),
 });
 
-export {
-    itemValidator
-}
+export { itemValidator };

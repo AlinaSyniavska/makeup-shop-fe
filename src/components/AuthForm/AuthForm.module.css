@@ -1,61 +1,60 @@
 .authForm {
-    width: 300px;
-    margin-bottom: 50px;
+  width: 300px;
+  margin-bottom: 50px;
 
-    margin-top: 20px;
-    margin-left: 100px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
+  margin-top: 20px;
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }
 
 .authForm label,
 .authForm label:hover {
-    color: rgb(87,87,87);
+  color: rgb(87, 87, 87);
 }
 
 .authForm label {
-    display: block;
-    width: 100%;
-    font-size: 18px;
+  display: block;
+  width: 100%;
+  font-size: 18px;
 }
 
 .authForm input {
-    padding: 5px;
-    font-size: 18px;
-    width: 100%;
+  padding: 5px;
+  font-size: 18px;
+  width: 100%;
 }
 
 .selectBox select:hover,
 .textRadio:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .selectBox {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .selectBox select {
-    width: 300px;
+  width: 300px;
 }
 .selectBox input {
-    width: 10%;
+  width: 10%;
 }
 .genderContainer {
-    padding-top: 10px;
-    display: flex;
+  padding-top: 10px;
+  display: flex;
 }
 
 .genderContainer input {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .error {
-    color: red;
-    font-size: 18px;
+  color: red;
+  font-size: 18px;
 }
 
 .btnRegister {
-    width: 200px;
+  width: 200px;
 }
-

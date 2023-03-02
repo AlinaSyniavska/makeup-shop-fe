@@ -1,13 +1,13 @@
-import {FC} from "react";
+import { FC } from "react";
 
-import {FavoriteList} from "../../components";
+import { FavoriteList } from "../../components";
 
 const FavoriteListPage: FC = () => {
-    return (
-        <div>
-            <FavoriteList/>
-        </div>
-    );
+  return (
+    <div>
+      <FavoriteList />
+    </div>
+  );
 };
 
-export {FavoriteListPage};
+export { FavoriteListPage };

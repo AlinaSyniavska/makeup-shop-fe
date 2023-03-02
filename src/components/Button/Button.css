@@ -1,19 +1,19 @@
-button{
-    width: 100px;
-    padding: 5px;
-    margin-right: 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    background: rgba(255, 182, 193, 0.44);
-    color: #60889a;
-    border: none;
+button {
+  width: 100px;
+  padding: 5px;
+  margin-right: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(255, 182, 193, 0.44);
+  color: #60889a;
+  border: none;
 }
 
-button:hover{
-    background: lightpink;
-    cursor: pointer;
+button:hover {
+  background: lightpink;
+  cursor: pointer;
 }
 
 button:disabled {
-    background: #dddddd;
+  background: #dddddd;
 }
