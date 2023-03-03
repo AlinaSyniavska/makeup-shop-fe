@@ -14,7 +14,7 @@ const Cart: FC = () => {
 
   useEffect(() => {
     const order = localStorage.getItem(localStorageItemsEnum.ORDER);
-    let orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
+    const orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
     let initialValue = 0;
     setQNumberOfGoods(
       orderFromLocalStorage.reduce(
@@ -37,7 +37,7 @@ const Cart: FC = () => {
           </div>
 
           {isAuth && (
-            <div className={style.quantityGoods}>
+            <div className={style.numberOfGoods}>
               <span>{numberOfGoods}</span>
             </div>
           )}

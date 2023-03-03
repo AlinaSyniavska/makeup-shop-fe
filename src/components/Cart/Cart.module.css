@@ -15,7 +15,7 @@
   height: 100%;
 }
 
-.quantityGoods {
+.numberOfGoods {
   color: #b025bc;
   font-size: 18px;
   font-weight: bold;
@@ -29,7 +29,7 @@
   background: lightpink;
 }
 
-.quantityGoods > span {
+.numberOfGoods > span {
   line-height: 30px;
   display: block;
   text-align: center;
