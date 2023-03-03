@@ -5,6 +5,7 @@ import { useAppSelector } from "../../hooks";
 import { NavLink } from "react-router-dom";
 import { localStorageItemsEnum } from "../../constants";
 import { IProductOrdered } from "../../interfaces";
+import { localStorageService } from "../../services";
 
 const Cart: FC = () => {
   const { isAuth } = useAppSelector((state) => state.authReducer);
@@ -13,13 +14,10 @@ const Cart: FC = () => {
   const [numberOfGoods, setQNumberOfGoods] = useState<number>(0);
 
   useEffect(() => {
-    const order = localStorage.getItem(localStorageItemsEnum.ORDER);
-    const orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
+    const order = localStorageService.getFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
     let initialValue = 0;
     setQNumberOfGoods(
-      orderFromLocalStorage.reduce(
-        (accumulator: number, currentValue: IProductOrdered) =>
-          accumulator + currentValue.count,
+      order.reduce((accumulator: number, currentValue: IProductOrdered) => accumulator + currentValue.count,
         initialValue
       )
     );
