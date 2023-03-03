@@ -77,7 +77,7 @@ const cartSlice = createSlice({
     changeOrderDeleteRecord: (state, action) => {
       const { itemId } = action.payload.data;
 
-      const order = localStorageService.getFromLocalStorage(localStorageItemsEnum.ORDER);
+      const order = localStorageService.getFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
       let singleGoodsIndex = order.findIndex((i: IProductOrdered) => i.productId === itemId);
       order.splice(singleGoodsIndex, 1);
