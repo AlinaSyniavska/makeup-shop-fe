@@ -10,13 +10,13 @@ const Cart: FC = () => {
   const { isAuth } = useAppSelector((state) => state.authReducer);
   const { goods, userOrder } = useAppSelector((state) => state.cartReducer);
 
-  const [quantityGoods, setQuantityGoods] = useState<number>(0);
+  const [numberOfGoods, setQNumberOfGoods] = useState<number>(0);
 
   useEffect(() => {
     const order = localStorage.getItem(localStorageItemsEnum.ORDER);
     let orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
     let initialValue = 0;
-    setQuantityGoods(
+    setQNumberOfGoods(
       orderFromLocalStorage.reduce(
         (accumulator: number, currentValue: IProductOrdered) =>
           accumulator + currentValue.count,
@@ -38,7 +38,7 @@ const Cart: FC = () => {
 
           {isAuth && (
             <div className={style.quantityGoods}>
-              <span>{quantityGoods}</span>
+              <span>{numberOfGoods}</span>
             </div>
           )}
         </div>
