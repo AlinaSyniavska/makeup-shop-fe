@@ -1,6 +1,5 @@
 export * from "./auth.interface";
 export * from "./cart.interface";
-export * from "./color.interface";
 export * from "./item.interface";
 export * from "./items.interface";
 export * from "./login.interface";

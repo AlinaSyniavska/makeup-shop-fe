@@ -20,12 +20,6 @@ const productValidator = Joi.object({
   category: commonValidator.commonName.required(),
   productType: commonValidator.commonName.required(),
   tagList: Joi.array().items(Joi.string().valid(...tags)),
-  /*    productColor: Joi.array().items(
-        {
-            hexValue: Joi.string().regex(/^#[A-Fa-f\d]{6}/),
-            // hexValue: Joi.string().hex(),
-            colorName: Joi.string()
-        })*/
 });
 
 export { productValidator };

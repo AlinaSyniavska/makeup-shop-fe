@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useNavigate } from "react-router-dom";
 
-import { IColor, IProduct } from "../../interfaces";
+import { IProduct } from "../../interfaces";
 import { productValidator } from "../../validators";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../redux";
@@ -12,24 +12,15 @@ import { productService } from "../../services";
 import style from "./CreateProductForm.module.css";
 
 const CreateProductForm: FC = () => {
-  const {
-    register,
-    reset,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IProduct>({
+  const {register, reset, setValue, handleSubmit, formState: { errors },} = useForm<IProduct>({
     resolver: joiResolver(productValidator),
     mode: "all",
   });
 
-  const { formErrors, productForUpdate, brands, productTypes, categories } =
-    useAppSelector((state) => state.productReducer);
+  const { formErrors, productForUpdate, brands, productTypes, categories } = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
-
-  const [checked, setChecked] = useState<string[]>([]);
-  const [productColorObj, setProductColorObj] = useState<IColor[]>([]);
   const navigate = useNavigate();
+  const [checked, setChecked] = useState<string[]>([]);
 
   useEffect(() => {
     if (productForUpdate) {
@@ -82,13 +73,6 @@ const CreateProductForm: FC = () => {
   const submitForm = async (product: IProduct) => {
     const expandedProduct = { ...product };
 
-    /*        if (productColorObj) {
-            expandedProduct['productColor'] = [...productColorObj];
-        }*/
-
-    // console.log(product);
-    // console.log(expandedProduct);
-
     try {
       if (!productForUpdate) {
         await productService.create(expandedProduct);
@@ -103,24 +87,6 @@ const CreateProductForm: FC = () => {
       reset();
     } catch (e: any) {
       console.log(e.response.data());
-    }
-  };
-
-  const addProductColor = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const hex = document.getElementById("hex") as HTMLInputElement;
-    const nameHex = document.getElementById("nameHex") as HTMLInputElement;
-
-    const hexValue = hex.value;
-    const colorName = nameHex.value;
-
-    if (hexValue && colorName) {
-      setProductColorObj((prevState) => [
-        ...prevState,
-        { hexValue, colorName },
-      ]);
-      hex.value = "";
-      nameHex.value = "";
     }
   };
 
@@ -320,32 +286,6 @@ const CreateProductForm: FC = () => {
             </div>
           ))}
         </label>
-      </div>
-
-      {/*productColor*/}
-      <div className={style.container}>
-        <label>
-          <span className={style.labelTitle}>Enter Product Colors</span>
-          <label>
-            <span className={style.labelTitle}>HEX Value</span>
-            {/*<input id={'hex'} type={'text'} {...register(`productColor.${number}.hexValue`)}/>*/}
-            <input id={"hex"} type={"text"} disabled={true} />
-          </label>
-          <label>
-            <span className={style.labelTitle}>Color Name</span>
-            {/*<input id={'nameHex'} type={'text'} {...register(`productColor.${number}.colorName`)}/>*/}
-            <input id={"nameHex"} type={"text"} disabled={true} />
-          </label>
-        </label>
-        <button onClick={addProductColor} disabled={true}>
-          Add Color
-        </button>
-      </div>
-      {/*{errors.productColor && <span>{errors.productColor.message}</span>}*/}
-      <div>
-        Product Colors:
-        <br />
-        {JSON.stringify(productColorObj, null, 2)}
       </div>
 
       {/*<button disabled={!isValid}>{productForUpdate ? 'Save Update' : 'Create'}</button>*/}
