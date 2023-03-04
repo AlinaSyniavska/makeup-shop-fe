@@ -11,7 +11,7 @@ const ProductTypePage: FC = () => {
   const [updatedItem, setUpdatedItem] = useState<IItem>({ _id: "", name: "" });
 
   return (
-    <div>
+    <div style={{margin: '20px'}}>
       <h4>Product Type</h4>
       <CreateCommonItemForm
         url={"productType"}
