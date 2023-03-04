@@ -24,7 +24,7 @@ const CreateCommonItemForm: FC<IProps> = ({
 }) => {
   const {register, reset, handleSubmit, setValue, formState: { errors, isValid },} = useForm<IItem>({
     resolver: joiResolver(itemValidator),
-    mode: "onTouched",
+    mode: "all",
   });
 
   useEffect(() => {

@@ -4,3 +4,7 @@
 .form input {
   font-size: 18px;
 }
+
+.form > button {
+  margin-right: 20px;
+}

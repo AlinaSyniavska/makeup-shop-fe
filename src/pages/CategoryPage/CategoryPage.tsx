@@ -11,7 +11,7 @@ const CategoryPage: FC = () => {
   const [updatedItem, setUpdatedItem] = useState<IItem>({ _id: "", name: "" });
 
   return (
-    <div>
+      <div style={{margin: '20px'}}>
       <h4>Category</h4>
       <CreateCommonItemForm
         url={"category"}

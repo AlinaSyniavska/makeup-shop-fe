@@ -12,7 +12,7 @@ const BrandPage: FC = () => {
   const [updatedItem, setUpdatedItem] = useState<IItem>({ _id: "", name: "" });
 
   return (
-    <div>
+      <div style={{margin: '20px'}}>
       <h4>Brand</h4>
       <CreateCommonItemForm
         url={"brand"}
