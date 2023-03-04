@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { IItem } from "../../interfaces";
 import { adminItemService } from "../../services";
+import {commonHelper} from "../../helpers";
 
 interface IProps {
   url: string;
@@ -24,13 +25,18 @@ const Item: FC<IProps> = ({
     setDeletedItemId(_id);
   };
 
+  const updateItem = () => {
+    setItemForUpdate(item);
+    commonHelper.scrollToUp();
+  };
+
   return (
     <div>
       <p>
         {index + 1}. {name}
       </p>
       <button onClick={deleteItem}>Delete</button>
-      <button onClick={() => setItemForUpdate(item)}>Update</button>
+      <button onClick={updateItem}>Update</button>
       <hr />
     </div>
   );

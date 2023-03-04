@@ -15,36 +15,30 @@ interface IProps {
   setItemForUpdate: Function;
 }
 
-const CreateCommonItemForm: FC<IProps> = ({
-  url,
-  setNewItem,
-  itemForUpdate,
-  setUpdatedItem,
-  setItemForUpdate,
-}) => {
+const CreateCommonItemForm: FC<IProps> = ({url, setNewItem, itemForUpdate, setUpdatedItem, setItemForUpdate,}) => {
   const {register, reset, handleSubmit, setValue, formState: { errors, isValid },} = useForm<IItem>({
     resolver: joiResolver(itemValidator),
     mode: "all",
   });
 
   useEffect(() => {
-    if (itemForUpdate && itemForUpdate.name !== "") {
-      const { name } = itemForUpdate;
-      setValue("name", name);
+    if (itemForUpdate && itemForUpdate.name) {
+      setValue("name", itemForUpdate.name);
     }
   }, [itemForUpdate]);
 
   const submitForm = async (item: IItem) => {
     try {
-      if (itemForUpdate && itemForUpdate.name !== "") {
-        const { _id } = itemForUpdate as any;
-        const { data } = await adminItemService.update(url, _id, item);
+      if (itemForUpdate && itemForUpdate.name) {
+        const { _id } = itemForUpdate as IItem;
+        const { data } = await adminItemService.update(url, _id as String, item);
         setUpdatedItem(data);
-        setItemForUpdate({ _id: "", name: "" });
+        setItemForUpdate(setInitialStateItem());
       } else {
         const { data } = await adminItemService.create(url, item);
         setNewItem(data);
       }
+
       reset();
     } catch (e: any) {
       console.error(e.response);
@@ -52,8 +46,15 @@ const CreateCommonItemForm: FC<IProps> = ({
   };
 
   const clearForm = () => {
-    setItemForUpdate({ _id: "", name: "" });
+    setItemForUpdate(setInitialStateItem());
     reset();
+  };
+
+  const setInitialStateItem = (): IItem => {
+    return {
+      _id: "",
+      name: "",
+    };
   };
 
   return (
@@ -65,10 +66,12 @@ const CreateCommonItemForm: FC<IProps> = ({
       </div>
       {errors.name && <span>{errors.name.message}</span>}
       <br />
+
       <button disabled={!isValid}>
-        {itemForUpdate.name !== "" ? "Update" : "Create"}
+        {itemForUpdate.name ? "Update" : "Create"}
       </button>
-      {!!itemForUpdate && <button onClick={clearForm}>Clear form</button>}
+
+      <button onClick={clearForm}>Clear form</button>
     </form>
   );
 };
