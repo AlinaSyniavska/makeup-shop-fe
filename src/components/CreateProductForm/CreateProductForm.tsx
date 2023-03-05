@@ -99,7 +99,7 @@ const CreateProductForm: FC = () => {
           <input type={"text"} placeholder={"Name"} {...register("name")} />
         </label>
       </div>
-      {errors.name && <span>{errors.name.message}</span>}
+      {errors.name && <span className={style.error}>{errors.name.message}</span>}
 
       {/*brand*/}
       <div className={style.selectBox}>
@@ -150,7 +150,7 @@ const CreateProductForm: FC = () => {
           <input type={"text"} placeholder={"Price"} {...register("price", { valueAsNumber: true })}/>
         </label>
       </div>
-      {errors.price && <span>{errors.price.message}</span>}
+      {errors.price && <span className={style.error}>{errors.price.message}</span>}
 
       {/*priceSign*/}
       <div className={style.selectBox}>
@@ -170,7 +170,7 @@ const CreateProductForm: FC = () => {
           </label>
         </label>
       </div>
-      {errors.priceSign && <span>{errors.priceSign.message}</span>}
+      {errors.priceSign && <span className={style.error}>{errors.priceSign.message}</span>}
 
       {/*total*/}
       <div>
@@ -179,7 +179,7 @@ const CreateProductForm: FC = () => {
           <input type={"text"} placeholder={"Total number"} {...register("total", { valueAsNumber: true })}/>
         </label>
       </div>
-      {errors.total && <span>{errors.total.message}</span>}
+      {errors.total && <span className={style.error}>{errors.total.message}</span>}
 
       {/*imageLink*/}
       <div>
@@ -188,7 +188,7 @@ const CreateProductForm: FC = () => {
           <input type={"text"} placeholder={"Image Link"} {...register("imageLink")}/>
         </label>
       </div>
-      {errors.imageLink && <span>{errors.imageLink.message}</span>}
+      {errors.imageLink && <span className={style.error}>{errors.imageLink.message}</span>}
 
       {/*description*/}
       <div>
@@ -197,7 +197,7 @@ const CreateProductForm: FC = () => {
           <textarea {...register("description")}></textarea>
         </label>
       </div>
-      {errors.description && <span>{errors.description.message}</span>}
+      {errors.description && <span className={style.error}>{errors.description.message}</span>}
 
       {/*rating*/}
       <div className={style.selectBox}>
@@ -218,7 +218,7 @@ const CreateProductForm: FC = () => {
             <input type={"radio"} value={"5"} defaultChecked{...register("rating")}/>5
           </label>
       </div>
-      {errors.rating && <span>{errors.rating.message}</span>}
+      {errors.rating && <span className={style.error}>{errors.rating.message}</span>}
 
       {/*tagList*/}
       <div>
