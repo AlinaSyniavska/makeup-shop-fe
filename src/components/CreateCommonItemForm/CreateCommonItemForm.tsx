@@ -5,7 +5,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { itemValidator } from "../../validators";
 import { IItem } from "../../interfaces";
 import { adminItemService } from "../../services";
-import "./CreateCommonItemForm.css";
+import style from"./CreateCommonItemForm.module.css";
 
 interface IProps {
   url: string;
@@ -58,7 +58,7 @@ const CreateCommonItemForm: FC<IProps> = ({url, setNewItem, itemForUpdate, setUp
   };
 
   return (
-    <form className={"form"} onSubmit={handleSubmit(submitForm)}>
+    <form className={style.form} onSubmit={handleSubmit(submitForm)}>
       <div>
         <label>
           Name: <input type="text" {...register("name")} />

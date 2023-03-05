@@ -2,13 +2,13 @@ import { FC } from "react";
 
 import { SelectPerPageForm } from "../SelectPerPageForm/SelectPerPageForm";
 
-import "./Pagination.css";
+import style from "./Pagination.module.css";
 import { Pages } from "../Pages/Pages";
 
 const Pagination: FC = () => {
   return (
     <div>
-      <div className={"pgnContainer"}>
+      <div className={style.pgnContainer}>
         <SelectPerPageForm />
         <Pages />
       </div>

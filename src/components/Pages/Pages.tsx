@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import "./Pages.css";
+import style from "./Pages.module.css";
 import { useAppSelector } from "../../hooks";
 
 const Pages: FC = () => {
@@ -65,17 +65,17 @@ const Pages: FC = () => {
 
   return (
     <div>
-      <div className={"wrap"}>
-        <div className={"pagination"}>
+      <div className={style.wrap}>
+        <div className={style.pagination}>
           <button
-            className={"btnPagination btnPaginationPrev"}
+            className={`${style.btnPagination} ${style.btnPaginationPrev}`}
             onClick={changePage}
             id={"prev"}
           >
             Prev
           </button>
           <button
-            className={"btnPagination btnPaginationNext"}
+            className={`${style.btnPagination} ${style.btnPaginationNext}`}
             onClick={changePage}
             id={"next"}
           >

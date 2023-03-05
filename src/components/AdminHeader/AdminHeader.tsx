@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
-import "./AdminHeader.css";
+import style from './AdminHeader.module.css';
 
 const AdminHeader: FC = () => {
   return (
     <div>
-      <div className={"headerContainer"}>
+      <div className={style.headerContainer}>
         <NavLink to="product">Create Product</NavLink>
         <NavLink to="brand">Create Brand</NavLink>
         <NavLink to="category">Create Category</NavLink>

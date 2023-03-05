@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { IUser } from "../../interfaces";
-import "./Popup.css";
+import style from "./Popup.module.css";
 import { useNavigate } from "react-router-dom";
 
 interface IProps {
@@ -12,9 +12,9 @@ const Popup: FC<IProps> = ({ user }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="popup-box">
-      <div className="box">
-        <span className="close-icon" onClick={() => navigate("/home")}>
+    <div className={style.popupBox}>
+      <div className={style.box}>
+        <span className={style.closeIcon} onClick={() => navigate("/home")}>
           x
         </span>
         <p>
