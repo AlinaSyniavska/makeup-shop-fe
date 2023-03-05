@@ -17,7 +17,7 @@ const CreateProductForm: FC = () => {
     mode: "all",
   });
 
-  const { formErrors, productForUpdate, brands, productTypes, categories } = useAppSelector((state) => state.productReducer);
+  const { productForUpdate, brands, productTypes, categories } = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [checked, setChecked] = useState<string[]>([]);
@@ -238,35 +238,6 @@ const CreateProductForm: FC = () => {
       </div>
 
       <button>{productForUpdate ? "Save Update" : "Create"}</button>
-
-      <div>
-        <div>
-          {formErrors.name && <div>Error name: {formErrors.name[0]}</div>}
-        </div>
-        <div>
-          {formErrors.price && <div>Error age: {formErrors.price[0]}</div>}
-        </div>
-        <div>
-          {formErrors.priceSign && (
-            <div>Error email: {formErrors.priceSign[0]}</div>
-          )}
-        </div>
-        <div>
-          {formErrors.imageLink && (
-            <div>Error phone: {formErrors.imageLink[0]}</div>
-          )}
-        </div>
-        <div>
-          {formErrors.description && (
-            <div>Error password: {formErrors.description[0]}</div>
-          )}
-        </div>
-        <div>
-          {formErrors.rating && (
-            <div>Error password: {formErrors.rating[0]}</div>
-          )}
-        </div>
-      </div>
     </form>
   );
 };

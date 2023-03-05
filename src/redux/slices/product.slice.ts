@@ -11,7 +11,6 @@ interface IState {
   productTypes: IItem[];
   categories: IItem[];
   productForUpdate: null;
-  formErrors: any;
   status: string;
 
   page: string;
@@ -28,7 +27,6 @@ const initialState: IState = {
   productTypes: [],
   categories: [],
   productForUpdate: null,
-  formErrors: {},
   status: "",
 
   page: "1",
@@ -96,7 +94,7 @@ const createProduct = createAsyncThunk<IProduct, { product: IProduct }>(
       return data;
     } catch (error: any) {
       console.log(error);
-      return rejectWithValue({ errorsFromDB: error.response.data });
+      return rejectWithValue({ error: error.response.data });
     }
   }
 );
@@ -206,8 +204,7 @@ const productSlice = createSlice({
         state.products.push(action.payload);
       })
       .addCase(createProduct.rejected, (state, action) => {
-        const { errorsFromDB } = action.payload as any;
-        state.formErrors = errorsFromDB;
+        console.log(action.payload);
       })
 
       .addCase(deleteById.rejected, (state, action) => {
