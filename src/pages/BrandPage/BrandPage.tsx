@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 
 import { Items, CreateCommonItemForm } from "../../components";
 import { IItem } from "../../interfaces";
-import { urlGetData } from "../../constants";
+import { urlCharacteristic } from "../../constants";
 
 const BrandPage: FC = () => {
   const [newItem, setNewItem] = useState<IItem>({ _id: "", name: "" });
@@ -16,7 +16,7 @@ const BrandPage: FC = () => {
     <div style={{ margin: "20px" }}>
       <h4>Brand</h4>
       <CreateCommonItemForm
-        url={`${urlGetData.brand}`}
+        url={`${urlCharacteristic.brand}`}
         setNewItem={setNewItem}
         itemForUpdate={itemForUpdate}
         setUpdatedItem={setUpdatedItem}
@@ -24,7 +24,7 @@ const BrandPage: FC = () => {
       />
       <hr />
       <Items
-        url={`${urlGetData.brand}`}
+        url={`${urlCharacteristic.brand}`}
         newItem={newItem}
         setItemForUpdate={setItemForUpdate}
         updatedItem={updatedItem}

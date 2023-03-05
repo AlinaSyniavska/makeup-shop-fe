@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { IItem } from "../../interfaces";
 import { CreateCommonItemForm, Items } from "../../components";
-import { urlGetData } from "../../constants";
+import { urlCharacteristic } from "../../constants";
 
 const CategoryPage: FC = () => {
   const [newItem, setNewItem] = useState<IItem>({ _id: "", name: "" });
@@ -15,7 +15,7 @@ const CategoryPage: FC = () => {
     <div style={{ margin: "20px" }}>
       <h4>Category</h4>
       <CreateCommonItemForm
-        url={`${urlGetData.category}`}
+        url={`${urlCharacteristic.category}`}
         setNewItem={setNewItem}
         itemForUpdate={itemForUpdate}
         setUpdatedItem={setUpdatedItem}
@@ -23,7 +23,7 @@ const CategoryPage: FC = () => {
       />
       <hr />
       <Items
-        url={`${urlGetData.category}`}
+        url={`${urlCharacteristic.category}`}
         newItem={newItem}
         setItemForUpdate={setItemForUpdate}
         updatedItem={updatedItem}

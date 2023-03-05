@@ -18,7 +18,7 @@ const adminUrls = {
   product: "/admin/product",
 };
 
-const urlGetData = {
+const urlCharacteristic = {
   brand: "brand",
   category: "category",
   productType: "productType",
@@ -26,4 +26,4 @@ const urlGetData = {
 
 export default baseURL;
 
-export { adminUrls, urls, urlGetData };
+export { adminUrls, urls, urlCharacteristic };

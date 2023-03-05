@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import { IItem, IItems, IProduct, IQueryParams } from "../../interfaces";
 import { adminItemService, productService } from "../../services";
-import { ratingEnum, urlGetData } from "../../constants";
+import {ratingEnum, urlCharacteristic} from "../../constants";
 
 interface IState {
   products: IProduct[];
@@ -11,7 +12,6 @@ interface IState {
   categories: IItem[];
   productForUpdate: null;
   formErrors: any;
-  // registerError: boolean,
   status: string;
 
   page: string;
@@ -38,7 +38,7 @@ const initialState: IState = {
   filterBy: [],
 };
 
-let urlForGetData = "";
+let urlForGetCharacteristics = "";
 
 const getAll = createAsyncThunk<IProduct[], { params: Partial<IQueryParams> }>(
   "productSlice/getAll",
@@ -52,10 +52,9 @@ const getAll = createAsyncThunk<IProduct[], { params: Partial<IQueryParams> }>(
   }
 );
 
-const getAtUrl = createAsyncThunk<
-  IProduct[],
-  { params: Partial<IQueryParams>; url: string }
->("productSlice/getAtUrl", async ({ params, url }, { rejectWithValue }) => {
+const getAtUrl = createAsyncThunk<IProduct[], { params: Partial<IQueryParams>; url: string }>(
+    "productSlice/getAtUrl",
+    async ({ params, url }, { rejectWithValue }) => {
   try {
     const { data } = await productService.getAll(params, url);
     return data;
@@ -76,12 +75,12 @@ const getById = createAsyncThunk<IProduct, { id: String }>(
   }
 );
 
-const getData = createAsyncThunk<IItems, { url: string }>(
+const getCharacteristics = createAsyncThunk<IItems, { url: string }>(
   "productSlice/getData",
   async ({ url }, { rejectWithValue }) => {
     try {
       const { data } = await adminItemService.getAll(url);
-      urlForGetData = url;
+      urlForGetCharacteristics = url;
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -183,23 +182,23 @@ const productSlice = createSlice({
         const { errorStatus } = action.payload as any;
         state.status = errorStatus;
       })
-      .addCase(getData.fulfilled, (state, action) => {
+      .addCase(getCharacteristics.fulfilled, (state, action) => {
         const { data } = action.payload as IItems;
-        switch (urlForGetData) {
-          case urlGetData.brand:
+        switch (urlForGetCharacteristics) {
+          case urlCharacteristic.brand:
             state.brands = data;
             break;
-          case urlGetData.productType:
+          case urlCharacteristic.productType:
             state.productTypes = data;
             break;
-          case urlGetData.category:
+          case urlCharacteristic.category:
             state.categories = data;
             break;
           default:
             console.error("urlForGetData not valid");
         }
       })
-      .addCase(getData.rejected, (state, action) => {
+      .addCase(getCharacteristics.rejected, (state, action) => {
         const errors = action.payload as any;
         console.error(errors);
       })
@@ -240,7 +239,7 @@ const productActions = {
   getAll,
   getAtUrl,
   getById,
-  getData,
+  getCharacteristics,
   saveQueryParams,
   setPerPage,
   setProductForUpdate,

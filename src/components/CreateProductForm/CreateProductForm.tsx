@@ -7,7 +7,7 @@ import { IProduct } from "../../interfaces";
 import { productValidator } from "../../validators";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../redux";
-import { priceSignEnum, tags, urlGetData } from "../../constants";
+import {priceSignEnum, tags, urlCharacteristic} from "../../constants";
 import { productService } from "../../services";
 import style from "./CreateProductForm.module.css";
 
@@ -53,9 +53,9 @@ const CreateProductForm: FC = () => {
   }, [productForUpdate]);
 
   useEffect(() => {
-    dispatch(productActions.getData({ url: urlGetData.brand }));
-    dispatch(productActions.getData({ url: urlGetData.productType }));
-    dispatch(productActions.getData({ url: urlGetData.category }));
+    dispatch(productActions.getCharacteristics({ url: urlCharacteristic.brand }));
+    dispatch(productActions.getCharacteristics({ url: urlCharacteristic.productType }));
+    dispatch(productActions.getCharacteristics({ url: urlCharacteristic.category }));
   }, [dispatch]);
 
   // Add/Remove checked item from list
