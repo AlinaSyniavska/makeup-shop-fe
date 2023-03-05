@@ -91,15 +91,12 @@ const CreateProductForm: FC = () => {
   };
 
   return (
-    <form
-      className={style.createProductForm}
-      onSubmit={handleSubmit(submitForm)}
-    >
+    <form className={style.createProductForm} onSubmit={handleSubmit(submitForm)}>
       {/*name*/}
       <div>
         <label>
           <span className={style.labelTitle}>Name</span>
-          <input type={"text"} placeholder={"name  "} {...register("name")} />
+          <input type={"text"} placeholder={"Name"} {...register("name")} />
         </label>
       </div>
       {errors.name && <span>{errors.name.message}</span>}
@@ -108,11 +105,7 @@ const CreateProductForm: FC = () => {
       <div className={style.selectBox}>
         <label>
           <span className={style.labelTitle}>Select Brand</span>
-          <select
-            id={"brand"}
-            {...register("brand")}
-            defaultValue={brands[0]?.name}
-          >
+          <select id={"brand"} {...register("brand")} defaultValue={brands[0]?.name}>
             {brands.map((item) => (
               <option key={item._id} value={item.name}>
                 {item.name}
@@ -126,11 +119,7 @@ const CreateProductForm: FC = () => {
       <div className={style.selectBox}>
         <label>
           <span className={style.labelTitle}>Select Product Type</span>
-          <select
-            id={"productType"}
-            {...register("productType")}
-            defaultValue={productTypes[0]?.name}
-          >
+          <select id={"productType"} {...register("productType")} defaultValue={productTypes[0]?.name}>
             {productTypes.map((item) => (
               <option key={item._id} value={item.name}>
                 {item.name}
@@ -144,11 +133,7 @@ const CreateProductForm: FC = () => {
       <div className={style.selectBox}>
         <label>
           <span className={style.labelTitle}>Select Category</span>
-          <select
-            id={"category"}
-            {...register("category")}
-            defaultValue={categories[0]?.name}
-          >
+          <select id={"category"} {...register("category")} defaultValue={categories[0]?.name}>
             {categories.map((item) => (
               <option key={item._id} value={item.name}>
                 {item.name}
@@ -162,11 +147,7 @@ const CreateProductForm: FC = () => {
       <div>
         <label>
           <span className={style.labelTitle}>Price</span>
-          <input
-            type={"text"}
-            placeholder={"price  "}
-            {...register("price", { valueAsNumber: true })}
-          />
+          <input type={"text"} placeholder={"Price"} {...register("price", { valueAsNumber: true })}/>
         </label>
       </div>
       {errors.price && <span>{errors.price.message}</span>}
@@ -176,28 +157,15 @@ const CreateProductForm: FC = () => {
         <label>
           <span className={style.labelTitle}>Select Price Sign</span>
           <label className={"textRadio"}>
-            <input
-              type={"radio"}
-              value={priceSignEnum.USD}
-              defaultChecked
-              {...register("priceSign")}
-            />
+            <input type={"radio"} value={priceSignEnum.USD} defaultChecked {...register("priceSign")}/>
             {priceSignEnum.USD}
           </label>
           <label className={style.textRadio}>
-            <input
-              type={"radio"}
-              value={priceSignEnum.UAN}
-              {...register("priceSign")}
-            />
+            <input type={"radio"} value={priceSignEnum.UAN} {...register("priceSign")}/>
             {priceSignEnum.UAN}
           </label>
           <label className={style.textRadio}>
-            <input
-              type={"radio"}
-              value={priceSignEnum.EUR}
-              {...register("priceSign")}
-            />
+            <input type={"radio"} value={priceSignEnum.EUR} {...register("priceSign")}/>
             {priceSignEnum.EUR}
           </label>
         </label>
@@ -208,11 +176,7 @@ const CreateProductForm: FC = () => {
       <div>
         <label>
           <span className={style.labelTitle}>Total Number</span>
-          <input
-            type={"text"}
-            placeholder={"total number  "}
-            {...register("total", { valueAsNumber: true })}
-          />
+          <input type={"text"} placeholder={"Total number"} {...register("total", { valueAsNumber: true })}/>
         </label>
       </div>
       {errors.total && <span>{errors.total.message}</span>}
@@ -221,11 +185,7 @@ const CreateProductForm: FC = () => {
       <div>
         <label>
           <span className={style.labelTitle}>Image Link</span>
-          <input
-            type={"text"}
-            placeholder={"Image Link  "}
-            {...register("imageLink")}
-          />
+          <input type={"text"} placeholder={"Image Link"} {...register("imageLink")}/>
         </label>
       </div>
       {errors.imageLink && <span>{errors.imageLink.message}</span>}
@@ -241,7 +201,6 @@ const CreateProductForm: FC = () => {
 
       {/*rating*/}
       <div className={style.selectBox}>
-        <label>
           <span className={style.labelTitle}>Select Rating</span>
           <label className={style.textRadio}>
             <input type={"radio"} value={"1"} {...register("rating")} />1
@@ -256,15 +215,8 @@ const CreateProductForm: FC = () => {
             <input type={"radio"} value={"4"} {...register("rating")} />4
           </label>
           <label className={style.textRadio}>
-            <input
-              type={"radio"}
-              value={"5"}
-              defaultChecked
-              {...register("rating")}
-            />
-            5
+            <input type={"radio"} value={"5"} defaultChecked{...register("rating")}/>5
           </label>
-        </label>
       </div>
       {errors.rating && <span>{errors.rating.message}</span>}
 
@@ -272,23 +224,19 @@ const CreateProductForm: FC = () => {
       <div>
         <label>
           <span className={style.labelTitle}>Select Tags For Filter</span>
-          {tags.map((item, index) => (
-            <div className={style.textChBox} key={index}>
-              <label>
-                <input
-                  value={item}
-                  type="checkbox"
-                  {...register("tagList")}
-                  onChange={checkTag}
-                />
-                {item}
-              </label>
-            </div>
-          ))}
+          {
+              tags.map((item, index) => (
+                  <div className={style.textChBox} key={index}>
+                      <label>
+                          <input value={item} type="checkbox" {...register("tagList")} onChange={checkTag}/>
+                          {item}
+                      </label>
+                  </div>
+              ))
+          }
         </label>
       </div>
 
-      {/*<button disabled={!isValid}>{productForUpdate ? 'Save Update' : 'Create'}</button>*/}
       <button>{productForUpdate ? "Save Update" : "Create"}</button>
 
       <div>
