@@ -179,7 +179,7 @@ const userSlice = createSlice({
 
       .addCase(getFavoriteListById.fulfilled, (state, action) => {
         const { favoriteList } = action.payload;
-        state.userFavoriteList = [...(favoriteList as string[])];
+        state.userFavoriteList = [...favoriteList as string[]];
         state.formErrors = {};
       })
       .addCase(getFavoriteListById.rejected, (state, action) => {

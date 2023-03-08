@@ -19,15 +19,13 @@ const FavoriteListItem: FC<IProps> = ({ item }) => {
   useEffect(() => {
     if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
       (async () => {
-        await dispatch(
-          userActions.updateById({
+        await dispatch(userActions.updateById({
             id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
             user: { favoriteList: Array.from(new Set(userFavoriteList)) },
           })
         );
 
-        await dispatch(
-          userActions.getPopulatedUserById({
+        await dispatch(userActions.getPopulatedUserById({
             id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
           })
         );
@@ -44,9 +42,7 @@ const FavoriteListItem: FC<IProps> = ({ item }) => {
   const deleteFavoriteListItem = (): void => {
     if (itemId) {
       const index = userFavoriteList.findIndex((item) => item === itemId);
-      dispatch(
-        userActions.addFavoriteItem({ item: itemId, add: false, index })
-      );
+      dispatch(userActions.addFavoriteItem({ item: itemId, add: false, index }));
     }
   };
 
@@ -62,16 +58,10 @@ const FavoriteListItem: FC<IProps> = ({ item }) => {
         </div>
         <div className={style.itemInfo}>
           <p>{name}</p>
-          <p>
-            {price} {priceSign}
-          </p>
+          <p>{price} {priceSign}</p>
         </div>
         <button onClick={deleteFavoriteListItem}>DELETE</button>
-        <button
-          id={"btnBuy"}
-          disabled={!isProductAvailable}
-          onClick={addToCart}
-        >
+        <button id={"btnBuy"} disabled={!isProductAvailable} onClick={addToCart}>
           BUY
         </button>
       </div>
