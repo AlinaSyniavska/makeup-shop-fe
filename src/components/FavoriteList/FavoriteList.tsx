@@ -12,8 +12,7 @@ const FavoriteList: FC = () => {
 
   useEffect(() => {
     if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
-      dispatch(
-        userActions.getPopulatedUserById({
+      dispatch(userActions.getPopulatedUserById({
           id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
         })
       );
@@ -23,13 +22,10 @@ const FavoriteList: FC = () => {
   return (
     <div>
       <div className={style.favoriteList}>
-        {userFavoriteProductList.length ? (
-          userFavoriteProductList.map((item) => (
-            <FavoriteListItem key={item._id} item={item} />
-          ))
-        ) : (
-          <div className={style.text}>Your Favorite List is Empty...</div>
-        )}
+        {userFavoriteProductList.length
+            ? (userFavoriteProductList.map((item) => (<FavoriteListItem key={item._id} item={item} />)))
+            : (<div className={style.text}>Your Favorite List is Empty...</div>)
+        }
       </div>
     </div>
   );

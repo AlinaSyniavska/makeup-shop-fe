@@ -84,10 +84,8 @@ const deleteById = createAsyncThunk<void, { id: String }>(
   }
 );
 
-const updateById = createAsyncThunk<
-  IUser,
-  { id: String; user: Partial<IUser> }
->("userSlice/updateById", async ({ id, user }, { rejectWithValue }) => {
+const updateById = createAsyncThunk<IUser, { id: String; user: Partial<IUser> }>(
+      "userSlice/updateById", async ({ id, user }, { rejectWithValue }) => {
   try {
     const { data } = await userService.update(id, user);
     return data;
@@ -172,10 +170,7 @@ const userSlice = createSlice({
         state.users[index] = { ...state.users[index], ...action.payload };
         state.userForUpdate = null;
 
-        localStorage.setItem(
-          localStorageItemsEnum.LOGIN_USER,
-          `${name} ${surname}` as string
-        );
+        localStorage.setItem(localStorageItemsEnum.LOGIN_USER, `${name} ${surname}` as string);
       })
       .addCase(updateById.rejected, (state, action) => {
         const { errorStatus } = action.payload as any;

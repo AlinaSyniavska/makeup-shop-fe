@@ -13,9 +13,7 @@ const AuthForm: FC = () => {
   });
   const navigate = useNavigate();
 
-  const { authStatus, authErrors, isAuth, logUser } = useAppSelector(
-    (state) => state.authReducer
-  );
+  const { authStatus, authErrors, isAuth, logUser } = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -41,11 +39,7 @@ const AuthForm: FC = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(submitForm)}
-      className={style.authForm}
-      onChange={clearFormErrors}
-    >
+    <form onSubmit={handleSubmit(submitForm)} className={style.authForm} onChange={clearFormErrors}>
       <div>
         <label>
           Email
@@ -55,11 +49,7 @@ const AuthForm: FC = () => {
       <div>
         <label>
           Password
-          <input
-            type={"password"}
-            placeholder={"password"}
-            {...register("password")}
-          />
+          <input type={"password"} placeholder={"password"} {...register("password")}/>
         </label>
       </div>
       <button>Login</button>

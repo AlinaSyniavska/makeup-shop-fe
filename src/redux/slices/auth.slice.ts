@@ -89,14 +89,8 @@ const authSlice = createSlice({
 
         localStorage.setItem(localStorageItemsEnum.ACCESS, access_token);
         localStorage.setItem(localStorageItemsEnum.REFRESH, refresh_token);
-        localStorage.setItem(
-          localStorageItemsEnum.LOGIN_USER,
-          `${name} ${surname}` as string
-        );
-        localStorage.setItem(
-          localStorageItemsEnum.ID_LOGIN_USER,
-          _id as string
-        );
+        localStorage.setItem(localStorageItemsEnum.LOGIN_USER, `${name} ${surname}` as string);
+        localStorage.setItem(localStorageItemsEnum.ID_LOGIN_USER, _id as string);
       })
       .addCase(login.rejected, (state, action) => {
         state.isAuth = false;
