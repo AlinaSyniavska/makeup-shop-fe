@@ -39,11 +39,11 @@ const cartSlice = createSlice({
       const goods = action.payload.goods;
       state.goods.push(goods);
 
-      const cart = localStorageService.getFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
+      const cart = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
       cart.push(goods);
-      localStorageService.setToLocalStorage(localStorageItemsEnum.CART, cart);
+      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.CART, cart);
 
-      const order = localStorageService.getFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
+      const order = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
       order.push({
         productId: goods._id,
@@ -57,13 +57,13 @@ const cartSlice = createSlice({
         cost: goods.price,
       });
 
-      localStorageService.setToLocalStorage(localStorageItemsEnum.ORDER, order);
+      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
     },
 
     changeOrder: (state, action) => {
       const { itemId, curCount } = action.payload.data;
 
-      const order = localStorageService.getFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
+      const order = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
       const singleGoodsIndex = order.findIndex((i: IProductOrdered) => i.productId === itemId);
       order[singleGoodsIndex].count = curCount;
@@ -74,22 +74,22 @@ const cartSlice = createSlice({
         order[singleGoodsIndex]
       );
 
-      localStorageService.setToLocalStorage(localStorageItemsEnum.ORDER, order);
+      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
     },
 
     changeOrderDeleteRecord: (state, action) => {
       const { itemId } = action.payload.data;
 
-      const order = localStorageService.getFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
+      const order = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
       let singleGoodsIndex = order.findIndex((i: IProductOrdered) => i.productId === itemId);
       order.splice(singleGoodsIndex, 1);
 
       state.userOrder.splice(singleGoodsIndex, 1);
 
-      localStorageService.setToLocalStorage(localStorageItemsEnum.ORDER, order);
+      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
 
-      const cart = localStorageService.getFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
+      const cart = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
 
       singleGoodsIndex = cart.findIndex((i: IProduct) => i._id === itemId);
       cart.splice(singleGoodsIndex, 1);
@@ -97,7 +97,7 @@ const cartSlice = createSlice({
       state.goods = [];
       state.goods = Object.assign([...cart]);
 
-      localStorageService.setToLocalStorage(localStorageItemsEnum.CART, cart);
+      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.CART, cart);
     },
 
     deleteOrder: (state) => {

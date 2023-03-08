@@ -7,9 +7,7 @@ import { FavoriteListItem } from "../FavoriteListItem/FavoriteListItem";
 import style from "./FavoriteList.module.css";
 
 const FavoriteList: FC = () => {
-  const { userFavoriteProductList } = useAppSelector(
-    (state) => state.userReducer
-  );
+  const { userFavoriteProductList } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

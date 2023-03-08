@@ -14,7 +14,7 @@ const Cart: FC = () => {
   const [numberOfGoods, setQNumberOfGoods] = useState<number>(0);
 
   useEffect(() => {
-    const order = localStorageService.getFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
+    const order = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
     let initialValue = 0;
     setQNumberOfGoods(
       order.reduce((accumulator: number, currentValue: IProductOrdered) => accumulator + currentValue.count,
