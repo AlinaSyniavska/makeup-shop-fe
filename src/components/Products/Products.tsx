@@ -63,10 +63,7 @@ const Products: FC = () => {
   }, [state, isCategoryPath, pathname, query]);
 
   useEffect(() => {
-    if (
-      localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null &&
-      isAuth
-    ) {
+    if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
       dispatch(
         userActions.getFavoriteListById({
           id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
@@ -76,12 +73,8 @@ const Products: FC = () => {
   }, [state, isCategoryPath, pathname]);
 
   useEffect(() => {
-    if (
-      localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null &&
-      isAuth
-    ) {
-      dispatch(
-        userActions.updateById({
+    if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
+      dispatch(userActions.updateById({
           id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
           user: { favoriteList: Array.from(new Set(userFavoriteList)) },
         })

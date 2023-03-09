@@ -87,11 +87,6 @@ const deleteById = createAsyncThunk<void, { id: String }>(
 const updateById = createAsyncThunk<IUser, { id: String; user: Partial<IUser> }>(
       "userSlice/updateById", async ({ id, user }, { rejectWithValue }) => {
   try {
-
-    console.log('-----------')
-    console.log(user)
-    console.log('-----------')
-
     const { data } = await userService.update(id, user);
     return data;
   } catch (error: any) {
@@ -136,9 +131,6 @@ const userSlice = createSlice({
       if (add) {
         state.userFavoriteList.push(item);
       } else {
-
-        console.log('delete fav')
-
         state.userFavoriteList.splice(index, 1);
       }
     },

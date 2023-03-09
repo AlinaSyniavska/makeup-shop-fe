@@ -18,7 +18,7 @@ const FavoriteListItem: FC<IProps> = ({ item }) => {
 
   useEffect(() => {
     if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
-/*      (async () => {
+      (async () => {
         await dispatch(userActions.updateById({
             id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
             user: { favoriteList: Array.from(new Set(userFavoriteList)) },
@@ -29,15 +29,9 @@ const FavoriteListItem: FC<IProps> = ({ item }) => {
             id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
           })
         );
-      })();*/
-
-      dispatch(userActions.getPopulatedUserById({
-            id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
-          })
-      );
-
+      })();
     }
-  }, [userFavoriteList]);
+  }, [dispatch, userFavoriteList]);
 
   const [isProductAvailable, setIsProductAvailable] = useState(true);
 
@@ -45,19 +39,10 @@ const FavoriteListItem: FC<IProps> = ({ item }) => {
     setIsProductAvailable(productHelper.checkIsProductAvailable(total));
   }, [total]);
 
-  const deleteFavoriteListItem = (): void => {
+  const deleteFavoriteListItem = () => {
     if (itemId) {
       const index = userFavoriteList.findIndex((item) => item === itemId);
       dispatch(userActions.addFavoriteItem({ item: itemId, add: false, index }));
-
-
-      dispatch(userActions.updateById({
-            id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
-            user: { favoriteList: Array.from(new Set(userFavoriteList)) },
-          })
-      );
-
-
     }
   };
 
