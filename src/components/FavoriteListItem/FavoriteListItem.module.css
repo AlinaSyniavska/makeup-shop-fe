@@ -17,7 +17,7 @@
 }
 
 .itemImage {
-  height: inherit;
+  height: 105px;
 }
 
 .itemImage > img {

@@ -12,7 +12,7 @@ const FavoriteList: FC = () => {
 
   useEffect(() => {
     if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
-      dispatch(userActions.getPopulatedUserById({
+        dispatch(userActions.getPopulatedUserById({
           id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
         })
       );
