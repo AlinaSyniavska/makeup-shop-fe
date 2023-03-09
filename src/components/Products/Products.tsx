@@ -64,8 +64,7 @@ const Products: FC = () => {
 
   useEffect(() => {
     if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
-      dispatch(
-        userActions.getFavoriteListById({
+      dispatch(userActions.getFavoriteListById({
           id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
         })
       );

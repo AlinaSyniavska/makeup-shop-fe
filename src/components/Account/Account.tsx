@@ -1,15 +1,26 @@
-import { FC } from "react";
+import {FC, useEffect} from "react";
 import { NavLink } from "react-router-dom";
 
 import { UserAvatar } from "../UserAvatar/UserAvatar";
 import { Cart } from "../Cart/Cart";
 import style from "./Account.module.css";
-import { useAppSelector } from "../../hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 import { localStorageItemsEnum } from "../../constants";
+import {userActions} from "../../redux";
 
 const Account: FC = () => {
   const { isAuth } = useAppSelector((state) => state.authReducer);
+  const dispatch = useAppDispatch();
   const idUser = localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER);
+
+  useEffect(() => {
+    if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null && isAuth) {
+      dispatch(userActions.getFavoriteListById({
+            id: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER)!,
+          })
+      );
+    }
+  }, [dispatch, isAuth]);
 
   return (
     <div>
