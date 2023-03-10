@@ -1,9 +1,10 @@
+import React from "react";
 import { FC, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import style from "./FilterComponent.module.css";
 import { tags } from "../../constants";
 import { productActions } from "../../redux";
-import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const FilterComponent: FC = () => {
@@ -78,26 +79,22 @@ const FilterComponent: FC = () => {
   }
 
   return (
-    <div>
+    <React.Fragment>
       <div className={style.checkList}>
         {tags.map((item, index) => (
           <div className={style.checkBoxes} key={index}>
             <label>
-              {/*<input value={item} type="checkbox" onClick={checkFilterTags}/>*/}
               <input value={item} type="checkbox" onChange={checkFilterTags} />
               {item}
             </label>
           </div>
         ))}
 
-        <button
-          className={`${style.btnSearch} ${style.lightBg}`}
-          onClick={submitForm}
-        >
+        <button className={style.btnSearch} onClick={submitForm}>
           Search
         </button>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
