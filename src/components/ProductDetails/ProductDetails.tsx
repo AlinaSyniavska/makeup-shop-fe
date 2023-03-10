@@ -69,7 +69,7 @@ const ProductDetails: FC<IProps> = ({ singleProduct }) => {
             </p>
             <p className={style.largeText}>{name}</p>
             <StarRating
-              ratingProps={commonHelper.makeRatingProps(
+              ratingProps={commonHelper.setupRatingProps(
                 rating,
                 ratingColorEnum.MAIN_RATING_COLOR
               )}

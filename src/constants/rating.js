@@ -1,6 +1,6 @@
 const ratingEnum = {
-  HIGH: 5,
-  LOW: 1,
+  HIGH: '5',
+  LOW: '1',
 };
 
 const ratingColorEnum = {

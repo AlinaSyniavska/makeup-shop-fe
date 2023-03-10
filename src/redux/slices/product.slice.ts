@@ -16,7 +16,7 @@ interface IState {
   page: string;
   perPage: string;
   count: string;
-  sortOrder: number;
+  sortOrder: string;
   filterBy: string[];
 }
 
@@ -224,10 +224,7 @@ const productSlice = createSlice({
   },
 });
 
-const {
-  reducer: productReducer,
-  actions: { setPerPage, saveQueryParams, deleteProduct, setProductForUpdate },
-} = productSlice;
+const { reducer: productReducer, actions: { setPerPage, saveQueryParams, deleteProduct, setProductForUpdate } } = productSlice;
 
 const productActions = {
   createProduct,

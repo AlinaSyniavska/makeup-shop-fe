@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions, userActions } from "../../redux";
 import { Product } from "../Product/Product";
 import style from "./Products.module.css";
-import { localStorageItemsEnum } from "../../constants";
+import {localStorageItemsEnum, ratingEnum} from "../../constants";
 import { IQueryParams } from "../../interfaces";
 
 const Products: FC = () => {
@@ -104,7 +104,7 @@ function fillinQueryParams(query: URLSearchParams): IQueryParams {
   return {
     page: query.get("page") || "1",
     perPage: query.get("perPage") || "20",
-    sortOrder: Number(query.get("sortOrder")),
+    sortOrder: query.get("sortOrder") || ratingEnum.HIGH,
     filterBy: query.get("filterBy") || "",
   };
 }

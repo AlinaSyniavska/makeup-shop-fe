@@ -68,7 +68,7 @@ const Product: FC<IProps> = ({ product }) => {
             </div>
             <Favorite product={product} />
             <StarRating
-              ratingProps={commonHelper.makeRatingProps(
+              ratingProps={commonHelper.setupRatingProps(
                 product.rating,
                 ratingColorEnum.MAIN_RATING_COLOR
               )}

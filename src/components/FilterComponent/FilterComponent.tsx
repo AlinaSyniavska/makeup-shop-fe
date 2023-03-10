@@ -8,13 +8,9 @@ import { productActions } from "../../redux";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const FilterComponent: FC = () => {
-  const { page, perPage, sortOrder, filterBy } = useAppSelector(
-    (state) => state.productReducer
-  );
+  const { page, perPage, sortOrder, filterBy } = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
-
   const [checked, setChecked] = useState<string[]>(filterBy);
-
   const [query, setQuery] = useSearchParams({
     page: `${page}`,
     perPage: `${perPage}`,

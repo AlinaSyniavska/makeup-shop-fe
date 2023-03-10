@@ -1,4 +1,5 @@
-import { IRating } from "../interfaces";
+import {IQueryParams, IRating} from "../interfaces";
+import {ratingEnum} from "../constants";
 
 const commonHelper = {
   scrollToUp: (): void => {
@@ -9,7 +10,7 @@ const commonHelper = {
     });
   },
 
-  makeRatingProps: (rating: string = "1", color: string): IRating => {
+  setupRatingProps: (rating: string = "1", color: string): IRating => {
     return {
       ratingValue: Number(rating),
       iconsCount: 5,
@@ -19,6 +20,15 @@ const commonHelper = {
       emptyColor: "#999999",
     };
   },
+
+/*  setupQuery: (page: string = '1', perPage: string = '20', sortOrder: string = ratingEnum.HIGH, filterBy: string = ''): IQueryParams => {
+    return {
+      page: `${page}`,
+      perPage: `${perPage}`,
+      sortOrder: `${sortOrder}`,
+      filterBy: `${filterBy}`,
+    };
+  },*/
 };
 
 export { commonHelper };
