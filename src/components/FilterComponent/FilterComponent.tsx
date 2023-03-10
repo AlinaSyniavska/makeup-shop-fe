@@ -12,15 +12,6 @@ const FilterComponent: FC = () => {
   const { page, perPage, sortOrder, filterBy } = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
   const [checked, setChecked] = useState<string[]>(filterBy);
-/*  const [query, setQuery] = useSearchParams({
-    page: `${page}`,
-    perPage: `${perPage}`,
-    sortOrder: `${sortOrder}`,
-    filterBy: `${filterBy.join(";")}`,
-  });*/
-
-
-
   const [query, setQuery] = useSearchParams(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
 
   useEffect(() => {
@@ -61,23 +52,8 @@ const FilterComponent: FC = () => {
       checked.splice(indexEmpty, 1);
     }
 
-/*    setQuery({
-      page: `${page}`,
-      perPage: `${perPage}`,
-      sortOrder: `${sortOrder}`,
-      filterBy: checked.join(";"),
-    });*/
-
     setQuery(commonHelper.setupQuery(page, perPage, sortOrder, checked));
-
-    dispatch(
-      productActions.saveQueryParams({
-        page: query.get("page"),
-        perPage: query.get("perPage"),
-        sortOrder: query.get("sortOrder"),
-        filterBy: query.get("filterBy")?.split(";"),
-      })
-    );
+    dispatch(productActions.saveQueryParams(commonHelper.setupQueryToSave(query)));
   }
 
   return (

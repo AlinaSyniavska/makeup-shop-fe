@@ -35,6 +35,16 @@ const commonHelper = {
       filterBy: `${filterBy.join(";")}`,
     };
   },
+
+  setupQueryToSave: (query: URLSearchParams) => {
+    return {
+      page: query.get("page"),
+      perPage: query.get("perPage"),
+      sortOrder: query.get("sortOrder"),
+      filterBy: query.get("filterBy")?.split(";"),
+    };
+  },
+
 };
 
 export { commonHelper };
