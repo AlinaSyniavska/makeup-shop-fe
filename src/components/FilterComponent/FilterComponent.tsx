@@ -6,17 +6,22 @@ import style from "./FilterComponent.module.css";
 import { tags } from "../../constants";
 import { productActions } from "../../redux";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import {commonHelper} from "../../helpers";
 
 const FilterComponent: FC = () => {
   const { page, perPage, sortOrder, filterBy } = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
   const [checked, setChecked] = useState<string[]>(filterBy);
-  const [query, setQuery] = useSearchParams({
+/*  const [query, setQuery] = useSearchParams({
     page: `${page}`,
     perPage: `${perPage}`,
     sortOrder: `${sortOrder}`,
     filterBy: `${filterBy.join(";")}`,
-  });
+  });*/
+
+
+
+  const [query, setQuery] = useSearchParams(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
 
   useEffect(() => {
     const filterByCollection = document.querySelectorAll(
@@ -47,7 +52,6 @@ const FilterComponent: FC = () => {
       updatedList.splice(checked.indexOf(event.target.value), 1);
     }
 
-    // console.log(updatedList)
     setChecked(updatedList);
   };
 
@@ -56,14 +60,16 @@ const FilterComponent: FC = () => {
     if (indexEmpty !== -1) {
       checked.splice(indexEmpty, 1);
     }
-    // console.log(indexEmpty)
 
-    setQuery({
+/*    setQuery({
       page: `${page}`,
       perPage: `${perPage}`,
       sortOrder: `${sortOrder}`,
       filterBy: checked.join(";"),
-    });
+    });*/
+
+    setQuery(commonHelper.setupQuery(page, perPage, sortOrder, checked));
+
     dispatch(
       productActions.saveQueryParams({
         page: query.get("page"),

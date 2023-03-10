@@ -1,5 +1,6 @@
-import {IQueryParams, IRating} from "../interfaces";
-import {ratingEnum} from "../constants";
+import { IRating } from "../interfaces";
+import { ratingEnum } from "../constants";
+import { URLSearchParamsInit } from "react-router-dom";
 
 const commonHelper = {
   scrollToUp: (): void => {
@@ -21,14 +22,19 @@ const commonHelper = {
     };
   },
 
-/*  setupQuery: (page: string = '1', perPage: string = '20', sortOrder: string = ratingEnum.HIGH, filterBy: string = ''): IQueryParams => {
+  setupQuery: (
+    page: string = "1",
+    perPage: string = "20",
+    sortOrder: string = ratingEnum.HIGH,
+    filterBy: string[] = []
+  ): URLSearchParamsInit => {
     return {
       page: `${page}`,
       perPage: `${perPage}`,
       sortOrder: `${sortOrder}`,
-      filterBy: `${filterBy}`,
+      filterBy: `${filterBy.join(";")}`,
     };
-  },*/
+  },
 };
 
 export { commonHelper };
