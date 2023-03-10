@@ -15,14 +15,11 @@ const FilterComponent: FC = () => {
   const [query, setQuery] = useSearchParams(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
 
   useEffect(() => {
-    const filterByCollection = document.querySelectorAll(
-      "input[type=checkbox]"
-    ) as NodeListOf<HTMLInputElement>;
+    const filtersCollection = document.querySelectorAll("input[type=checkbox]") as NodeListOf<HTMLInputElement>;
     const checkedTags = [] as Array<HTMLInputElement>;
 
-    Array.from(filterByCollection, (item) => (item.checked = false));
-    Array.from(filterByCollection, (item) =>
-      filterBy.forEach((tag) => {
+    Array.from(filtersCollection, (item) => (item.checked = false));
+    Array.from(filtersCollection, (item) => filterBy.forEach((tag) => {
         if (item.value === tag) {
           checkedTags.push(item);
         }
@@ -30,11 +27,10 @@ const FilterComponent: FC = () => {
     );
 
     checkedTags.forEach((item) => (item.checked = true));
-
     setChecked(filterBy);
   }, [filterBy]);
 
-  const checkFilterTags = (event: any) => {
+  const checkFilterTags = (event: React.ChangeEvent<HTMLInputElement>) => {
     let updatedList = [...checked];
 
     if (event.target.checked) {
@@ -46,7 +42,7 @@ const FilterComponent: FC = () => {
     setChecked(updatedList);
   };
 
-  function submitForm() {
+  const submitForm = () => {
     const indexEmpty = checked.findIndex((item) => item === "");
     if (indexEmpty !== -1) {
       checked.splice(indexEmpty, 1);
