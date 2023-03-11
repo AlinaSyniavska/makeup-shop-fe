@@ -5,25 +5,18 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions, userActions } from "../../redux";
 import { Product } from "../Product/Product";
 import style from "./Products.module.css";
-import {localStorageItemsEnum, ratingEnum} from "../../constants";
+import { localStorageItemsEnum, ratingEnum } from "../../constants";
 import { IQueryParams } from "../../interfaces";
+import {commonHelper} from "../../helpers";
 
 const Products: FC = () => {
-  const { products, page, perPage, sortOrder, filterBy } = useAppSelector(
-    (state) => state.productReducer
-  );
+  const { products, page, perPage, sortOrder, filterBy } = useAppSelector((state) => state.productReducer);
   const { userFavoriteList } = useAppSelector((state) => state.userReducer);
   const { isAuth } = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
-
-  const [query, setQuery] = useSearchParams({
-    page: `${page}`,
-    perPage: `${perPage}`,
-    sortOrder: `${sortOrder}`,
-    filterBy: `${filterBy.join(";")}`,
-  });
-  const { state, pathname } = useLocation();
+  const [query, setQuery] = useSearchParams(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
   const [isCategoryPath, setIsCategoryPath] = useState<boolean>(false);
+  const { state, pathname } = useLocation();
 
   useEffect(() => {
     pathname.includes("/category")
@@ -32,31 +25,19 @@ const Products: FC = () => {
   }, [pathname]);
 
   useEffect(() => {
-    setQuery({
-      page: `${page}`,
-      perPage: `${perPage}`,
-      sortOrder: `${sortOrder}`,
-      filterBy: `${filterBy.join(";")}`,
-    });
+    setQuery(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
   }, [page, perPage, sortOrder, filterBy]);
 
   useEffect(() => {
-    dispatch(
-      productActions.saveQueryParams({
-        page: query.get("page"),
-        perPage: query.get("perPage"),
-        sortOrder: query.get("sortOrder"),
-        filterBy: query.get("filterBy")?.split(";"),
-      })
-    );
+    dispatch(productActions.saveQueryParams(commonHelper.setupQueryToSave(query)));
   }, [dispatch, query, isCategoryPath, pathname]);
 
   useEffect(() => {
     !isCategoryPath
-      ? dispatch(productActions.getAll({ params: fillinQueryParams(query) }))
+      ? dispatch(productActions.getAll({ params: fillingQueryParams(query) }))
       : dispatch(
           productActions.getAtUrl({
-            params: fillinQueryParams(query),
+            params: fillingQueryParams(query),
             url: pathname,
           })
         );
@@ -100,7 +81,7 @@ const Products: FC = () => {
   );
 };
 
-function fillinQueryParams(query: URLSearchParams): IQueryParams {
+function fillingQueryParams(query: URLSearchParams): IQueryParams {
   return {
     page: query.get("page") || "1",
     perPage: query.get("perPage") || "20",
