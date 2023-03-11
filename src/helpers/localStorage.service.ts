@@ -1,4 +1,4 @@
-const localStorageService = {
+const localStorageHelper = {
   getArrayFromLocalStorage: (key: string) => {
     const value = localStorage.getItem(key);
     return value !== null ? JSON.parse(value) : [];
@@ -10,4 +10,4 @@ const localStorageService = {
 
 };
 
-export { localStorageService };
+export { localStorageHelper };

@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { ICart, IProduct, IProductOrdered } from "../../interfaces";
 import { localStorageItemsEnum } from "../../constants";
-import { cartService, localStorageService } from "../../services";
+import { cartService } from "../../services";
+import { localStorageHelper } from "../../helpers";
 
 interface IState {
   goods: IProduct[];
@@ -39,11 +40,11 @@ const cartSlice = createSlice({
       const goods = action.payload.goods;
       state.goods.push(goods);
 
-      const cart = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
+      const cart = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
       cart.push(goods);
-      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.CART, cart);
+      localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.CART, cart);
 
-      const order = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
+      const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
       order.push({
         productId: goods._id,
@@ -57,13 +58,13 @@ const cartSlice = createSlice({
         cost: goods.price,
       });
 
-      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
+      localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
     },
 
     changeOrder: (state, action) => {
       const { itemId, curCount } = action.payload.data;
 
-      const order = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
+      const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
       const singleGoodsIndex = order.findIndex((i: IProductOrdered) => i.productId === itemId);
       order[singleGoodsIndex].count = curCount;
@@ -74,22 +75,22 @@ const cartSlice = createSlice({
         order[singleGoodsIndex]
       );
 
-      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
+      localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
     },
 
     changeOrderDeleteRecord: (state, action) => {
       const { itemId } = action.payload.data;
 
-      const order = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
+      const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
       let singleGoodsIndex = order.findIndex((i: IProductOrdered) => i.productId === itemId);
       order.splice(singleGoodsIndex, 1);
 
       state.userOrder.splice(singleGoodsIndex, 1);
 
-      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
+      localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
 
-      const cart = localStorageService.getArrayFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
+      const cart = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
 
       singleGoodsIndex = cart.findIndex((i: IProduct) => i._id === itemId);
       cart.splice(singleGoodsIndex, 1);
@@ -97,7 +98,7 @@ const cartSlice = createSlice({
       state.goods = [];
       state.goods = Object.assign([...cart]);
 
-      localStorageService.setArrayToLocalStorage(localStorageItemsEnum.CART, cart);
+      localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.CART, cart);
     },
 
     deleteOrder: (state) => {
