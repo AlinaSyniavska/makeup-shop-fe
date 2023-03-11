@@ -11,7 +11,7 @@ export * from "./Favorite/Favorite";
 export * from "./FavoriteList/FavoriteList";
 export * from "./FavoriteListItem/FavoriteListItem";
 export * from "./FilterComponent/FilterComponent";
-export * from "./Goods/Goods";
+export * from "./GoodsInCart/GoodsInCart";
 export * from "./Header/Header";
 export * from "./Item/Item";
 export * from "./Items/Items";

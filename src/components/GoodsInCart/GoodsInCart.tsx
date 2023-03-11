@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import style from "./Goods.module.css";
+import style from "./GoodsInCart.module.css";
 import { ICart, IProduct } from "../../interfaces";
 import { SingleGoods } from "../SingleGoods/SingleGoods";
 import { cartStatusEnum, localStorageItemsEnum } from "../../constants";
 import { cartActions } from "../../redux";
 
-const Goods: FC = () => {
+const GoodsInCart: FC = () => {
   const { goods } = useAppSelector((state) => state.cartReducer);
   const dispatch = useAppDispatch();
 
@@ -63,4 +63,4 @@ const Goods: FC = () => {
   );
 };
 
-export { Goods };
+export { GoodsInCart };
