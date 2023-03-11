@@ -5,34 +5,16 @@ import { ratingEnum } from "../../constants";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../redux";
 import { useSearchParams } from "react-router-dom";
+import {commonHelper} from "../../helpers";
 
 const SortComponent: FC = () => {
-  const { page, perPage, sortOrder, filterBy } = useAppSelector(
-    (state) => state.productReducer
-  );
+  const { page, perPage, sortOrder, filterBy } = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
-  const [query, setQuery] = useSearchParams({
-    page: `${page}`,
-    perPage: `${perPage}`,
-    sortOrder: `${sortOrder}`,
-    filterBy: `${filterBy.join(";")}`,
-  });
+  const [query, setQuery] = useSearchParams(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
 
   const setSort = (event: any) => {
-    setQuery({
-      page: `${page}`,
-      perPage: `${perPage}`,
-      sortOrder: event.target.value,
-      filterBy: `${filterBy.join(";")}`,
-    });
-    dispatch(
-      productActions.saveQueryParams({
-        page: query.get("page"),
-        perPage: query.get("perPage"),
-        sortOrder: query.get("sortOrder"),
-        filterBy: query.get("filterBy")?.split(";"),
-      })
-    );
+    setQuery(commonHelper.setupQuery(page, perPage, event.target.value, filterBy));
+    dispatch(productActions.saveQueryParams(commonHelper.setupQueryToSave(query)));
   };
 
   return (
