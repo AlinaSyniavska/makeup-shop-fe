@@ -26,7 +26,7 @@ const CustomButtonBuy: FC<IProps> = ({ singleProduct }) => {
 
   return (
     <React.Fragment>
-      <button disabled={!isProductAvailable} onClick={addToCart}>
+      <button className={'btnBuy'} disabled={!isProductAvailable} onClick={addToCart}>
         Buy
       </button>
     </React.Fragment>

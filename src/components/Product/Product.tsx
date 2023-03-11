@@ -31,12 +31,9 @@ const Product: FC<IProps> = ({ product }) => {
     setIsProductAvailable(productHelper.checkIsProductAvailable(product.total));
   }, [product.total]);
 
-  const preventDefaultLinkAction = (
-    event: React.MouseEvent<HTMLAnchorElement>
-  ) => {
+  const preventDefaultLinkAction = (event: React.MouseEvent<HTMLAnchorElement>) => {
     const btnBuyList = document.getElementsByClassName("btnBuy");
-    const btnFavoriteList = document.querySelectorAll(
-      ".Favorite_btnFavorite__RDx0q>svg,.Favorite_btnFavorite__RDx0q>svg>path"
+    const btnFavoriteList = document.querySelectorAll(".Favorite_btnFavorite__RDx0q>svg,.Favorite_btnFavorite__RDx0q>svg>path"
     );
 
     const btnBuy = productHelper.searchPressedButton(btnBuyList, event.target);
