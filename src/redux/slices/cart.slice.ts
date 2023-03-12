@@ -38,26 +38,21 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const goods = action.payload.goods;
-      state.goods.push(goods);
-
+      const goodsToOrder = {
+        productId: goods._id,
+        count: 1,
+        cost: goods.price,
+      };
       const cart = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
+      const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
+
+      state.goods.push(goods);
+      state.userOrder.push(goodsToOrder);
+
       cart.push(goods);
       localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.CART, cart);
 
-      const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
-
-      order.push({
-        productId: goods._id,
-        count: 1,
-        cost: goods.price,
-      });
-
-      state.userOrder.push({
-        productId: goods._id,
-        count: 1,
-        cost: goods.price,
-      });
-
+      order.push(goodsToOrder);
       localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
     },
 

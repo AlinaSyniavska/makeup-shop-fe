@@ -15,9 +15,7 @@ const CustomButtonBuy: FC<IProps> = ({ singleProduct }) => {
   const [isProductAvailable, setIsProductAvailable] = useState(true);
 
   useEffect(() => {
-    setIsProductAvailable(
-      productHelper.checkIsProductAvailable(singleProduct.total)
-    );
+    setIsProductAvailable(productHelper.checkIsProductAvailable(singleProduct.total));
   }, [singleProduct.total]);
 
   const addToCart = (): void => {
