@@ -44,7 +44,7 @@ const cartSlice = createSlice({
       const orderItem = order.find((item) => item.productId === goods._id);
 
       if (orderItem) {
-        Object.assign(goodsToOrder, orderItem, { count: orderItem.count + 1 });
+        Object.assign(goodsToOrder, orderItem, { count: orderItem.count + 1 > goods.total ? goods.total : orderItem.count + 1});
         state.userOrder.splice(
             state.userOrder.findIndex(item => item === orderItem),
             1,
