@@ -19,6 +19,7 @@ const productHelper = {
 
     return button as HTMLElement;
   },
+
 };
 
 export { productHelper };
