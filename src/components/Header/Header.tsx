@@ -4,6 +4,8 @@ import { Nav } from "rsuite/";
 import "rsuite/dist/rsuite.min.css";
 
 import style from "./Header.module.css";
+const navItemStyle = {fontSize: "18px", padding: "10px", width: "100px"};
+const navSingleItemStyle = {fontSize: "18px", lineHeight: "40px", paddingLeft: "12px"};
 
 const Header: FC = () => {
   return (
@@ -14,97 +16,49 @@ const Header: FC = () => {
         </Nav.Item>
 
         <Nav.Menu title="Category" className={style.multiMenu}>
+
           <Nav.Menu title="Cream" className={style.fs18}>
-            <Nav.Item
-              as={NavLink}
-              to={"/category/cream/face"}
-              style={{ fontSize: "18px", padding: "10px", width: "100px" }}
-            >
+            <Nav.Item as={NavLink} to={"/category/cream/face"} style={navItemStyle}>
               Face
             </Nav.Item>
-            <Nav.Item
-              as={NavLink}
-              to={"/category/cream/body"}
-              style={{ fontSize: "18px", padding: "10px" }}
-            >
+            <Nav.Item as={NavLink} to={"/category/cream/body"} style={navItemStyle}>
               Body
             </Nav.Item>
           </Nav.Menu>
-          <Nav.Item
-            as={NavLink}
-            to={"/category/eyebrow"}
-            style={{
-              fontSize: "18px",
-              lineHeight: "40px",
-              textAlign: "left",
-              paddingLeft: "12px",
-            }}
-          >
+
+          <Nav.Item as={NavLink} to={"/category/eyebrow"} style={{...navSingleItemStyle, textAlign: 'left'}}>
             Eyebrow
           </Nav.Item>
+
           <Nav.Menu title="Eyeshadow" className={style.fs18}>
-            <Nav.Item
-              as={NavLink}
-              to={"/category/eyeshadow/palette"}
-              style={{ fontSize: "18px", padding: "10px", width: "100px" }}
-            >
+            <Nav.Item as={NavLink} to={"/category/eyeshadow/palette"} style={navItemStyle}>
               Palette
             </Nav.Item>
-            <Nav.Item
-              as={NavLink}
-              to={"/category/eyeshadow/pencil"}
-              style={{ fontSize: "18px", padding: "10px", width: "100px" }}
-            >
+            <Nav.Item as={NavLink} to={"/category/eyeshadow/pencil"} style={navItemStyle}>
               Pencil
             </Nav.Item>
-            <Nav.Item
-              as={NavLink}
-              to={"/category/eyeshadow/cream"}
-              style={{ fontSize: "18px", padding: "10px", width: "100px" }}
-            >
+            <Nav.Item as={NavLink} to={"/category/eyeshadow/cream"} style={navItemStyle}>
               Cream
             </Nav.Item>
           </Nav.Menu>
-          <Nav.Item
-            as={NavLink}
-            to={"/category/powder"}
-            style={{
-              fontSize: "18px",
-              lineHeight: "40px",
-              textAlign: "left",
-              paddingLeft: "12px",
-            }}
-          >
+
+          <Nav.Item as={NavLink} to={"/category/powder"} style={{...navSingleItemStyle, textAlign: 'left'}}>
             Powder
           </Nav.Item>
+
           <Nav.Menu title="Lipstick" className={style.fs18}>
-            <Nav.Item
-              as={NavLink}
-              to={"/category/lipstick/lipstick"}
-              style={{ fontSize: "18px", padding: "10px" }}
-            >
+            <Nav.Item as={NavLink} to={"/category/lipstick/lipstick"} style={navItemStyle}>
               Lipstick
             </Nav.Item>
-            <Nav.Item
-              as={NavLink}
-              to={"/category/lipstick/lipgloss"}
-              style={{ fontSize: "18px", padding: "10px" }}
-            >
+            <Nav.Item as={NavLink} to={"/category/lipstick/lipgloss"} style={navItemStyle}>
               Lip gloss
             </Nav.Item>
           </Nav.Menu>
-          <Nav.Item
-            as={NavLink}
-            to={"/category/mascara"}
-            style={{
-              fontSize: "18px",
-              lineHeight: "40px",
-              textAlign: "left",
-              paddingLeft: "12px",
-            }}
-          >
+
+          <Nav.Item as={NavLink} to={"/category/mascara"} style={{...navSingleItemStyle, textAlign: 'left'}}>
             Mascara
           </Nav.Item>
+
         </Nav.Menu>
 
         <Nav.Item href={"/auth/login"}>Login</Nav.Item>
