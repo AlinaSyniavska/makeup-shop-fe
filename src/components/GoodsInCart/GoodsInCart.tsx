@@ -2,47 +2,34 @@ import { FC, useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import style from "./GoodsInCart.module.css";
-import { ICart, IProduct } from "../../interfaces";
+import { IProduct } from "../../interfaces";
 import { SingleGoods } from "../SingleGoods/SingleGoods";
-import { cartStatusEnum, localStorageItemsEnum } from "../../constants";
+import { localStorageItemsEnum } from "../../constants";
 import { cartActions } from "../../redux";
+import { localStorageHelper, productHelper } from "../../helpers";
 
 const GoodsInCart: FC = () => {
-  console.log('GoodsInCart')
   const { goods } = useAppSelector((state) => state.cartReducer);
   const dispatch = useAppDispatch();
-
-  const [cartGoods, setCartGoods] = useState<IProduct[]>([]);
+  const [cartOfGoods, setCartOfGoods] = useState<IProduct[]>([]);
   const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
-    const cart = localStorage.getItem(localStorageItemsEnum.CART);
-    let cartFromLocalStorage = cart !== null ? JSON.parse(cart) : [];
-
-    setCartGoods(cartFromLocalStorage);
+    const cart = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.CART);
+    setCartOfGoods(cart);
   }, [goods]);
 
   const makeOrder = async () => {
-    // await dispatch(cartActions.cleanOrderStatus());
-    const order = localStorage.getItem(localStorageItemsEnum.ORDER);
-    let orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
+    const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER);
+    const orderForDB = productHelper.prepareOrderForDB(order, total);
 
-    const orderToDB = {
-      products: orderFromLocalStorage,
-      userId: localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER),
-      status: cartStatusEnum.IN_PROGRESS,
-      sum: Number(total.toFixed(2)),
-    } as ICart;
-
-    // console.log(orderToDB);
-
-    await dispatch(cartActions.sendOrderToDB({ orderToDB }));
+    await dispatch(cartActions.sendOrderToDB({ orderForDB }));
   };
 
   return (
     <div>
       <div className={style.goodsContainer}>
-        {cartGoods.map((item, index) => (
+        {cartOfGoods.map((item, index) => (
           <SingleGoods key={item._id} item={item} index={index} setTotal={setTotal}/>
         ))}
       </div>

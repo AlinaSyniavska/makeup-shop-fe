@@ -17,11 +17,11 @@ const initialState: IState = {
   orderStatus: "",
 };
 
-const sendOrderToDB = createAsyncThunk<void, { orderToDB: ICart }>(
+const sendOrderToDB = createAsyncThunk<void, { orderForDB: ICart }>(
   "cartSlice/sendOrderToDB",
-  async ({ orderToDB }, { dispatch, rejectWithValue }) => {
+  async ({ orderForDB }, { dispatch, rejectWithValue }) => {
     try {
-      await cartService.sendToDB(orderToDB);
+      await cartService.sendToDB(orderForDB);
       await dispatch(deleteOrder());
     } catch (e: any) {
       return rejectWithValue({
@@ -75,45 +75,29 @@ const cartSlice = createSlice({
     changeOrder: (state, action) => {
       const { itemId, curCount } = action.payload.data;
 
-      const order = localStorageHelper.getArrayFromLocalStorage(
-        localStorageItemsEnum.ORDER
-      ) as IProductOrdered[];
+      const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
-      const singleGoodsIndex = order.findIndex(
-        (i: IProductOrdered) => i.productId === itemId
-      );
+      const singleGoodsIndex = order.findIndex((i: IProductOrdered) => i.productId === itemId);
       order[singleGoodsIndex].count = curCount;
 
       state.userOrder.splice(singleGoodsIndex, 1, order[singleGoodsIndex]);
 
-      localStorageHelper.setArrayToLocalStorage(
-        localStorageItemsEnum.ORDER,
-        order
-      );
+      localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
     },
 
     changeOrderDeleteRecord: (state, action) => {
       const { itemId } = action.payload.data;
 
-      const order = localStorageHelper.getArrayFromLocalStorage(
-        localStorageItemsEnum.ORDER
-      ) as IProductOrdered[];
+      const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
 
-      let singleGoodsIndex = order.findIndex(
-        (i: IProductOrdered) => i.productId === itemId
-      );
+      let singleGoodsIndex = order.findIndex((i: IProductOrdered) => i.productId === itemId);
       order.splice(singleGoodsIndex, 1);
 
       state.userOrder.splice(singleGoodsIndex, 1);
 
-      localStorageHelper.setArrayToLocalStorage(
-        localStorageItemsEnum.ORDER,
-        order
-      );
+      localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
 
-      const cart = localStorageHelper.getArrayFromLocalStorage(
-        localStorageItemsEnum.CART
-      ) as IProduct[];
+      const cart = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.CART) as IProduct[];
 
       singleGoodsIndex = cart.findIndex((i: IProduct) => i._id === itemId);
       cart.splice(singleGoodsIndex, 1);
@@ -121,10 +105,7 @@ const cartSlice = createSlice({
       state.goods = [];
       state.goods = Object.assign([...cart]);
 
-      localStorageHelper.setArrayToLocalStorage(
-        localStorageItemsEnum.CART,
-        cart
-      );
+      localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.CART, cart);
     },
 
     deleteOrder: (state) => {
@@ -142,17 +123,12 @@ const cartSlice = createSlice({
       const { errorStatus, err } = action.payload as any;
       state.orderStatus = errorStatus;
 
-      alert(
-        state.orderStatus + "\nDear User your order has not been sent.\n" + err
-      );
+      alert(state.orderStatus + "\nDear User your order has not been sent.\n" + err);
     });
   },
 });
 
-const {
-  reducer: cartReducer,
-  actions: { addToCart, changeOrder, changeOrderDeleteRecord, deleteOrder },
-} = cartSlice;
+const {reducer: cartReducer, actions: { addToCart, changeOrder, changeOrderDeleteRecord, deleteOrder }} = cartSlice;
 
 const cartActions = {
   addToCart,
