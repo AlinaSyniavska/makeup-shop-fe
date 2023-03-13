@@ -8,6 +8,7 @@ import { cartStatusEnum, localStorageItemsEnum } from "../../constants";
 import { cartActions } from "../../redux";
 
 const GoodsInCart: FC = () => {
+  console.log('GoodsInCart')
   const { goods } = useAppSelector((state) => state.cartReducer);
   const dispatch = useAppDispatch();
 
@@ -42,12 +43,7 @@ const GoodsInCart: FC = () => {
     <div>
       <div className={style.goodsContainer}>
         {cartGoods.map((item, index) => (
-          <SingleGoods
-            key={item._id}
-            item={item}
-            index={index}
-            setTotal={setTotal}
-          />
+          <SingleGoods key={item._id} item={item} index={index} setTotal={setTotal}/>
         ))}
       </div>
 
