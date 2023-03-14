@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import style from "./Pages.module.css";
 import { useAppSelector } from "../../hooks";
+import { commonHelper } from "../../helpers";
 
 const Pages: FC = () => {
   const calculatePagesCount = (pageSize: number, totalCount: number) => {
@@ -14,12 +15,8 @@ const Pages: FC = () => {
     (state) => state.productReducer
   );
 
-  const [query, setQuery] = useSearchParams({
-    page: `${page}`,
-    perPage: `${perPage}`,
-    sortOrder: `${sortOrder}`,
-    filterBy: `${filterBy.join(";")}`,
-  });
+  const [query, setQuery] = useSearchParams(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
+
   const [pages, setPages] = useState(
     calculatePagesCount(Number(perPage), Number(count))
   );
@@ -49,18 +46,8 @@ const Pages: FC = () => {
       }
     }
 
-    setQuery({
-      page: `${curPage}`,
-      perPage: `${perPage}`,
-      sortOrder: `${sortOrder}`,
-      filterBy: `${filterBy.join(";")}`,
-    });
-
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+    setQuery(commonHelper.setupQuery(`${curPage}`, perPage, sortOrder, filterBy));
+    commonHelper.scrollToUp();
   };
 
   return (
