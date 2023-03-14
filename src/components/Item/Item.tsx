@@ -1,7 +1,8 @@
 import { FC } from "react";
+
 import { IItem } from "../../interfaces";
 import { adminItemService } from "../../services";
-import {commonHelper} from "../../helpers";
+import { commonHelper } from "../../helpers";
 
 interface IProps {
   url: string;
@@ -32,9 +33,7 @@ const Item: FC<IProps> = ({
 
   return (
     <div>
-      <p>
-        {index + 1}. {name}
-      </p>
+      <p>{index + 1}. {name}</p>
       <button onClick={deleteItem}>Delete</button>
       <button onClick={updateItem}>Update</button>
       <hr />
