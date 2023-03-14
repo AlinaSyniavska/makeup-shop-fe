@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+
 import { adminItemService } from "../../services";
 import { IItem } from "../../interfaces";
 import { Item } from "../Item/Item";
@@ -16,7 +17,7 @@ const Items: FC<IProps> = ({ url, newItem, setItemForUpdate, updatedItem }) => {
 
   useEffect(() => {
     adminItemService.getAll(url).then(({ data }) => setBrands(data.data));
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     if (newItem) {
@@ -30,8 +31,7 @@ const Items: FC<IProps> = ({ url, newItem, setItemForUpdate, updatedItem }) => {
 
   useEffect(() => {
     if (updatedItem) {
-      const editItem =
-        (brands.find((brand) => brand._id === updatedItem._id) as IItem) || {};
+      const editItem = (brands.find((brand) => brand._id === updatedItem._id) as IItem) || {};
       Object.assign(editItem, updatedItem);
       setBrands([...brands]);
     }
