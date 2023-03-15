@@ -5,6 +5,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../redux";
 
 const SelectPerPageForm: FC = () => {
+
+  // insert commonHelper.scrollToUp();
+
   const { perPage } = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
 
