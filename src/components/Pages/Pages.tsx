@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useState } from "react";
+import React, { FC, MouseEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import style from "./Pages.module.css";
@@ -6,11 +6,6 @@ import { useAppSelector } from "../../hooks";
 import { commonHelper } from "../../helpers";
 
 const Pages: FC = () => {
-  const calculatePagesCount = (pageSize: number, totalCount: number) => {
-    // we suppose that if we have 0 items we want 1 empty page
-    return totalCount < pageSize ? 1 : Math.ceil(totalCount / pageSize);
-  };
-
   const { page, perPage, sortOrder, filterBy, count } = useAppSelector(
     (state) => state.productReducer
   );
@@ -18,14 +13,14 @@ const Pages: FC = () => {
   const [query, setQuery] = useSearchParams(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
 
   const [pages, setPages] = useState(
-    calculatePagesCount(Number(perPage), Number(count))
+    commonHelper.calculatePagesCount(Number(perPage), Number(count))
   );
 
   useEffect(() => {
     const infoPage = document.getElementById(
       "infoPage"
     ) as HTMLParagraphElement;
-    setPages(calculatePagesCount(Number(perPage), Number(count)));
+    setPages(commonHelper.calculatePagesCount(Number(perPage), Number(count)));
     infoPage.innerText = `${page} of ${pages} pages`;
   }, [page, pages, perPage, sortOrder, filterBy, count]);
 
@@ -51,7 +46,7 @@ const Pages: FC = () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <div className={style.wrap}>
         <div className={style.pagination}>
           <button className={`${style.btnPagination} ${style.btnPaginationPrev}`} onClick={changePage} id={"prev"}>
@@ -63,7 +58,7 @@ const Pages: FC = () => {
         </div>
         <p id={"infoPage"}></p>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
