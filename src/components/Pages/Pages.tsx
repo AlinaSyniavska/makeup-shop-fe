@@ -54,18 +54,10 @@ const Pages: FC = () => {
     <div>
       <div className={style.wrap}>
         <div className={style.pagination}>
-          <button
-            className={`${style.btnPagination} ${style.btnPaginationPrev}`}
-            onClick={changePage}
-            id={"prev"}
-          >
+          <button className={`${style.btnPagination} ${style.btnPaginationPrev}`} onClick={changePage} id={"prev"}>
             Prev
           </button>
-          <button
-            className={`${style.btnPagination} ${style.btnPaginationNext}`}
-            onClick={changePage}
-            id={"next"}
-          >
+          <button className={`${style.btnPagination} ${style.btnPaginationNext}`} onClick={changePage} id={"next"}>
             Next
           </button>
         </div>
