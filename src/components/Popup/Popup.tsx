@@ -1,8 +1,8 @@
 import { FC } from "react";
-
-import { IUser } from "../../interfaces";
-import style from "./Popup.module.css";
 import { useNavigate } from "react-router-dom";
+
+import style from "./Popup.module.css";
+import { IUser } from "../../interfaces";
 
 interface IProps {
   user: Partial<IUser>;
@@ -18,8 +18,7 @@ const Popup: FC<IProps> = ({ user }) => {
           x
         </span>
         <p>
-          User <b>{user.name}</b> <b>{user.surname}</b> is already login in to
-          the App
+          User <b>{user.name} {user.surname}</b> is already login on the platform.
         </p>
       </div>
     </div>
