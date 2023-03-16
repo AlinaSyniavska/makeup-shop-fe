@@ -44,7 +44,7 @@ const Product: FC<IProps> = ({ product }) => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Link to={`/home/product/${product._id}`} target="_blank" onClick={preventDefaultLinkAction}>
         <div aria-disabled={!isProductAvailable} className={style.product_wrap}>
           <div className={style.product}>
@@ -63,7 +63,7 @@ const Product: FC<IProps> = ({ product }) => {
           {isProductCreate && <AdminButtons product={product} />}
         </div>
       </Link>
-    </div>
+    </React.Fragment>
   );
 };
 
