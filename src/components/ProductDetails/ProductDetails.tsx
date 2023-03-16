@@ -1,14 +1,14 @@
 import React, { FC, useEffect } from "react";
 
-import { IProduct } from "../../interfaces";
 import style from "./ProductDetails.module.css";
+import { IProduct } from "../../interfaces";
+import { CustomButtonBuy } from "../CustomButtonBuy/CustomButtonBuy";
+import { Favorite } from "../Favorite/Favorite";
 import { StarRating } from "../StarRating/StarRating";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { Favorite } from "../Favorite/Favorite";
+import { userActions } from "../../redux";
 import { localStorageItemsEnum, ratingColorEnum } from "../../constants";
 import { commonHelper } from "../../helpers";
-import { CustomButtonBuy } from "../CustomButtonBuy/CustomButtonBuy";
-import { userActions } from "../../redux";
 
 interface IProps {
   singleProduct: IProduct;
@@ -51,7 +51,7 @@ const ProductDetails: FC<IProps> = ({ singleProduct }) => {
   }, [userFavoriteList, isAuth]);
 
   return (
-    <div>
+    <React.Fragment>
       <div className={style.singleProductContainer}>
         <div className={style.sectionInfo}>
           <div className={style.headerContainer}>
@@ -60,12 +60,7 @@ const ProductDetails: FC<IProps> = ({ singleProduct }) => {
               <span className={style.greyText}> / {productType}</span>
             </p>
             <p className={style.largeText}>{name}</p>
-            <StarRating
-              ratingProps={commonHelper.setupRatingProps(
-                rating,
-                ratingColorEnum.MAIN_RATING_COLOR
-              )}
-            />
+            <StarRating ratingProps={commonHelper.setupRatingProps(rating, ratingColorEnum.MAIN_RATING_COLOR)}/>
           </div>
           <div className={style.mainContainer}>
             <p className={style.regularText}>
@@ -88,9 +83,7 @@ const ProductDetails: FC<IProps> = ({ singleProduct }) => {
 
         <div className={style.sectionPrice}>
           <div className={style.headerContainer}>
-            <p
-              className={`${style.largePlusText} ${style.colorText} ${style.boldText}`}
-            >
+            <p className={`${style.largePlusText} ${style.colorText} ${style.boldText}`}>
               {price} {priceSign}
             </p>
             <p className={`${style.largeText} ${style.boldText}`}>
@@ -102,7 +95,7 @@ const ProductDetails: FC<IProps> = ({ singleProduct }) => {
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
