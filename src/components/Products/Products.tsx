@@ -1,13 +1,13 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
+import style from "./Products.module.css";
+import { IQueryParams } from "../../interfaces";
+import { Product } from "../Product/Product";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions, userActions } from "../../redux";
-import { Product } from "../Product/Product";
-import style from "./Products.module.css";
 import { localStorageItemsEnum, ratingEnum } from "../../constants";
-import { IQueryParams } from "../../interfaces";
-import {commonHelper} from "../../helpers";
+import { commonHelper } from "../../helpers";
 
 const Products: FC = () => {
   const { products, page, perPage, sortOrder, filterBy } = useAppSelector((state) => state.productReducer);
@@ -35,8 +35,7 @@ const Products: FC = () => {
   useEffect(() => {
     !isCategoryPath
       ? dispatch(productActions.getAll({ params: fillingQueryParams(query) }))
-      : dispatch(
-          productActions.getAtUrl({
+      : dispatch(productActions.getAtUrl({
             params: fillingQueryParams(query),
             url: pathname,
           })
@@ -63,21 +62,18 @@ const Products: FC = () => {
   }, [userFavoriteList]);
 
   return (
-    <div>
+    <React.Fragment>
       <div className={style.bodyWrap}>
         <div className={style.productContainer}>
-          {products.length ? (
-            products.map((product) => (
-              <Product key={product._id} product={product} />
-            ))
-          ) : (
-            <div className={style.text}>
-              Sorry we couldn't find any matches for your request tags :(
-            </div>
-          )}
+          {products.length
+              ? (products.map((product) => (
+                  <Product key={product._id} product={product} />)))
+              : (<div className={style.text}>
+                  Sorry we couldn't find any matches for your request tags :(
+                </div>)}
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
