@@ -3,32 +3,24 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { joiResolver } from "@hookform/resolvers/joi";
 
+import style from "./../AuthForm/AuthForm.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { IUser } from "../../interfaces";
 import { userValidator } from "../../validators";
 import { authActions, userActions } from "../../redux";
-import style from "./../AuthForm/AuthForm.module.css";
 import { genderEnum } from "../../constants";
+import { commonHelper } from "../../helpers";
 
 const RegisterForm: FC = () => {
-  const {
-    register,
-    reset,
-    handleSubmit,
-    setValue,
-    formState: { errors, isValid },
-  } = useForm<IUser>({
+  const {register, reset, handleSubmit, setValue, formState: { errors, isValid },} = useForm<IUser>({
     resolver: joiResolver(userValidator),
     mode: "onTouched",
   });
 
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const { pathname } = useLocation();
-
   const navigate = useNavigate();
-  const { formErrors, userForUpdate } = useAppSelector(
-    (state) => state.userReducer
-  );
+  const { formErrors, userForUpdate } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -45,7 +37,6 @@ const RegisterForm: FC = () => {
 
   useEffect(() => {
     pathname === "/auth/register" ? setIsRegister(true) : setIsRegister(false);
-    // console.log(isRegister)
   }, [pathname, isRegister]);
 
   const submitForm = async (user: IUser) => {
@@ -73,12 +64,7 @@ const RegisterForm: FC = () => {
           ]);
 
           reset();
-
-          window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-          });
+          commonHelper.scrollToUp();
         }
       }
     } catch (e: any) {
