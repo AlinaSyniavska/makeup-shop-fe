@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC } from "react";
 
 import style from "./SelectPerPage.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -17,23 +17,18 @@ const SelectPerPageForm: FC = () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <div className={style.selectContainer}>
         <label>
-          Select count
-          <select
-            onChange={onChangeSelect}
-            id={"perPage"}
-            name={"perPage"}
-            value={perPage}
-          >
+          The number of units
+          <select onChange={onChangeSelect} id={"perPage"} name={"perPage"} value={perPage}>
             <option value={"10"}>10</option>
             <option value={"20"}>20</option>
             <option value={"50"}>50</option>
           </select>
         </label>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
