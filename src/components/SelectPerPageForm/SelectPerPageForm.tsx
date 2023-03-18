@@ -3,17 +3,16 @@ import React, { ChangeEvent, FC } from "react";
 import style from "./SelectPerPage.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../redux";
+import { commonHelper } from "../../helpers";
 
 const SelectPerPageForm: FC = () => {
-
-  // insert commonHelper.scrollToUp();
-
   const { perPage } = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
 
   const onChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     dispatch(productActions.setPerPage({ perPage: e.target.value }));
+    commonHelper.scrollToUp();
   };
 
   return (
