@@ -80,68 +80,46 @@ const RegisterForm: FC = () => {
       <div>
         <label>
           Name
-          <input type={"text"} placeholder={"name  "} {...register("name")} />
+          <input type={"text"} placeholder={"name"} {...register("name")} />
         </label>
       </div>
-      {errors.name && (
-        <span className={style.error}>{errors.name.message}</span>
-      )}
+      {errors.name && <span className={style.error}>{errors.name.message}</span>}
 
       <div>
         <label>
           Surname
-          <input
-            type={"text"}
-            placeholder={"surname  "}
-            {...register("surname")}
-          />
+          <input type={"text"} placeholder={"surname"} {...register("surname")}/>
         </label>
       </div>
-      {errors.surname && (
-        <span className={style.error}>{errors.surname.message}</span>
-      )}
+      {errors.surname && <span className={style.error}>{errors.surname.message}</span>}
 
       <div className={style.selectBox}>
         Gender
         <div className={style.genderContainer}>
           <label>
-            <input
-              type={"radio"}
-              value={genderEnum.FEMALE}
-              {...register("gender")}
-              disabled={!isRegister}
-            />
+            <input type={"radio"} value={genderEnum.FEMALE} {...register("gender")} disabled={!isRegister}/>
             {genderEnum.FEMALE}
           </label>
           <label>
-            <input
-              type={"radio"}
-              value={genderEnum.MALE}
-              {...register("gender")}
-              disabled={!isRegister}
-            />
+            <input type={"radio"} value={genderEnum.MALE} {...register("gender")} disabled={!isRegister}/>
             {genderEnum.MALE}
           </label>
         </div>
       </div>
-      {errors.gender && (
-        <span className={style.error}>{errors.gender.message}</span>
-      )}
+      {errors.gender && <span className={style.error}>{errors.gender.message}</span>}
 
       <div>
         <label>
           Phone
-          <input type={"tel"} placeholder={"phone  "} {...register("phone")} />
+          <input type={"tel"} placeholder={"phone"} {...register("phone")} />
         </label>
       </div>
-      {errors.phone && (
-        <span className={style.error}>{errors.phone.message}</span>
-      )}
+      {errors.phone && <span className={style.error}>{errors.phone.message}</span>}
 
       <div>
         <label>
           Age
-          <input type={"number"} placeholder={"age  "} {...register("age")} />
+          <input type={"number"} placeholder={"age"} {...register("age")} />
         </label>
       </div>
       {errors.age && <span className={style.error}>{errors.age.message}</span>}
@@ -149,40 +127,24 @@ const RegisterForm: FC = () => {
       <div>
         <label>
           Email
-          <input
-            type={"email"}
-            placeholder={"email  "}
-            {...register("email")}
-            disabled={!isRegister}
-          />
+          <input type={"email"} placeholder={"email"} {...register("email")} disabled={!isRegister}/>
         </label>
       </div>
-      {errors.email && (
-        <span className={style.error}>{errors.email.message}</span>
-      )}
+      {errors.email && <span className={style.error}>{errors.email.message}</span>}
 
       {isRegister && (
         <div>
           <label>
             Password
-            <input
-              type={"password"}
-              placeholder={"password"}
-              {...register("password")}
-              disabled={!isRegister}
-              required={true}
-            />
+            <input type={"password"} placeholder={"password"} {...register("password")} required={true}/>
           </label>
         </div>
       )}
-      {errors.password && (
-        <span className={style.error}>{errors.password.message}</span>
-      )}
+      {errors.password && <span className={style.error}>{errors.password.message}</span>}
 
       <button className={style.btnRegister} disabled={!isValid && isRegister}>
         {userForUpdate ? "Save Update" : "Register"}
       </button>
-      {/*<button disabled={!isValid}>{userForUpdate ? 'Save Update' : 'Register'}</button>*/}
     </form>
   );
 };
