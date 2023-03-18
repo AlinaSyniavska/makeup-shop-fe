@@ -40,12 +40,6 @@ const RegisterForm: FC = () => {
   }, [pathname, isRegister]);
 
   const submitForm = async (user: IUser) => {
-    const updatedUser = Object.assign(user);
-
-    if (!isRegister) {
-      delete updatedUser["email"];
-    }
-
     try {
       if (isRegister) {
         const newUser = await dispatch(userActions.registerUser({ user }));
@@ -55,6 +49,9 @@ const RegisterForm: FC = () => {
           navigate("/auth/login");
         }
       } else {
+        const updatedUser = Object.assign(user);
+        delete updatedUser["email"];
+
         if (userForUpdate) {
           const { _id } = userForUpdate;
 
