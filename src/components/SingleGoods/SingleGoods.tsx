@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
-import { IProduct, IProductOrdered } from "../../interfaces";
 import style from "./SingleGoods.module.css";
+import { IProduct, IProductOrdered } from "../../interfaces";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { cartActions } from "../../redux";
 
@@ -72,7 +72,7 @@ const SingleGoods: FC<IProps> = ({ item, index, setTotal }) => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <div className={style.singleGoodsContainer}>
         <div className={style.goodsName}>
           <p>{index + 1}.</p>
@@ -85,11 +85,7 @@ const SingleGoods: FC<IProps> = ({ item, index, setTotal }) => {
 
         <div className={style.orderInfo}>
           <div className={style.goodsQuantity}>
-            <button
-              className={style.btnChangeCount}
-              id={"inc"}
-              onClick={changeCountInc}
-            >
+            <button className={style.btnChangeCount} id={"inc"} onClick={changeCountInc}>
               &#11014;
             </button>
             <div className={style.countGoods}>{countGoods}</div>
@@ -107,7 +103,7 @@ const SingleGoods: FC<IProps> = ({ item, index, setTotal }) => {
           <button onClick={changeOrderDeleteRecord}>DELETE</button>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
