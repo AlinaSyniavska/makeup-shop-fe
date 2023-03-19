@@ -4,6 +4,8 @@ import style from "./SingleGoods.module.css";
 import { IProduct, IProductOrdered } from "../../interfaces";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { cartActions } from "../../redux";
+import { localStorageHelper } from "../../helpers";
+import { localStorageItemsEnum } from "../../constants";
 
 interface IProps {
   item: IProduct;
@@ -12,28 +14,23 @@ interface IProps {
 }
 
 const SingleGoods: FC<IProps> = ({ item, index, setTotal }) => {
-  const [countGoods, setCountGoods] = useState<number>(1);
-  const [deletedGoods, setDeletedGoods] = useState<boolean>(false);
   const { goods, userOrder } = useAppSelector((state) => state.cartReducer);
   const dispatch = useAppDispatch();
+  const [countGoods, setCountGoods] = useState<number>(1);
+  const [deletedGoods, setDeletedGoods] = useState<boolean>(false);
 
   useEffect(() => {
-    const order = localStorage.getItem("order");
-    let orderFromLocalStorage = order !== null ? JSON.parse(order) : [];
+    const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER);
 
     if (!deletedGoods) {
-      const singleGoods = orderFromLocalStorage.find(
-        (i: IProductOrdered) => i.productId === item._id
-      );
+      const singleGoods = order.find((orderItem: IProductOrdered) => orderItem.productId === item._id);
       setCountGoods(singleGoods.count);
     }
 
-    const partTotalArray = orderFromLocalStorage.map(
-      (item: IProductOrdered) => item.count * item.cost
-    );
+    const totalCostArray = order.map((item: IProductOrdered) => item.count * item.cost);
 
     setTotal(
-      partTotalArray.reduce((accumulator: number, currentValue: number) => {
+        totalCostArray.reduce((accumulator: number, currentValue: number): number => {
         return accumulator + currentValue;
       }, 0)
     );
@@ -64,11 +61,9 @@ const SingleGoods: FC<IProps> = ({ item, index, setTotal }) => {
     dispatch(cartActions.changeOrder({ data: { itemId: item._id, curCount } }));
   };
 
-  const changeOrderDeleteRecord = () => {
+  const deleteItemFromCart = () => {
     setDeletedGoods(true);
-    dispatch(
-      cartActions.changeOrderDeleteRecord({ data: { itemId: item._id } })
-    );
+    dispatch(cartActions.changeOrderDeleteRecord({ data: { itemId: item._id } }));
   };
 
   return (
@@ -100,7 +95,7 @@ const SingleGoods: FC<IProps> = ({ item, index, setTotal }) => {
             {(item.price * countGoods).toFixed(2)} {item.priceSign}
           </div>
 
-          <button onClick={changeOrderDeleteRecord}>DELETE</button>
+          <button onClick={deleteItemFromCart}>DELETE</button>
         </div>
       </div>
     </React.Fragment>
