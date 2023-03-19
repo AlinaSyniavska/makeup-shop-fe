@@ -85,7 +85,7 @@ const cartSlice = createSlice({
       localStorageHelper.setArrayToLocalStorage(localStorageItemsEnum.ORDER, order);
     },
 
-    changeOrderDeleteRecord: (state, action) => {
+    changeOrderAfterDeleteCartItem: (state, action) => {
       const { itemId } = action.payload.data;
 
       const order = localStorageHelper.getArrayFromLocalStorage(localStorageItemsEnum.ORDER) as IProductOrdered[];
@@ -128,12 +128,12 @@ const cartSlice = createSlice({
   },
 });
 
-const {reducer: cartReducer, actions: { addToCart, changeOrder, changeOrderDeleteRecord, deleteOrder }} = cartSlice;
+const {reducer: cartReducer, actions: { addToCart, changeOrder, changeOrderAfterDeleteCartItem, deleteOrder }} = cartSlice;
 
 const cartActions = {
   addToCart,
   changeOrder,
-  changeOrderDeleteRecord,
+  changeOrderAfterDeleteCartItem,
   deleteOrder,
   sendOrderToDB,
 };
