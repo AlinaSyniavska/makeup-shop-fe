@@ -63,7 +63,7 @@ const SingleGoods: FC<IProps> = ({ item, index, setTotal }) => {
 
   const deleteItemFromCart = () => {
     setDeletedGoods(true);
-    dispatch(cartActions.changeOrderDeleteRecord({ data: { itemId: item._id } }));
+    dispatch(cartActions.changeOrderAfterDeleteCartItem({ data: { itemId: item._id } }));
   };
 
   return (
