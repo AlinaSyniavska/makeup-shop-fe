@@ -12,7 +12,7 @@ const SortComponent: FC = () => {
   const dispatch = useAppDispatch();
   const [query, setQuery] = useSearchParams(commonHelper.setupQuery(page, perPage, sortOrder, filterBy));
 
-  const setSort = (event: any) => {
+  const setSort = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setQuery(commonHelper.setupQuery(page, perPage, event.target.value, filterBy));
     dispatch(productActions.saveQueryParams(commonHelper.setupQueryToSave(query)));
   };
@@ -23,14 +23,14 @@ const SortComponent: FC = () => {
       <div className={style.checkList}>
         <div className={style.checkBoxes}>
           <label>
-            <input type={"radio"} checked={Number(sortOrder) === 5} value={ratingEnum.HIGH} name={"sortOrder"} onChange={setSort}/>
+            <input type={"radio"} checked={sortOrder === ratingEnum.HIGH} value={ratingEnum.HIGH} name={"sortOrder"} onChange={setSort}/>
             High to Low
           </label>
         </div>
 
         <div className={style.checkBoxes}>
           <label>
-            <input type={"radio"} checked={Number(sortOrder) === 1} value={ratingEnum.LOW} name={"sortOrder"} onChange={setSort}/>
+            <input type={"radio"} checked={sortOrder === ratingEnum.LOW} value={ratingEnum.LOW} name={"sortOrder"} onChange={setSort}/>
             Low to High
           </label>
         </div>
