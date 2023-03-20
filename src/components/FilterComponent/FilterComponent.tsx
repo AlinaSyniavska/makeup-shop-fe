@@ -6,7 +6,7 @@ import style from "./FilterComponent.module.css";
 import { tags } from "../../constants";
 import { productActions } from "../../redux";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {commonHelper} from "../../helpers";
+import { commonHelper } from "../../helpers";
 
 const FilterComponent: FC = () => {
   const { page, perPage, sortOrder, filterBy } = useAppSelector((state) => state.productReducer);

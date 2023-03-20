@@ -37,7 +37,7 @@ label:hover,
   cursor: pointer;
 }
 
-label:hover {
+.checkBoxes label:hover {
   color: lightpink;
 }
 
