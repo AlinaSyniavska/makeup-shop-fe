@@ -7,7 +7,7 @@ import { Favorite } from "../Favorite/Favorite";
 import { StarRating } from "../StarRating/StarRating";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { userActions } from "../../redux";
-import { localStorageItemsEnum, ratingColorEnum } from "../../constants";
+import { localStorageItemsEnum } from "../../constants";
 import { commonHelper } from "../../helpers";
 
 interface IProps {
@@ -60,7 +60,7 @@ const ProductDetails: FC<IProps> = ({ singleProduct }) => {
               <span className={style.greyText}> / {productType}</span>
             </p>
             <p className={style.largeText}>{name}</p>
-            <StarRating ratingProps={commonHelper.setupRatingProps(rating, ratingColorEnum.MAIN_RATING_COLOR)}/>
+            <StarRating ratingProps={commonHelper.setupRatingProps(rating)}/>
           </div>
           <div className={style.mainContainer}>
             <p className={style.regularText}>

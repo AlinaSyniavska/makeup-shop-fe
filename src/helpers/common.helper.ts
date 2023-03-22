@@ -1,6 +1,7 @@
-import { IRating } from "../interfaces";
-import { ratingEnum } from "../constants";
 import { URLSearchParamsInit } from "react-router-dom";
+
+import { IRating } from "../interfaces";
+import { ratingColorEnum, ratingEnum } from "../constants";
 
 const commonHelper = {
   scrollToUp: (): void => {
@@ -11,7 +12,7 @@ const commonHelper = {
     });
   },
 
-  setupRatingProps: (rating: string = "1", color: string): IRating => {
+  setupRatingProps: (rating: string = "1", color: string = ratingColorEnum.MAIN_RATING_COLOR): IRating => {
     return {
       ratingValue: Number(rating),
       iconsCount: 5,

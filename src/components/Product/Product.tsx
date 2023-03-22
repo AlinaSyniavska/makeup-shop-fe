@@ -9,7 +9,6 @@ import { Favorite } from "../Favorite/Favorite";
 import { StarRating } from "../StarRating/StarRating";
 import { useAppSelector } from "../../hooks";
 import { commonHelper, productHelper } from "../../helpers";
-import { ratingColorEnum } from "../../constants";
 
 interface IProps {
   product: IProduct;
@@ -52,7 +51,7 @@ const Product: FC<IProps> = ({ product }) => {
               <img src={product.imageLink} alt={product.name} />
             </div>
             <Favorite product={product} />
-            <StarRating ratingProps={commonHelper.setupRatingProps(product.rating, ratingColorEnum.MAIN_RATING_COLOR)}/>
+            <StarRating ratingProps={commonHelper.setupRatingProps(product.rating)}/>
             <p className={style.product_name}>{product.name}</p>
             <p className={style.product_brand}>{product.brand}</p>
             <p className={style.product_price}>{product.price} {product.priceSign}</p>
