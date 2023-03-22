@@ -1,7 +1,7 @@
 import { FC, useRef } from "react";
 
-import { IUser } from "../../interfaces";
 import style from "./User.module.css";
+import { IUser } from "../../interfaces";
 import { RegisterForm } from "../RegisterForm/RegisterForm";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { userActions } from "../../redux";
