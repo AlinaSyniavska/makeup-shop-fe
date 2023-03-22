@@ -1,21 +1,9 @@
-.userItem {
-  margin-bottom: 20px;
-  width: inherit;
-  font-size: 18px;
-
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 30px;
-}
-
-.userItem .btnUpdate {
+.user .btnUpdate {
   margin-top: 20px;
 }
 
-.userItem .btnUpdate:hover {
+.user .btnUpdate:hover {
   cursor: pointer;
 }
 
-.userItemEdit form {
-  margin-top: -20px;
-}
+

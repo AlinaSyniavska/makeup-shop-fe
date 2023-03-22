@@ -18,8 +18,8 @@ const User: FC<IProps> = ({ user }) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className={style.userItem}>
-      <div className={style.userItemInfo}>
+    // <div className={style.userItem}>
+      <div className={style.user}>
         <div>
           Name: {name} {surname}
         </div>
@@ -39,10 +39,10 @@ const User: FC<IProps> = ({ user }) => {
         </button>
       </div>
 
-      <div className={style.userItemEdit} aria-disabled={!userForUpdate}>
-        <RegisterForm />
-      </div>
-    </div>
+      // <div className={style.userItemEdit} aria-disabled={!userForUpdate}>
+      //   <RegisterForm />
+      // </div>
+    // </div>
   );
 };
 
