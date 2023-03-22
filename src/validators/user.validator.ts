@@ -3,16 +3,16 @@ import { genderEnum } from "../constants";
 
 const userValidator = Joi.object({
   name: Joi.string()
-    .regex(/^(?=.*[a-zA-ZА-яёЁіІїЇ])[a-zA-ZА-яёЁіІїЇ -]{1,30}$/)
+    .regex(/^(?=.*[a-zA-ZА-яёЁіІїЇ])[a-zA-ZА-яёЁіІїЇ -]{2,30}$/)
     .required()
     .messages({
-      "string.pattern.base": "Тільки букви: мінімум 1 символ, максимум 30",
+      "string.pattern.base": "Use only letters: min 2 signs, max 30",
     }),
   surname: Joi.string()
-    .regex(/^(?=.*[a-zA-ZА-яёЁіІїЇ])[a-zA-ZА-яёЁіІїЇ -]{1,30}$/)
+    .regex(/^(?=.*[a-zA-ZА-яёЁіІїЇ])[a-zA-ZА-яёЁіІїЇ -]{2,30}$/)
     .required()
     .messages({
-      "string.pattern.base": "Тільки букви: мінімум 1 символ, максимум 30",
+      "string.pattern.base": "Use only letters: min 2 signs, max 30",
     }),
   gender: Joi.string()
     .valid(...Object.values(genderEnum))
