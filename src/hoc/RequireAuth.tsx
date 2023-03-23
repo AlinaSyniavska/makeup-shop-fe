@@ -1,14 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
-
 import { useEffect } from "react";
 
 import { useAppSelector } from "../hooks";
 
-interface Props {
+interface IProps {
   children: any;
 }
 
-const RequireAuth = ({ children }: Props) => {
+const RequireAuth = ({ children }: IProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuth } = useAppSelector((state) => state.authReducer);
