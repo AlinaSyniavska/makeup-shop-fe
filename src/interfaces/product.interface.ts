@@ -1,5 +1,3 @@
-// import {IColor} from "./color.interface";
-
 export interface IProduct {
   _id?: string;
   brand: string;
@@ -13,5 +11,4 @@ export interface IProduct {
   category: string;
   productType: string;
   tagList?: string[];
-  // productColor?: IColor[],
 }
