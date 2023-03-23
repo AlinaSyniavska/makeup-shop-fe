@@ -1,14 +1,14 @@
-import {ICart, IProductOrdered} from "../interfaces";
-import {cartStatusEnum, localStorageItemsEnum} from "../constants";
+import { ICart, IProductOrdered } from "../interfaces";
+import { cartStatusEnum, localStorageItemsEnum } from "../constants";
 
-type ElementsCollection = HTMLCollection | NodeList;
+type ItemCollection = HTMLCollection | NodeList;
 
 const productHelper = {
   checkIsProductAvailable: (totalNumber: number): boolean => {
     return totalNumber > 0;
   },
 
-  searchPressedButton: (list: ElementsCollection, target: EventTarget): HTMLElement => {
+  searchPressedButton: (list: ItemCollection, target: EventTarget): HTMLElement => {
     let button;
 
     for (let i = 0; i < list.length; i++) {
