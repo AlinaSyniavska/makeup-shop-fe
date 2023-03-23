@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { IItem, IItems, IProduct, IQueryParams } from "../../interfaces";
+import {IItem, IItems, IProduct, IProductWithPagination, IQueryParams} from "../../interfaces";
 import { adminItemService, productService } from "../../services";
 import {ratingEnum, urlCharacteristic} from "../../constants";
 
@@ -38,7 +38,7 @@ const initialState: IState = {
 
 let urlForGetCharacteristics = "";
 
-const getAll = createAsyncThunk<IProduct[], { params: Partial<IQueryParams> }>(
+const getAll = createAsyncThunk<IProductWithPagination, { params: Partial<IQueryParams> }>(
   "productSlice/getAll",
   async ({ params }, { rejectWithValue }) => {
     try {
@@ -50,7 +50,7 @@ const getAll = createAsyncThunk<IProduct[], { params: Partial<IQueryParams> }>(
   }
 );
 
-const getAtUrl = createAsyncThunk<IProduct[], { params: Partial<IQueryParams>; url: string }>(
+const getAtUrl = createAsyncThunk<IProductWithPagination, { params: Partial<IQueryParams>; url: string }>(
     "productSlice/getAtUrl",
     async ({ params, url }, { rejectWithValue }) => {
   try {
@@ -111,10 +111,9 @@ const deleteById = createAsyncThunk<void, { id: String }>(
   }
 );
 
-const updateById = createAsyncThunk<
-  IProduct,
-  { id: String; product: IProduct }
->("productSlice/updateById", async ({ id, product }, { rejectWithValue }) => {
+const updateById = createAsyncThunk<IProduct, { id: String; product: IProduct }>(
+    "productSlice/updateById",
+    async ({ id, product }, { rejectWithValue }) => {
   try {
     const { data } = await productService.update(id, product);
 
@@ -152,7 +151,7 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAll.fulfilled, (state, action) => {
-        const { page, perPage, data, count } = action.payload as any;
+        const { page, perPage, data, count } = action.payload;
         state.page = page;
         state.perPage = perPage;
         state.products = data;
@@ -163,7 +162,7 @@ const productSlice = createSlice({
         console.log(errors);
       })
       .addCase(getAtUrl.fulfilled, (state, action) => {
-        const { page, perPage, data, count } = action.payload as any;
+        const { page, perPage, data, count } = action.payload;
         state.page = page;
         state.perPage = perPage;
         state.products = data;
@@ -174,14 +173,14 @@ const productSlice = createSlice({
         console.log(errors);
       })
       .addCase(getById.fulfilled, (state, action) => {
-        state.productDetails = action.payload as any;
+        state.productDetails = action.payload;
       })
       .addCase(getById.rejected, (state, action) => {
         const { errorStatus } = action.payload as any;
         state.status = errorStatus;
       })
       .addCase(getCharacteristics.fulfilled, (state, action) => {
-        const { data } = action.payload as IItems;
+        const { data } = action.payload;
         switch (urlForGetCharacteristics) {
           case urlCharacteristic.brand:
             state.brands = data;
@@ -212,8 +211,9 @@ const productSlice = createSlice({
         state.status = errorStatus;
       })
       .addCase(updateById.fulfilled, (state, action) => {
-        const { id, product } = action.payload as any;
-        const index = state.products.findIndex((product) => product._id === id);
+        console.log(action.payload);
+        const { _id, ...product } = action.payload;
+        const index = state.products.findIndex((product) => product._id === _id);
         state.products[index] = { ...state.products[index], ...product };
         state.productForUpdate = null;
       })
