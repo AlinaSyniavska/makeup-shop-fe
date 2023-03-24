@@ -1,14 +1,14 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
 
 import { AdminHeader } from "../../components";
 
 const AdminLayout: FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <AdminHeader />
       <Outlet />
-    </div>
+    </React.Fragment>
   );
 };
 
