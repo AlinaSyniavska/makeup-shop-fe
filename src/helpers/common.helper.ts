@@ -51,6 +51,10 @@ const commonHelper = {
     return totalCount < pageSize ? 1 : Math.ceil(totalCount / pageSize);
   },
 
+  isPaginationVisible: (states: boolean[]): boolean => {
+    return states.every(state => !state);
+  },
+
 };
 
 export { commonHelper };
