@@ -2,10 +2,10 @@ import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 
+import style from"./CreateCommonItemForm.module.css";
 import { itemValidator } from "../../validators";
 import { IItem } from "../../interfaces";
 import { adminItemService } from "../../services";
-import style from"./CreateCommonItemForm.module.css";
 
 interface IProps {
   url: string;
@@ -26,6 +26,13 @@ const CreateCommonItemForm: FC<IProps> = ({url, setNewItem, itemForUpdate, setUp
       setValue("name", itemForUpdate.name);
     }
   }, [itemForUpdate]);
+
+  const setInitialStateItem = (): IItem => {
+    return {
+      _id: "",
+      name: "",
+    };
+  };
 
   const submitForm = async (item: IItem) => {
     try {
@@ -48,13 +55,6 @@ const CreateCommonItemForm: FC<IProps> = ({url, setNewItem, itemForUpdate, setUp
   const clearForm = () => {
     setItemForUpdate(setInitialStateItem());
     reset();
-  };
-
-  const setInitialStateItem = (): IItem => {
-    return {
-      _id: "",
-      name: "",
-    };
   };
 
   return (

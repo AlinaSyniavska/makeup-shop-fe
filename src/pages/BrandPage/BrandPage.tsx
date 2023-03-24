@@ -6,10 +6,7 @@ import { urlCharacteristic } from "../../constants";
 
 const BrandPage: FC = () => {
   const [newItem, setNewItem] = useState<IItem>({ _id: "", name: "" });
-  const [itemForUpdate, setItemForUpdate] = useState<IItem>({
-    _id: "",
-    name: "",
-  });
+  const [itemForUpdate, setItemForUpdate] = useState<IItem>({_id: "", name: "",});
   const [updatedItem, setUpdatedItem] = useState<IItem>({ _id: "", name: "" });
 
   return (
