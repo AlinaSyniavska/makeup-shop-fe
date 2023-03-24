@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import style from "./GoodsInCart.module.css";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { IProduct } from "../../interfaces";
 import { SingleGoods } from "../SingleGoods/SingleGoods";
 import { localStorageItemsEnum } from "../../constants";

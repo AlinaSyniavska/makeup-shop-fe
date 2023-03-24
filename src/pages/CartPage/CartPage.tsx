@@ -1,12 +1,13 @@
-import { FC } from "react";
+import React, { FC } from "react";
+
 import { GoodsInCart } from "../../components";
 
 const CartPage: FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <h2 style={{ margin: "20px" }}>Cart of Goods</h2>
       <GoodsInCart />
-    </div>
+    </React.Fragment>
   );
 };
 
