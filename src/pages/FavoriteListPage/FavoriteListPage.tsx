@@ -1,12 +1,12 @@
-import { FC } from "react";
+import React, { FC } from "react";
 
 import { FavoriteList } from "../../components";
 
 const FavoriteListPage: FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <FavoriteList />
-    </div>
+    </React.Fragment>
   );
 };
 
