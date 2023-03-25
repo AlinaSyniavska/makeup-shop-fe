@@ -1,11 +1,11 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { AuthForm } from "../../components";
 
 const LoginPage: FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <AuthForm />
-    </div>
+    </React.Fragment>
   );
 };
 
