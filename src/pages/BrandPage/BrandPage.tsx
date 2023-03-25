@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import { Items, CreateCommonItemForm } from "../../components";
 import { IItem } from "../../interfaces";
 import { urlCharacteristic } from "../../constants";
-import {commonHelper} from "../../helpers";
+import { commonHelper } from "../../helpers";
 
 const BrandPage: FC = () => {
   const [newItem, setNewItem] = useState<IItem>(commonHelper.initCommonItem());
