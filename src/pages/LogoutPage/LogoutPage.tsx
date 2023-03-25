@@ -12,14 +12,14 @@ const LogoutPage: FC = () => {
 
   useEffect(() => {
     (async () => {
-      Promise.all([
+     await Promise.all([
         await dispatch(authActions.logout({ access_token: accessToken })),
-        await navigate("/home"),
-      ]).then();
+        navigate("/home"),
+      ]);
     })();
   }, [dispatch]);
 
-  return <div></div>;
+  return <></>;
 };
 
 export { LogoutPage };
