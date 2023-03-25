@@ -3,6 +3,8 @@ import { URLSearchParamsInit } from "react-router-dom";
 import { IRating } from "../interfaces";
 import { ratingColorEnum, ratingEnum } from "../constants";
 
+type TCommonItem = Record<string, string>;
+
 const commonHelper = {
   scrollToUp: (): void => {
     window.scrollTo({
@@ -54,6 +56,14 @@ const commonHelper = {
   isPaginationVisible: (states: boolean[]): boolean => {
     return states.every(state => !state);
   },
+
+  initCommonItem: ():TCommonItem => {
+    return {
+      _id: "",
+      name: "",
+    }
+  },
+
 
 };
 
