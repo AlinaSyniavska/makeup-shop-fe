@@ -1,9 +1,7 @@
 import { URLSearchParamsInit } from "react-router-dom";
 
-import { IRating } from "../interfaces";
+import { IItem, IRating } from "../interfaces";
 import { ratingColorEnum, ratingEnum } from "../constants";
-
-type TCommonItem = Record<string, string>;
 
 const commonHelper = {
   scrollToUp: (): void => {
@@ -57,7 +55,7 @@ const commonHelper = {
     return states.every(state => !state);
   },
 
-  initCommonItem: ():TCommonItem => {
+  initCommonItem: ():IItem => {
     return {
       _id: "",
       name: "",
