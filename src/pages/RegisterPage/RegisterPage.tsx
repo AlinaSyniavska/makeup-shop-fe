@@ -1,12 +1,12 @@
-import { FC } from "react";
+import React, { FC } from "react";
 
 import { RegisterForm } from "../../components";
 
 const RegisterPage: FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <RegisterForm />
-    </div>
+    </React.Fragment>
   );
 };
 
