@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { ProductDetails } from "../../components";
@@ -17,9 +17,9 @@ const ProductDetailsPage: FC = () => {
   }, []);
 
   return (
-    <div>
+    <React.Fragment>
       {productDetails && <ProductDetails singleProduct={productDetails} />}
-    </div>
+    </React.Fragment>
   );
 };
 
