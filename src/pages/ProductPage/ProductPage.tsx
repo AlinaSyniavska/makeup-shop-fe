@@ -1,14 +1,14 @@
-import { FC } from "react";
+import React, { FC } from "react";
 
 import { CreateProductForm, Products } from "../../components";
 
 const ProductPage: FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <CreateProductForm />
       <hr />
       <Products />
-    </div>
+    </React.Fragment>
   );
 };
 
