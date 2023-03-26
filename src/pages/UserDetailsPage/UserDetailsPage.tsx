@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import { FC, useEffect, useState } from "react";
 
 import style from "./UserDetailsPage.module.css";
 import { RegisterForm, User } from "../../components";
@@ -8,17 +8,15 @@ import { IUser } from "../../interfaces";
 import { userActions } from "../../redux";
 
 const UserDetailsPage: FC = () => {
-    const {userForUpdate} = useAppSelector((state) => state.userReducer);
+    const { userForUpdate } = useAppSelector((state) => state.userReducer);
     const dispatch = useAppDispatch();
-
     const [logUser, setLogUser] = useState<IUser>();
     const idUser = localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) as String;
 
     useEffect(() => {
-        if (localStorage.getItem(localStorageItemsEnum.ID_LOGIN_USER) !== null) {
-            dispatch(userActions.getById({id: idUser})).then((data) =>
-                setLogUser(data.payload as IUser)
-            );
+        if (idUser) {
+            dispatch(userActions.getById({id: idUser}))
+                .then((data) => setLogUser(data.payload as IUser));
         }
     }, [userForUpdate, idUser, dispatch]);
 
@@ -28,7 +26,7 @@ const UserDetailsPage: FC = () => {
             <hr/>
 
             <div className={style.user}>
-                {logUser && <User user={logUser as IUser}/>}
+                {logUser && <User user={logUser}/>}
 
                 <div className={style.userEdit} aria-disabled={!userForUpdate}>
                     <RegisterForm/>
