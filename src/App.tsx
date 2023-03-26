@@ -91,6 +91,7 @@ const App: FC = () => {
       </Route>
 
       <Route path={"/admin"} element={<AdminLayout />}>
+        <Route index element={<Navigate to={"product"} />} />
         <Route path={"product"} element={<ProductPage />} />
         <Route path={"brand"} element={<BrandPage />} />
         <Route path={"category"} element={<CategoryPage />} />
