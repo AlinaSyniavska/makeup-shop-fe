@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import { authService } from "../../services";
 import { IAuth, ILogin, IUser } from "../../interfaces";
 import { localStorageItemsEnum } from "../../constants";
@@ -105,10 +106,7 @@ const authSlice = createSlice({
   },
 });
 
-const {
-  reducer: authReducer,
-  actions: { clearErrors, editLogUserInfo, logoutUser, setAuth },
-} = authSlice;
+const { reducer: authReducer, actions: { clearErrors, editLogUserInfo, logoutUser, setAuth } } = authSlice;
 
 const authActions = {
   clearErrors,

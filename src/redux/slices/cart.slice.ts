@@ -22,7 +22,7 @@ const sendOrderToDB = createAsyncThunk<void, { orderForDB: ICart }>(
   async ({ orderForDB }, { dispatch, rejectWithValue }) => {
     try {
       await cartService.sendToDB(orderForDB);
-      await dispatch(deleteOrder());
+      dispatch(deleteOrder());
     } catch (e: any) {
       return rejectWithValue({
         errorStatus: e.message,
