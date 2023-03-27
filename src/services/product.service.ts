@@ -1,6 +1,6 @@
 import { axiosService, Response } from "./axios.service";
 
-import {IProduct, IProductWithPagination, IQueryParams} from "../interfaces";
+import { IProduct, IProductWithPagination, IQueryParams } from "../interfaces";
 import { adminUrls } from "../constants";
 
 const productService = {

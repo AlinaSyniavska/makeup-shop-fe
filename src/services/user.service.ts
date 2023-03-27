@@ -1,5 +1,6 @@
-import { IProduct, IUser } from "../interfaces";
 import { axiosService, Response } from "./axios.service";
+
+import { IProduct, IUser } from "../interfaces";
 import { urls } from "../constants";
 
 const userService = {
