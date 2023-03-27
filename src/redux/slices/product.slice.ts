@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {IItem, IItems, IProduct, IProductWithPagination, IQueryParams} from "../../interfaces";
 import { adminItemService, productService } from "../../services";
-import {ratingEnum, urlCharacteristic} from "../../constants";
+import { ratingEnum, urlCharacteristic } from "../../constants";
 
 interface IState {
   products: IProduct[];
@@ -131,9 +131,7 @@ const productSlice = createSlice({
       state.productForUpdate = action.payload.product;
     },
     deleteProduct: (state, action) => {
-      const index = state.products.findIndex(
-        (product) => product._id === action.payload.id
-      );
+      const index = state.products.findIndex((product) => product._id === action.payload.id);
       state.products.splice(index, 1);
     },
 
@@ -211,7 +209,6 @@ const productSlice = createSlice({
         state.status = errorStatus;
       })
       .addCase(updateById.fulfilled, (state, action) => {
-        console.log(action.payload);
         const { _id, ...product } = action.payload;
         const index = state.products.findIndex((product) => product._id === _id);
         state.products[index] = { ...state.products[index], ...product };

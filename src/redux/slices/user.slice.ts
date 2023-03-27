@@ -6,7 +6,6 @@ import { localStorageItemsEnum } from "../../constants";
 
 interface IState {
   users: IUser[];
-
   userForUpdate: null;
   formErrors: any;
   status: string;
@@ -115,9 +114,7 @@ const userSlice = createSlice({
     },
 
     deleteUser: (state, action) => {
-      const index = state.users.findIndex(
-        (user) => user._id === action.payload.id
-      );
+      const index = state.users.findIndex((user) => user._id === action.payload.id);
       state.users.splice(index, 1);
     },
 
@@ -153,7 +150,6 @@ const userSlice = createSlice({
         state.formErrors = errorsFromDB;
       })
       .addCase(getById.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.formErrors = {};
       })
       .addCase(getById.rejected, (state, action) => {
@@ -196,10 +192,7 @@ const userSlice = createSlice({
   },
 });
 
-const {
-  reducer: userReducer,
-  actions: { addFavoriteItem, deleteUser, initFavoriteList, setUserForUpdate },
-} = userSlice;
+const { reducer: userReducer, actions: { addFavoriteItem, deleteUser, initFavoriteList, setUserForUpdate } } = userSlice;
 
 const userActions = {
   addFavoriteItem,
