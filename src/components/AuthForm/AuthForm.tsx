@@ -2,10 +2,10 @@ import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import style from "./AuthForm.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { ILogin } from "../../interfaces";
 import { authActions, userActions } from "../../redux";
-import style from "./AuthForm.module.css";
 
 const AuthForm: FC = () => {
   const { register, handleSubmit } = useForm<ILogin>({
