@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import {BrowserRouter} from "react-router-dom";
 import { unstable_HistoryRouter as BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { setupStore } from "./redux";
@@ -15,11 +14,9 @@ const root = ReactDOM.createRoot(
 const store = setupStore();
 
 root.render(
-  // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter history={history}>
       <App />
     </BrowserRouter>
   </Provider>
-  // </React.StrictMode>
 );

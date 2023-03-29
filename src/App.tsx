@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import "./App.css";
 import { useAppDispatch } from "./hooks";
 import { authActions } from "./redux";
 import { AdminLayout, MainLayout } from "./layouts";
-import "./App.css";
 import {
   BrandPage,
   CartPage,
@@ -41,27 +41,12 @@ const App: FC = () => {
         <Route path={"category/cream/face"} element={<CatalogProductPage />} />
         <Route path={"category/cream/body"} element={<CatalogProductPage />} />
         <Route path={"category/eyebrow"} element={<CatalogProductPage />} />
-        <Route
-          path={"category/eyeshadow/palette"}
-          element={<CatalogProductPage />}
-        />
-        <Route
-          path={"category/eyeshadow/pencil"}
-          element={<CatalogProductPage />}
-        />
-        <Route
-          path={"category/eyeshadow/cream"}
-          element={<CatalogProductPage />}
-        />
+        <Route path={"category/eyeshadow/palette"} element={<CatalogProductPage />}/>
+        <Route path={"category/eyeshadow/pencil"} element={<CatalogProductPage />}/>
+        <Route path={"category/eyeshadow/cream"} element={<CatalogProductPage />}/>
         <Route path={"category/powder"} element={<CatalogProductPage />} />
-        <Route
-          path={"category/lipstick/lipstick"}
-          element={<CatalogProductPage />}
-        />
-        <Route
-          path={"category/lipstick/lipgloss"}
-          element={<CatalogProductPage />}
-        />
+        <Route path={"category/lipstick/lipstick"} element={<CatalogProductPage />}/>
+        <Route path={"category/lipstick/lipgloss"} element={<CatalogProductPage />}/>
         <Route path={"category/mascara"} element={<CatalogProductPage />} />
 
         <Route path={"auth/login"} element={<LoginPage />} />
@@ -70,22 +55,8 @@ const App: FC = () => {
 
         <Route path={"cart"} element={<CartPage />} />
 
-        <Route
-          path={"users/:id"}
-          element={
-            <RequireAuth>
-              <UserDetailsPage />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path={"users/favoriteList/:id"}
-          element={
-            <RequireAuth>
-              <FavoriteListPage />
-            </RequireAuth>
-          }
-        />
+        <Route path={"users/:id"} element={<RequireAuth><UserDetailsPage /></RequireAuth>}/>
+        <Route path={"users/favoriteList/:id"} element={<RequireAuth><FavoriteListPage /></RequireAuth>}/>
 
         <Route path={"*"} element={<NotFoundPage />} />
       </Route>
